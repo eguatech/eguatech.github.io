@@ -1,3 +1,3 @@
 # This is Egua version 1.0.0
 
-The Egua interpreted programming language
+The Egua programming language
