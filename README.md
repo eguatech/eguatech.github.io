@@ -1,3 +1,3 @@
-# This is Egua version 1.0.0
+# This is Egua website
 
 The Egua programming language
