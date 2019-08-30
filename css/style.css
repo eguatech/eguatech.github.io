@@ -246,7 +246,7 @@ template {
 body,
 html {
 	-webkit-font-smoothing: antialiased;
-	background-color: #d33847
+	background-color: #272822
 }
 
 html {
@@ -336,7 +336,7 @@ button {
 	display: inline-block;
 	padding: 8px 34px;
 	background: #fff;
-	color: #f03b4d;
+	color: #272822;
 	font-weight: 500;
 	box-shadow: 0 0 5px 0 rgba(0, 0, 0, .15);
 	margin: 15px;
@@ -910,7 +910,7 @@ table:not(.code) tbody>tr:nth-child(2n) {
 }
 
 header {
-	background-color: #d33847;
+	background-color: #272822;
 	position: relative
 }
 
@@ -1070,7 +1070,7 @@ header .banner h2 {
 }
 
 .features figcaption {
-	color: #ffd5d8;
+	color: white;
 	font-size: 15px;
 	line-height: 25px;
 	max-width: 220px;
@@ -1285,7 +1285,7 @@ section .col.right-main {
 
 footer:nth-child(odd),
 section:nth-child(odd) {
-	background-color: #d33847
+	background-color: #272822
 }
 
 footer:nth-child(odd) table.code,
@@ -1789,7 +1789,7 @@ footer {
 footer,
 footer a {
 	font-size: 14px;
-	color: #ffb9b9
+	color: white
 }
 
 footer h2 {
@@ -1997,7 +1997,7 @@ header nav.version-select options a {
 
 header nav.version-select options a:hover {
 	background-color: rgba(255, 255, 255, .8);
-	color: #d33847
+	color: #272822
 }
 
 @media (max-width:870px) {
