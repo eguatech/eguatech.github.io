@@ -1,0 +1,299 @@
+<!doctype html><meta charset=utf-8><meta name=viewport content="width=device-width"><title>Responses - Rocket Programming Guide</title><meta name=description content="Rocket is a web framework for the Rust
+      programming language that makes it simple to write fast web applications
+      without sacrificing flexibility or type safety."><meta name=author content="Sergio Benitez"><link href="https://fonts.googleapis.com/css?family=Proza+Libre:400,500" rel=stylesheet><link rel=stylesheet href=../../v0-4/css/style.css media=all><link rel=icon type=image/png href=../../v0-4/images/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=../../v0-4/images/favicon-16x16.png sizes=16x16><style media=screen>.clouds.back{background:transparent url(../../v0-4/images/clouds-back.png) repeat}.clouds.front{background:transparent url(../../v0-4/images/clouds-front.png) repeat-x}#logo{background-image:url(../../v0-4/images/logo.svg)}@media(max-width:870px){#logo{background-image:url(../../v0-4/images/logo-small.svg)}}input#search-input{background-image:url(../../v0-4/images/search-icon.svg)}.cancel-search{background:url(../../v0-4/images/cancel-icon.svg) no-repeat center}.admonition.note .title{background-image:url(../../v0-4/images/pencil-icon.svg)}.admonition.tip .title{background-image:url(../../v0-4/images/star-icon.svg)}.admonition.warning .title{background-image:url(../../v0-4/images/warning-icon.svg)}</style><header><div class="back clouds"></div><div class="front clouds"></div><div class=container><a id=logo href=../../index.html ><span>Rocket Homepage</span></a><nav class=version-select><span onclick=toggleOptions()>v0.4 <i></i></span><options><a href=../../v0-3.html >v0.3</a></options></nav><input type=checkbox id=toggle> <label for=toggle class=hamburger><span></span> <span></span> <span></span></label><nav class=main><a href=../../v0-4/overview.html>overview</a> <a href=../../v0-4/guide.html>guide</a> <a href=../../api_subdomain/v0-4/rocket.html>api</a> <a href=../../v0-4/news.html>news</a> <a href=https://github.com/SergioBenitez/Rocket/tree/v0.4>code</a></nav><div class=centered><h1><a href=../../v0-4/guide.html>Guide</a></h1><h4>The ins and outs of Rocket, in detail.</h4></div></div></header><section class="grid tight blocky-code"><div id=sidebar><nav><input id=search-input placeholder="Search guide..."><div class=toc><ul class=small><li><a href=../../index.html>Introduction</a></ul><ul class=small><li><a href=../../index.html>Quickstart</a></ul><ul class=small><li><a href=../../index.html>Getting Started</a></ul><ul class=small><li><a href=../../index.html>Overview</a></ul><ul class=small><li><a href=../../v0-4/guide/requests.html>Requests</a></ul><ul><li><a href=#responses>Responses</a><ul><li><a href=#responder>Responder</a><ul><li><a href=#wrapping>Wrapping</a><li><a href=#errors>Errors</a><li><a href=#status>Status</a></ul><li><a href=#custom-responders>Custom Responders</a><li><a href=#implementations>Implementations</a><ul><li><a href=#strings>Strings</a><li><a href=#option><code>Option</code></a><li><a href=#result><code>Result</code></a></ul><li><a href=#rocket-responders>Rocket Responders</a><ul><li><a href=#streaming>Streaming</a><li><a href=#json>JSON</a></ul><li><a href=#templates>Templates</a><ul><li><a href=#live-reloading>Live Reloading</a></ul><li><a href=#typed-uris>Typed URIs</a><ul><li><a href=#ignorables>Ignorables</a><li><a href=#deriving-uridisplay>Deriving <code>UriDisplay</code></a><li><a href=#typed-uri-parts>Typed URI Parts</a><li><a href=#conversions>Conversions</a></ul></ul></ul><ul class=small><li><a href=../../index.html>State</a></ul><ul class=small><li><a href=../../index.html>Fairings</a></ul><ul class=small><li><a href=../../v0-4/guide/testing.html>Testing</a></ul><ul class=small><li><a href=../../v0-4/guide/configuration.html>Configuration</a></ul><ul class=small><li><a href=../../index.html>Pastebin</a></ul><ul class=small><li><a href=../../index.html>Conclusion</a></ul></div></nav></div><article><h2 id=responses>Responses<a class=headerlink href=#responses title="perma link">#</a></h2><p>You may have noticed that the return type of a handler appears to be arbitrary, and that's because it is! A value of any type that implements the <a href=../../index.html><code>Responder</code></a> trait can be returned, including your own. In this section, we describe the <code>Responder</code> trait as well as several useful <code>Responder</code>s provided by Rocket. We'll also briefly discuss how to implement your own <code>Responder</code>.<h3 id=responder>Responder<a class=headerlink href=#responder title="perma link">#</a></h3><p>Types that implement <a href=../../index.html><code>Responder</code></a> know how to generate a <a href=../../index.html ><code>Response</code></a> from their values. A <code>Response</code> includes an HTTP status, headers, and body. The body may either be <em>fixed-sized</em> or <em>streaming</em>. The given <code>Responder</code> implementation decides which to use. For instance, <code>String</code> uses a fixed-sized body, while <code>File</code> uses a streamed response. Responders may dynamically adjust their responses according to the incoming <code>Request</code> they are responding to.<h4 id=wrapping>Wrapping<a class=headerlink href=#wrapping title="perma link">#</a></h4><p>Before we describe a few responders, we note that it is typical for responders to <em>wrap</em> other responders. That is, responders can be of the following form, where <code>R</code> is some type that implements <code>Responder</code>:<table class="code hltable"><tr><td class=linenos><div class=linenodiv><pre>1</pre></div><td class=code><div class="code hl"><pre><span></span><span class=k>struct</span> <span class=nc>WrappingResponder</span><span class=o>&lt;</span><span class=n>R</span><span class=o>></span><span class=p>(</span><span class=n>R</span><span class=p>);</span><span class=w></span>
+</pre></div></table><p>A wrapping responder modifies the response returned by <code>R</code> before responding with that same response. For instance, Rocket provides <code>Responder</code>s in the <a href=../../index.html ><code>status</code> module</a> that override the status code of the wrapped <code>Responder</code>. As an example, the <a href=../../index.html><code>Accepted</code></a> type sets the status to <code>202 - Accepted</code>. It can be used as follows:<table class="code hltable"><tr><td class=linenos><div class=linenodiv><pre>1
+2
+3
+4
+5
+6</pre></div><td class=code><div class="code hl"><pre><span></span><span class=k>use</span><span class=w> </span><span class=n>rocket</span>::<span class=n>response</span>::<span class=n>status</span><span class=p>;</span><span class=w></span>
+<span class=cp>#[post(</span><span class=s>"/&lt;id>"</span><span class=cp>)]</span><span class=w></span>
+<span class=k>fn</span> <span class=nf>new</span><span class=p>(</span><span class=n>id</span>: <span class=kt>usize</span><span class=p>)</span><span class=w> </span>-> <span class=nc>status</span>::<span class=n>Accepted</span><span class=o>&lt;</span><span class=nb>String</span><span class=o>></span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>    </span><span class=n>status</span>::<span class=n>Accepted</span><span class=p>(</span><span class=nb>Some</span><span class=p>(</span><span class=n>format</span><span class=o>!</span><span class=p>(</span><span class=s>"id: '{}'"</span><span class=p>,</span><span class=w> </span><span class=n>id</span><span class=p>)))</span><span class=w></span>
+<span class=p>}</span><span class=w></span>
+</pre></div></table><p>Similarly, the types in the <a href=../../index.html ><code>content</code> module</a> can be used to override the Content-Type of a response. For instance, to set the Content-Type of <code>&'static str</code> to JSON, you can use the <a href=../../index.html><code>content::Json</code></a> type as follows:<table class="code hltable"><tr><td class=linenos><div class=linenodiv><pre>1
+2
+3
+4
+5
+6</pre></div><td class=code><div class="code hl"><pre><span></span><span class=k>use</span><span class=w> </span><span class=n>rocket</span>::<span class=n>response</span>::<span class=n>content</span><span class=p>;</span><span class=w></span>
+<span class=cp>#[get(</span><span class=s>"/"</span><span class=cp>)]</span><span class=w></span>
+<span class=k>fn</span> <span class=nf>json</span><span class=p>()</span><span class=w> </span>-> <span class=nc>content</span>::<span class=n>Json</span><span class=o>&lt;&</span><span class=nb>'static</span><span class=w> </span><span class=kt>str</span><span class=o>></span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>    </span><span class=n>content</span>::<span class=n>Json</span><span class=p>(</span><span class=s>"{ 'hi': 'world' }"</span><span class=p>)</span><span class=w></span>
+<span class=p>}</span><span class=w></span>
+</pre></div></table><div class="admonition warning"><span class=title><b>Warning:</b> This is <em>not</em> the same as the <a href=../../index.html><code>Json</code></a> in <a href=../../index.html ><code>rocket_contrib</code></a>!</span></div><h4 id=errors>Errors<a class=headerlink href=#errors title="perma link">#</a></h4><p>Responders may fail; they need not <em>always</em> generate a response. Instead, they can return an <code>Err</code> with a given status code. When this happens, Rocket forwards the request to the <a href=../../v0-4/guide/requests.html#error-catchers>error catcher</a> for the given status code.<p>If an error catcher has been registered for the given status code, Rocket will invoke it. The catcher creates and returns a response to the client. If no error catcher has been registered and the error status code is one of the standard HTTP status code, a default error catcher will be used. Default error catchers return an HTML page with the status code and description. If there is no catcher for a custom status code, Rocket uses the <strong>500</strong> error catcher to return a response.<h4 id=status>Status<a class=headerlink href=#status title="perma link">#</a></h4><p>While not encouraged, you can also forward a request to a catcher manually by returning a <a href=../../index.html ><code>Status</code></a> directly. For instance, to forward to the catcher for <strong>406: Not Acceptable</strong>, you would write:<table class="code hltable"><tr><td class=linenos><div class=linenodiv><pre>1
+2
+3
+4
+5
+6</pre></div><td class=code><div class="code hl"><pre><span></span><span class=k>use</span><span class=w> </span><span class=n>rocket</span>::<span class=n>http</span>::<span class=n>Status</span><span class=p>;</span><span class=w></span>
+<span class=cp>#[get(</span><span class=s>"/"</span><span class=cp>)]</span><span class=w></span>
+<span class=k>fn</span> <span class=nf>just_fail</span><span class=p>()</span><span class=w> </span>-> <span class=nc>Status</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>    </span><span class=n>Status</span>::<span class=n>NotAcceptable</span><span class=w></span>
+<span class=p>}</span><span class=w></span>
+</pre></div></table><p>The response generated by <code>Status</code> depends on the status code itself. As indicated above, for error status codes (in range [400, 599]), <code>Status</code> forwards to the corresponding error catcher. The table below summarizes responses generated by <code>Status</code> for these and other codes:<div class=table-container><table><thead><tr><th>Status Code Range<th>Response<tbody><tr><td>[400, 599]<td>Forwards to catcher for given status.<tr><td>100, [200, 205]<td>Empty with given status.<tr><td>All others.<td>Invalid. Errors to <code>500</code> catcher.</table></div><h3 id=custom-responders>Custom Responders<a class=headerlink href=#custom-responders title="perma link">#</a></h3><p>The <a href=../../index.html><code>Responder</code></a> trait documentation details how to implement your own custom responders by explicitly implementing the trait. For most use cases, however, Rocket makes it possible to automatically derive an implementation of <code>Responder</code>. In particular, if your custom responder wraps an existing responder, headers, or sets a custom status or content-type, <code>Responder</code> can be automatically derived:<table class="code hltable"><tr><td class=linenos><div class=linenodiv><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div><td class=code><div class="code hl"><pre><span></span><span class=cp>#[derive(Responder)]</span><span class=w></span>
+<span class=cp>#[response(status = 500, content_type = </span><span class=s>"json"</span><span class=cp>)]</span><span class=w></span>
+<span class=k>struct</span> <span class=nc>MyResponder</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>    </span><span class=n>inner</span>: <span class=nc>OtherResponder</span><span class=p>,</span><span class=w></span>
+<span class=w>    </span><span class=n>header</span>: <span class=nc>SomeHeader</span><span class=p>,</span><span class=w></span>
+<span class=w>    </span><span class=n>more</span>: <span class=nc>YetAnotherHeader</span><span class=p>,</span><span class=w></span>
+<span class=w>    </span><span class=cp>#[response(ignore)]</span><span class=w></span>
+<span class=w>    </span><span class=n>unrelated</span>: <span class=nc>MyType</span><span class=p>,</span><span class=w></span>
+<span class=p>}</span><span class=w></span>
+</pre></div></table><p>For the example above, Rocket generates a <code>Responder</code> implementation that:<ul><li>Set the response's status to <code>500: Internal Server Error</code>.<li>Sets the Content-Type to <code>application/json</code>.<li>Adds the headers <code>self.header</code> and <code>self.more</code> to the response.<li>Completes the response using <code>self.inner</code>.</ul><p>Note that the <em>first</em> field is used as the inner responder while all remaining fields (unless ignored with <code>#[response(ignore)]</code>) are added as headers to the response. The optional <code>#[response]</code> attribute can be used to customize the status and content-type of the response. Because <code>ContentType</code> and <code>Status</code> are themselves headers, you can also dynamically set the content-type and status by simply including fields of these types.<p>For more on using the <code>Responder</code> derive, see the <a href=../../index.html><code>Responder</code> derive</a> documentation.<h3 id=implementations>Implementations<a class=headerlink href=#implementations title="perma link">#</a></h3><p>Rocket implements <code>Responder</code> for many types in Rust's standard library including <code>String</code>, <code>&str</code>, <code>File</code>, <code>Option</code>, and <code>Result</code>. The <a href=../../index.html><code>Responder</code></a> documentation describes these in detail, but we briefly cover a few here.<h4 id=strings>Strings<a class=headerlink href=#strings title="perma link">#</a></h4><p>The <code>Responder</code> implementations for <code>&str</code> and <code>String</code> are straight-forward: the string is used as a sized body, and the Content-Type of the response is set to <code>text/plain</code>. To get a taste for what such a <code>Responder</code> implementation looks like, here's the implementation for <code>String</code>:<table class="code hltable"><tr><td class=linenos><div class=linenodiv><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div><td class=code><div class="code hl"><pre><span></span><span class=k>impl</span><span class=w> </span><span class=n>Responder</span><span class=o>&lt;</span><span class=nb>'static</span><span class=o>></span><span class=w> </span><span class=k>for</span><span class=w> </span><span class=nb>String</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>    </span><span class=k>fn</span> <span class=nf>respond_to</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span><span class=w> </span><span class=n>_</span>: <span class=kp>&</span><span class=nc>Request</span><span class=p>)</span><span class=w> </span>-> <span class=nb>Result</span><span class=o>&lt;</span><span class=n>Response</span><span class=o>&lt;</span><span class=nb>'static</span><span class=o>></span><span class=p>,</span><span class=w> </span><span class=n>Status</span><span class=o>></span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>        </span><span class=n>Response</span>::<span class=n>build</span><span class=p>()</span><span class=w></span>
+<span class=w>            </span><span class=p>.</span><span class=n>header</span><span class=p>(</span><span class=n>ContentType</span>::<span class=n>Plain</span><span class=p>)</span><span class=w></span>
+<span class=w>            </span><span class=p>.</span><span class=n>sized_body</span><span class=p>(</span><span class=n>Cursor</span>::<span class=n>new</span><span class=p>(</span><span class=bp>self</span><span class=p>))</span><span class=w></span>
+<span class=w>            </span><span class=p>.</span><span class=n>ok</span><span class=p>()</span><span class=w></span>
+<span class=w>    </span><span class=p>}</span><span class=w></span>
+<span class=p>}</span><span class=w></span>
+</pre></div></table><p>Because of these implementations, you can directly return an <code>&str</code> or <code>String</code> type from a handler:<table class="code hltable"><tr><td class=linenos><div class=linenodiv><pre>1
+2
+3
+4</pre></div><td class=code><div class="code hl"><pre><span></span><span class=cp>#[get(</span><span class=s>"/string"</span><span class=cp>)]</span><span class=w></span>
+<span class=k>fn</span> <span class=nf>handler</span><span class=p>()</span><span class=w> </span>-> <span class=kp>&</span><span class=nb>'static</span><span class=w> </span><span class=kt>str</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>    </span><span class=s>"Hello there! I'm a string!"</span><span class=w></span>
+<span class=p>}</span><span class=w></span>
+</pre></div></table><h4 id=option><code>Option</code><a class=headerlink href=#option title="perma link">#</a></h4><p><code>Option</code> is a <em>wrapping</em> responder: an <code>Option&lt;T></code> can only be returned when <code>T</code> implements <code>Responder</code>. If the <code>Option</code> is <code>Some</code>, the wrapped responder is used to respond to the client. Otherwise, a error of <strong>404 - Not Found</strong> is returned to the client.<p>This implementation makes <code>Option</code> a convenient type to return when it is not known until process-time whether content exists. For example, because of <code>Option</code>, we can implement a file server that returns a <code>200</code> when a file is found and a <code>404</code> when a file is not found in just 4, idiomatic lines:<table class="code hltable"><tr><td class=linenos><div class=linenodiv><pre>1
+2
+3
+4</pre></div><td class=code><div class="code hl"><pre><span></span><span class=cp>#[get(</span><span class=s>"/&lt;file..>"</span><span class=cp>)]</span><span class=w></span>
+<span class=k>fn</span> <span class=nf>files</span><span class=p>(</span><span class=n>file</span>: <span class=nc>PathBuf</span><span class=p>)</span><span class=w> </span>-> <span class=nb>Option</span><span class=o>&lt;</span><span class=n>NamedFile</span><span class=o>></span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>    </span><span class=n>NamedFile</span>::<span class=n>open</span><span class=p>(</span><span class=n>Path</span>::<span class=n>new</span><span class=p>(</span><span class=s>"static/"</span><span class=p>).</span><span class=n>join</span><span class=p>(</span><span class=n>file</span><span class=p>)).</span><span class=n>ok</span><span class=p>()</span><span class=w></span>
+<span class=p>}</span><span class=w></span>
+</pre></div></table><h4 id=result><code>Result</code><a class=headerlink href=#result title="perma link">#</a></h4><p><code>Result</code> is a special kind of wrapping responder: its functionality depends on whether the error type <code>E</code> implements <code>Responder</code>.<p>When the error type <code>E</code> implements <code>Responder</code>, the wrapped <code>Responder</code> in <code>Ok</code> or <code>Err</code>, whichever it might be, is used to respond to the client. This means that the responder can be chosen dynamically at run-time, and two different kinds of responses can be used depending on the circumstances. Revisiting our file server, for instance, we might wish to provide more feedback to the user when a file isn't found. We might do this as follows:<table class="code hltable"><tr><td class=linenos><div class=linenodiv><pre>1
+2
+3
+4
+5
+6
+7</pre></div><td class=code><div class="code hl"><pre><span></span><span class=k>use</span><span class=w> </span><span class=n>rocket</span>::<span class=n>response</span>::<span class=n>status</span>::<span class=n>NotFound</span><span class=p>;</span><span class=w></span>
+<span class=cp>#[get(</span><span class=s>"/&lt;file..>"</span><span class=cp>)]</span><span class=w></span>
+<span class=k>fn</span> <span class=nf>files</span><span class=p>(</span><span class=n>file</span>: <span class=nc>PathBuf</span><span class=p>)</span><span class=w> </span>-> <span class=nb>Result</span><span class=o>&lt;</span><span class=n>NamedFile</span><span class=p>,</span><span class=w> </span><span class=n>NotFound</span><span class=o>&lt;</span><span class=nb>String</span><span class=o>>></span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>    </span><span class=kd>let</span><span class=w> </span><span class=n>path</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>Path</span>::<span class=n>new</span><span class=p>(</span><span class=s>"static/"</span><span class=p>).</span><span class=n>join</span><span class=p>(</span><span class=n>file</span><span class=p>);</span><span class=w></span>
+<span class=w>    </span><span class=n>NamedFile</span>::<span class=n>open</span><span class=p>(</span><span class=o>&</span><span class=n>path</span><span class=p>).</span><span class=n>map_err</span><span class=p>(</span><span class=o>|</span><span class=n>_</span><span class=o>|</span><span class=w> </span><span class=n>NotFound</span><span class=p>(</span><span class=n>format</span><span class=o>!</span><span class=p>(</span><span class=s>"Bad path: {}"</span><span class=p>,</span><span class=w> </span><span class=n>path</span><span class=p>)))</span><span class=w></span>
+<span class=p>}</span><span class=w></span>
+</pre></div></table><p>If the error type <code>E</code> <em>does not</em> implement <code>Responder</code>, then the error is simply logged to the console, using its <code>Debug</code> implementation, and a <code>500</code> error is returned to the client.<h3 id=rocket-responders>Rocket Responders<a class=headerlink href=#rocket-responders title="perma link">#</a></h3><p>Some of Rocket's best features are implemented through responders. You can find many of these responders in the <a href=../../index.html ><code>response</code></a> module and <a href=../../index.html ><code>rocket_contrib</code></a> library. Among these are:<ul><li><a href=../../index.html><code>Content</code></a> - Used to override the Content-Type of a response.<li><a href=../../index.html><code>NamedFile</code></a> - Streams a file to the client; automatically sets the Content-Type based on the file's extension.<li><a href=../../index.html><code>Redirect</code></a> - Redirects the client to a different URI.<li><a href=../../index.html><code>Stream</code></a> - Streams a response to a client from an arbitrary <code>Read</code>er type.<li><a href=../../index.html ><code>status</code></a> - Contains types that override the status code of a response.<li><a href=../../index.html><code>Flash</code></a> - Sets a "flash" cookie that is removed when accessed.<li><a href=../../index.html><code>Json</code></a> - Automatically serializes values into JSON.<li><a href=../../index.html><code>MsgPack</code></a> - Automatically serializes values into MessagePack.<li><a href=../../index.html><code>Template</code></a> - Renders a dynamic template using handlebars or Tera.</ul><h4 id=streaming>Streaming<a class=headerlink href=#streaming title="perma link">#</a></h4><p>The <code>Stream</code> type deserves special attention. When a large amount of data needs to be sent to the client, it is better to stream the data to the client to avoid consuming large amounts of memory. Rocket provides the <a href=../../index.html><code>Stream</code></a> type, making this easy. The <code>Stream</code> type can be created from any <code>Read</code> type. For example, to stream from a local Unix stream, we might write:<table class="code hltable"><tr><td class=linenos><div class=linenodiv><pre>1
+2
+3
+4</pre></div><td class=code><div class="code hl"><pre><span></span><span class=cp>#[get(</span><span class=s>"/stream"</span><span class=cp>)]</span><span class=w></span>
+<span class=k>fn</span> <span class=nf>stream</span><span class=p>()</span><span class=w> </span>-> <span class=nc>io</span>::<span class=nb>Result</span><span class=o>&lt;</span><span class=n>Stream</span><span class=o>&lt;</span><span class=n>UnixStream</span><span class=o>>></span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>    </span><span class=n>UnixStream</span>::<span class=n>connect</span><span class=p>(</span><span class=s>"/path/to/my/socket"</span><span class=p>).</span><span class=n>map</span><span class=p>(</span><span class=o>|</span><span class=n>s</span><span class=o>|</span><span class=w> </span><span class=n>Stream</span>::<span class=n>from</span><span class=p>(</span><span class=n>s</span><span class=p>))</span><span class=w></span>
+<span class=p>}</span><span class=w></span>
+</pre></div></table><h4 id=json>JSON<a class=headerlink href=#json title="perma link">#</a></h4><p>The <a href=../../index.html><code>Json</code></a> responder in <a href=../../index.html ><code>rocket_contrib</code></a> allows you to easily respond with well-formed JSON data: simply return a value of type <code>Json&lt;T></code> where <code>T</code> is the type of a structure to serialize into JSON. The type <code>T</code> must implement the <a href=https://docs.serde.rs/serde/trait.Serialize.html><code>Serialize</code></a> trait from <a href=https://docs.serde.rs/serde/ ><code>serde</code></a>, which can be automatically derived.<p>As an example, to respond with the JSON value of a <code>Task</code> structure, we might write:<table class="code hltable"><tr><td class=linenos><div class=linenodiv><pre>1
+2
+3
+4
+5
+6
+7</pre></div><td class=code><div class="code hl"><pre><span></span><span class=k>use</span><span class=w> </span><span class=n>rocket_contrib</span>::<span class=n>json</span>::<span class=n>Json</span><span class=p>;</span><span class=w></span>
+<span class=cp>#[derive(Serialize)]</span><span class=w></span>
+<span class=k>struct</span> <span class=nc>Task</span><span class=w> </span><span class=p>{</span><span class=w> </span><span class=p>...</span><span class=w> </span><span class=p>}</span><span class=w></span>
+<span class=cp>#[get(</span><span class=s>"/todo"</span><span class=cp>)]</span><span class=w></span>
+<span class=k>fn</span> <span class=nf>todo</span><span class=p>()</span><span class=w> </span>-> <span class=nc>Json</span><span class=o>&lt;</span><span class=n>Task</span><span class=o>></span><span class=w> </span><span class=p>{</span><span class=w> </span><span class=p>...</span><span class=w> </span><span class=p>}</span><span class=w></span>
+</pre></div></table><p>The <code>Json</code> type serializes the structure into JSON, sets the Content-Type to JSON, and emits the serialized data in a fixed-sized body. If serialization fails, a <strong>500 - Internal Server Error</strong> is returned.<p>The <a href=https://github.com/SergioBenitez/Rocket/tree/v0.4/examples/json>JSON example on GitHub</a> provides further illustration.<h3 id=templates>Templates<a class=headerlink href=#templates title="perma link">#</a></h3><p>Rocket includes built-in templating support that works largely through a <a href=../../index.html><code>Template</code></a> responder in <code>rocket_contrib</code>. To render a template named "index", for instance, you might return a value of type <code>Template</code> as follows:<table class="code hltable"><tr><td class=linenos><div class=linenodiv><pre>1
+2
+3
+4
+5</pre></div><td class=code><div class="code hl"><pre><span></span><span class=cp>#[get(</span><span class=s>"/"</span><span class=cp>)]</span><span class=w></span>
+<span class=k>fn</span> <span class=nf>index</span><span class=p>()</span><span class=w> </span>-> <span class=nc>Template</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>    </span><span class=kd>let</span><span class=w> </span><span class=n>context</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=cm>/* object-like value */</span><span class=p>;</span><span class=w></span>
+<span class=w>    </span><span class=n>Template</span>::<span class=n>render</span><span class=p>(</span><span class=s>"index"</span><span class=p>,</span><span class=w> </span><span class=o>&</span><span class=n>context</span><span class=p>)</span><span class=w></span>
+<span class=p>}</span><span class=w></span>
+</pre></div></table><p>Templates are rendered with the <code>render</code> method. The method takes in the name of a template and a context to render the template with. The context can be any type that implements <code>Serialize</code> and serializes into an <code>Object</code> value, such as structs, <code>HashMaps</code>, and others.<p>For a template to be renderable, it must first be registered. The <code>Template</code> fairing automatically registers all discoverable templates when attached. The <a href=../../index.html>Fairings</a> sections of the guide provides more information on fairings. To attach the template fairing, simply call <code>.attach(Template::fairing())</code> on an instance of <code>Rocket</code> as follows:<table class="code hltable"><tr><td class=linenos><div class=linenodiv><pre>1
+2
+3
+4
+5</pre></div><td class=code><div class="code hl"><pre><span></span><span class=k>fn</span> <span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>    </span><span class=n>rocket</span>::<span class=n>ignite</span><span class=p>()</span><span class=w></span>
+<span class=w>        </span><span class=p>.</span><span class=n>mount</span><span class=p>(</span><span class=s>"/"</span><span class=p>,</span><span class=w> </span><span class=n>routes</span><span class=o>!</span><span class=p>[...])</span><span class=w></span>
+<span class=w>        </span><span class=p>.</span><span class=n>attach</span><span class=p>(</span><span class=n>Template</span>::<span class=n>fairing</span><span class=p>());</span><span class=w></span>
+<span class=p>}</span><span class=w></span>
+</pre></div></table><p>Rocket discovers templates in the <a href=../../v0-4/guide/configuration.html#extras>configurable</a> <code>template_dir</code> directory. Templating support in Rocket is engine agnostic. The engine used to render a template depends on the template file's extension. For example, if a file ends with <code>.hbs</code>, Handlebars is used, while if a file ends with <code>.tera</code>, Tera is used.<div class="admonition note"><span class=title><b>Note:</b> The name of the template <em>does not</em> include its extension.</span><p>For a template file named <code>index.html.tera</code>, call <code>render("index")</code> and use the name <code>"index"</code> in templates, i.e, <code>{% extends "index" %}</code> or <code>{% extends "base" %}</code> for <code>base.html.tera</code>.</div><h4 id=live-reloading>Live Reloading<a class=headerlink href=#live-reloading title="perma link">#</a></h4><p>When your application is compiled in <code>debug</code> mode (without the <code>--release</code> flag passed to <code>cargo</code>), templates are automatically reloaded when they are modified on supported platforms. This means that you don't need to rebuild your application to observe template changes: simply refresh! In release builds, reloading is disabled.<p>The <a href=../../index.html><code>Template</code></a> API documentation contains more information about templates, including how to customize a template engine to add custom helpers and filters. The <a href=https://github.com/SergioBenitez/Rocket/tree/v0.4/examples/handlebars_templates>Handlebars templates example</a> is a fully composed application that makes use of Handlebars templates, while the <a href=https://github.com/SergioBenitez/Rocket/tree/v0.4/examples/tera_templates>Tera templates example</a> does the same for Tera.<h3 id=typed-uris>Typed URIs<a class=headerlink href=#typed-uris title="perma link">#</a></h3><p>Rocket's <a href=../../index.html><code>uri!</code></a> macro allows you to build URIs to routes in your application in a robust, type-safe, and URI-safe manner. Type or route parameter mismatches are caught at compile-time, and changes to route URIs are automatically reflected in the generated URIs.<p>The <code>uri!</code> macro returns an <a href=../../index.html><code>Origin</code></a> structure with the URI of the supplied route interpolated with the given values. Each value passed into <code>uri!</code> is rendered in its appropriate place in the URI using the <a href=../../index.html><code>UriDisplay</code></a> implementation for the value's type. The <code>UriDisplay</code> implementation ensures that the rendered value is URI-safe.<p>Note that <code>Origin</code> implements <code>Into&lt;Uri></code> (and by extension, <code>TryInto&lt;Uri></code>), so it can be converted into a <a href=../../index.html><code>Uri</code></a> using <code>.into()</code> as needed and passed into methods such as <a href=../../index.html#method.to><code>Redirect::to()</code></a>.<p>For example, given the following route:<table class="code hltable"><tr><td class=linenos><div class=linenodiv><pre>1
+2</pre></div><td class=code><div class="code hl"><pre><span></span><span class=cp>#[get(</span><span class=s>"/person/&lt;name>?&lt;age>"</span><span class=cp>)]</span><span class=w></span>
+<span class=k>fn</span> <span class=nf>person</span><span class=p>(</span><span class=n>name</span>: <span class=nb>String</span><span class=p>,</span><span class=w> </span><span class=n>age</span>: <span class=nb>Option</span><span class=o>&lt;</span><span class=kt>u8</span><span class=o>></span><span class=p>)</span><span class=w> </span>-> <span class=nc>T</span><span class=w></span>
+</pre></div></table><p>URIs to <code>person</code> can be created as follows:<table class="code hltable"><tr><td class=linenos><div class=linenodiv><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17</pre></div><td class=code><div class="code hl"><pre><span></span><span class=c1>// with unnamed parameters, in route path declaration order</span>
+<span class=kd>let</span><span class=w> </span><span class=n>mike</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>uri</span><span class=o>!</span><span class=p>(</span><span class=n>person</span>: <span class=s>"Mike Smith"</span><span class=p>,</span><span class=w> </span><span class=mi>28</span><span class=p>);</span><span class=w></span>
+<span class=n>assert_eq</span><span class=o>!</span><span class=p>(</span><span class=n>mike</span><span class=p>.</span><span class=n>to_string</span><span class=p>(),</span><span class=w> </span><span class=s>"/person/Mike%20Smith?age=28"</span><span class=p>);</span><span class=w></span>
+<span class=c1>// with named parameters, order irrelevant</span>
+<span class=kd>let</span><span class=w> </span><span class=n>mike</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>uri</span><span class=o>!</span><span class=p>(</span><span class=n>person</span>: <span class=nc>name</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>"Mike"</span><span class=p>,</span><span class=w> </span><span class=n>age</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>28</span><span class=p>);</span><span class=w></span>
+<span class=kd>let</span><span class=w> </span><span class=n>mike</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>uri</span><span class=o>!</span><span class=p>(</span><span class=n>person</span>: <span class=nc>age</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>28</span><span class=p>,</span><span class=w> </span><span class=n>name</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>"Mike"</span><span class=p>);</span><span class=w></span>
+<span class=n>assert_eq</span><span class=o>!</span><span class=p>(</span><span class=n>mike</span><span class=p>.</span><span class=n>to_string</span><span class=p>(),</span><span class=w> </span><span class=s>"/person/Mike?age=28"</span><span class=p>);</span><span class=w></span>
+<span class=c1>// with a specific mount-point</span>
+<span class=kd>let</span><span class=w> </span><span class=n>mike</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>uri</span><span class=o>!</span><span class=p>(</span><span class=s>"/api"</span><span class=p>,</span><span class=w> </span><span class=n>person</span>: <span class=nc>name</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>"Mike"</span><span class=p>,</span><span class=w> </span><span class=n>age</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>28</span><span class=p>);</span><span class=w></span>
+<span class=n>assert_eq</span><span class=o>!</span><span class=p>(</span><span class=n>mike</span><span class=p>.</span><span class=n>to_string</span><span class=p>(),</span><span class=w> </span><span class=s>"/api/person/Mike?age=28"</span><span class=p>);</span><span class=w></span>
+<span class=c1>// with optional (defaultable) query parameters ignored</span>
+<span class=kd>let</span><span class=w> </span><span class=n>mike</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>uri</span><span class=o>!</span><span class=p>(</span><span class=n>person</span>: <span class=s>"Mike"</span><span class=p>,</span><span class=w> </span><span class=n>_</span><span class=p>);</span><span class=w></span>
+<span class=kd>let</span><span class=w> </span><span class=n>mike</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>uri</span><span class=o>!</span><span class=p>(</span><span class=n>person</span>: <span class=nc>name</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>"Mike"</span><span class=p>,</span><span class=w> </span><span class=n>age</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>_</span><span class=p>);</span><span class=w></span>
+<span class=n>assert_eq</span><span class=o>!</span><span class=p>(</span><span class=n>mike</span><span class=p>.</span><span class=n>to_string</span><span class=p>(),</span><span class=w> </span><span class=s>"/person/Mike"</span><span class=p>);</span><span class=w></span>
+</pre></div></table><p>Rocket informs you of any mismatched parameters at compile-time:<table class="code hltable"><tr><td class=linenos><div class=linenodiv><pre>1
+2
+3
+4
+5
+6
+7</pre></div><td class=code><div class="code hl"><pre><span></span><span class=n>error</span>: <span class=nc>person</span><span class=w> </span><span class=n>route</span><span class=w> </span><span class=n>uri</span><span class=w> </span><span class=n>expects</span><span class=w> </span><span class=mi>2</span><span class=w> </span><span class=n>parameters</span><span class=w> </span><span class=n>but</span><span class=w> </span><span class=mi>1</span><span class=w> </span><span class=n>was</span><span class=w> </span><span class=n>supplied</span><span class=w></span>
+<span class=w> </span><span class=o>-</span>-> <span class=nc>examples</span><span class=o>/</span><span class=n>uri</span><span class=o>/</span><span class=n>src</span><span class=o>/</span><span class=n>main</span><span class=p>.</span><span class=n>rs</span>:<span class=mi>9</span>:<span class=mi>29</span><span class=w></span>
+<span class=w>  </span><span class=o>|</span><span class=w></span>
+<span class=mi>9</span><span class=w> </span><span class=o>|</span><span class=w>     </span><span class=n>uri</span><span class=o>!</span><span class=p>(</span><span class=n>person</span>: <span class=s>"Mike Smith"</span><span class=p>);</span><span class=w></span>
+<span class=w>  </span><span class=o>|</span><span class=w>                  </span><span class=o>^^^^^^^^^^^^</span><span class=w></span>
+<span class=w>  </span><span class=o>|</span><span class=w></span>
+<span class=w>  </span><span class=o>=</span><span class=w> </span><span class=n>note</span>: <span class=nc>expected</span><span class=w> </span><span class=n>parameters</span>: <span class=nc>name</span>: <span class=nb>String</span><span class=p>,</span><span class=w> </span><span class=n>age</span>: <span class=nb>Option</span><span class=o>&lt;</span><span class=kt>u8</span><span class=o>></span><span class=w></span>
+</pre></div></table><p>Rocket also informs you of any type errors at compile-time:<table class="code hltable"><tr><td class=linenos><div class=linenodiv><pre>1
+2
+3
+4
+5
+6</pre></div><td class=code><div class="code hl"><pre><span></span><span class=n>error</span>: <span class=nc>the</span><span class=w> </span><span class=k>trait</span><span class=w> </span><span class=n>bound</span><span class=w> </span><span class=kt>u8</span>: <span class=nc>FromUriParam</span><span class=o>&lt;</span><span class=n>Query</span><span class=p>,</span><span class=w> </span><span class=o>&</span><span class=kt>str</span><span class=o>></span><span class=w> </span><span class=n>is</span><span class=w> </span><span class=n>not</span><span class=w> </span><span class=n>satisfied</span><span class=w></span>
+<span class=w> </span><span class=o>-</span>-> <span class=nc>examples</span><span class=o>/</span><span class=n>uri</span><span class=o>/</span><span class=n>src</span><span class=o>/</span><span class=n>main</span><span class=p>.</span><span class=n>rs</span>:<span class=mi>9</span>:<span class=mi>35</span><span class=w></span>
+<span class=w>  </span><span class=o>|</span><span class=w></span>
+<span class=mi>9</span><span class=w> </span><span class=o>|</span><span class=w>     </span><span class=n>uri</span><span class=o>!</span><span class=p>(</span><span class=n>person</span>: <span class=nc>age</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>"10"</span><span class=p>,</span><span class=w> </span><span class=n>name</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>"Mike"</span><span class=p>);</span><span class=w></span>
+<span class=w>  </span><span class=o>|</span><span class=w>                        </span><span class=o>^^^^</span><span class=w> </span><span class=n>FromUriParam</span><span class=o>&lt;</span><span class=n>Query</span><span class=p>,</span><span class=w> </span><span class=o>&</span><span class=kt>str</span><span class=o>></span><span class=w> </span><span class=n>is</span><span class=w> </span><span class=n>not</span><span class=w> </span><span class=n>implemented</span><span class=w> </span><span class=k>for</span><span class=w> </span><span class=kt>u8</span><span class=w></span>
+<span class=w>  </span><span class=o>|</span><span class=w></span>
+</pre></div></table><p>We recommend that you use <code>uri!</code> exclusively when constructing URIs to your routes.<h4 id=ignorables>Ignorables<a class=headerlink href=#ignorables title="perma link">#</a></h4><p>As illustrated in the previous above, query parameters can be ignored using <code>_</code> in place of an expression in a <code>uri!</code> invocation. The corresponding type in the route URI must implement <a href=../../index.html><code>Ignorable</code></a>. Ignored parameters are not interpolated into the resulting <code>Origin</code>. Path parameters are not ignorable.<h4 id=deriving-uridisplay>Deriving <code>UriDisplay</code><a class=headerlink href=#deriving-uridisplay title="perma link">#</a></h4><p>The <code>UriDisplay</code> trait can be derived for custom types. For types that appear in the path part of a URI, derive using <a href=../../index.html><code>UriDisplayPath</code></a>; for types that appear in the query part of a URI, derive using <a href=../../index.html><code>UriDisplayQuery</code></a>.<p>As an example, consider the following form structure and route:<table class="code hltable"><tr><td class=linenos><div class=linenodiv><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div><td class=code><div class="code hl"><pre><span></span><span class=cp>#[derive(FromForm, UriDisplayQuery)]</span><span class=w></span>
+<span class=k>struct</span> <span class=nc>UserDetails</span><span class=o>&lt;</span><span class=na>'r</span><span class=o>></span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>    </span><span class=n>age</span>: <span class=nb>Option</span><span class=o>&lt;</span><span class=kt>usize</span><span class=o>></span><span class=p>,</span><span class=w></span>
+<span class=w>    </span><span class=n>nickname</span>: <span class=kp>&</span><span class=na>'r</span><span class=w> </span><span class=n>RawStr</span><span class=p>,</span><span class=w></span>
+<span class=p>}</span><span class=w></span>
+<span class=cp>#[post(</span><span class=s>"/user/&lt;id>?&lt;details..>"</span><span class=cp>)]</span><span class=w></span>
+<span class=k>fn</span> <span class=nf>add_user</span><span class=p>(</span><span class=n>id</span>: <span class=kt>usize</span><span class=p>,</span><span class=w> </span><span class=n>details</span>: <span class=nc>Form</span><span class=o>&lt;</span><span class=n>UserDetails</span><span class=o>></span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w> </span><span class=p>..</span><span class=w> </span><span class=p>}</span><span class=w></span>
+</pre></div></table><p>By deriving using <code>UriDisplayQuery</code>, an implementation of <code>UriDisplay&lt;Query></code> is automatically generated, allowing for URIs to <code>add_user</code> to be generated using <code>uri!</code>:<table class="code hltable"><tr><td class=linenos><div class=linenodiv><pre>1
+2</pre></div><td class=code><div class="code hl"><pre><span></span><span class=n>uri</span><span class=o>!</span><span class=p>(</span><span class=n>add_user</span>: <span class=mi>120</span><span class=p>,</span><span class=w> </span><span class=n>UserDetails</span><span class=w> </span><span class=p>{</span><span class=w> </span><span class=n>age</span>: <span class=nb>Some</span><span class=p>(</span><span class=mi>20</span><span class=p>),</span><span class=w> </span><span class=n>nickname</span>: <span class=s>"Bob"</span><span class=p>.</span><span class=n>into</span><span class=p>()</span><span class=w> </span><span class=p>})</span><span class=w></span>
+<span class=w>  </span><span class=o>=></span><span class=w> </span><span class=s>"/user/120?age=20&nickname=Bob"</span><span class=w></span>
+</pre></div></table><h4 id=typed-uri-parts>Typed URI Parts<a class=headerlink href=#typed-uri-parts title="perma link">#</a></h4><p>The <a href=../../index.html><code>UriPart</code></a> trait categorizes types that mark a part of the URI as either a <a href=../../index.html><code>Path</code></a> or a <a href=../../index.html><code>Query</code></a>. Said another way, types that implement <code>UriPart</code> are marker types that represent a part of a URI at the type-level. Traits such as <a href=../../index.html><code>UriDisplay</code></a> and <a href=../../index.html><code>FromUriParam</code></a> bound a generic parameter by <code>UriPart</code>: <code>P: UriPart</code>. This creates two instances of each trait: <code>UriDisplay&lt;Query></code> and <code>UriDisplay&lt;Path></code>, and <code>FromUriParam&lt;Query></code> and <code>FromUriParam&lt;Path></code>.<p>As the names might imply, the <code>Path</code> version of the traits is used when displaying parameters in the path part of the URI while the <code>Query</code> version is used when displaying parameters in the query part of the URI. These distinct versions of the traits exist exactly to differentiate, at the type-level, where in the URI a value is to be written to, allowing for type safety in the face of differences between the two locations. For example, while it is valid to use a value of <code>None</code> in the query part, omitting the parameter entirely, doing so is <em>not</em> valid in the path part. By differentiating in the type system, both of these conditions can be enforced appropriately through distinct implementations of <code>FromUriParam&lt;Path></code> and <code>FromUriParam&lt;Query></code>.<h4 id=conversions>Conversions<a class=headerlink href=#conversions title="perma link">#</a></h4><p>The <a href=../../index.html><code>FromUriParam</code></a> is used to perform a conversion for each value passed to <code>uri!</code> before it is displayed with <code>UriDisplay</code>. If a <code>FromUriParam&lt;P, S></code> implementation exists for a type <code>T</code> for part URI part <code>P</code>, then a value of type <code>S</code> can be used in <code>uri!</code> macro for a route URI parameter declared with a type of <code>T</code> in part <code>P</code>. For example, the following implementation, provided by Rocket, allows an <code>&str</code> to be used in a <code>uri!</code> invocation for route URI parameters declared as <code>String</code>:<table class="code hltable"><tr><td class=linenos><div class=linenodiv><pre>1</pre></div><td class=code><div class="code hl"><pre><span></span><span class=k>impl</span><span class=o>&lt;</span><span class=n>P</span>: <span class=nc>UriPart</span><span class=p>,</span><span class=w> </span><span class=na>'a</span><span class=o>></span><span class=w> </span><span class=n>FromUriParam</span><span class=o>&lt;</span><span class=n>P</span><span class=p>,</span><span class=w> </span><span class=o>&</span><span class=na>'a</span><span class=w> </span><span class=kt>str</span><span class=o>></span><span class=w> </span><span class=k>for</span><span class=w> </span><span class=nb>String</span><span class=w> </span><span class=p>{</span><span class=w> </span><span class=p>..</span><span class=w> </span><span class=p>}</span><span class=w></span>
+</pre></div></table><p>Other conversions to be aware of are:<ul><li><code>&str</code> to <code>RawStr</code><li><code>String</code> to <code>&str</code><li><code>String</code> to <code>RawStr</code><li><code>T</code> to <code>Option&lt;T></code><li><code>T</code> to <code>Result&lt;T, E></code><li><code>T</code> to <code>Form&lt;T></code><li><code>&str</code> to <code>&Path</code><li><code>&str</code> to <code>PathBuf</code></ul><p>Conversions <em>nest</em>. For instance, a value of type <code>T</code> can be supplied when a value of type <code>Option&lt;Form&lt;T>></code> is expected:<table class="code hltable"><tr><td class=linenos><div class=linenodiv><pre>1
+2
+3
+4</pre></div><td class=code><div class="code hl"><pre><span></span><span class=cp>#[get(</span><span class=s>"/person/&lt;id>?&lt;details>"</span><span class=cp>)]</span><span class=w></span>
+<span class=k>fn</span> <span class=nf>person</span><span class=p>(</span><span class=n>id</span>: <span class=kt>usize</span><span class=p>,</span><span class=w> </span><span class=n>details</span>: <span class=nb>Option</span><span class=o>&lt;</span><span class=n>Form</span><span class=o>&lt;</span><span class=n>UserDetails</span><span class=o>>></span><span class=p>)</span><span class=w> </span>-> <span class=nc>T</span><span class=w></span>
+<span class=n>uri</span><span class=o>!</span><span class=p>(</span><span class=n>person</span>: <span class=nc>id</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>100</span><span class=p>,</span><span class=w> </span><span class=n>details</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>UserDetails</span><span class=w> </span><span class=p>{</span><span class=w> </span><span class=p>..</span><span class=w> </span><span class=p>})</span><span class=w></span>
+</pre></div></table><p>See the <a href=../../index.html><code>FromUriParam</code></a> documentation for further details.<hr><div class=grid><div class=col style=float:left><a href=../../v0-4/guide/requests.html>◄ Requests</a></div><div class="col text-right"><a href=../../index.html style=margin-left:auto>State ►</a></div></div></article><div id=search-results style=display:none><div class=cancel-search onclick=cancelSearch()></div><span id=search-status></span><hr><br><div id=hits></div></div></section><footer class=grid><div class=container><div class="col mobile-hide"><a href=https://sergio.bz>© 2016-2019 Sergio Benitez</a></div><div class="col centered"><img src=../../v0-4/images/logo-small.svg alt="Small Rocket Logo"></div><div class="col text-right mobile-hide"><a href=#>BACK TO TOP Δ</a></div></div></footer><script src=../../ajax/libs/lunr-js/2-3-3/lunr.min.js charset=utf-8></script><script>function load_index(e,i,s){var a=new XMLHttpRequest;a.open("GET",e,!0),a.onload=function(){if(200<=a.status&&a.status<400){var e=JSON.parse(a.responseText),n=lunr(function(){this.pipeline.reset(),this.pipeline.add(lunr.trimmer),this.field("title",{boost:10}),this.field("body"),this.ref("id");var n=this;e.documents.forEach(function(e){n.add(e)})}),t={};for(var o in e.documents){var r=e.documents[o];t[r.id]=r}i(n,t)}else s("error talking to server")},a.onerror=s,a.send()}function on_search_results(e,n,t){var o,r,i=!1;load_index(e,function(e,n){o=e,r=n,i=!0},function(){console.log("error loading index")});var s=document.getElementById(n);s.addEventListener("keyup",function(){if(i){var e=s.value.trim(),n=o.query(function(n){e.toLowerCase().split(" ").filter(Boolean).forEach(function(e){n.term(e,{wildcard:lunr.Query.wildcard.TRAILING})})}).map(function(e){return r[e.ref]});t(n)}else console.log("index not loaded. aborting search")})}</script><script>var searchBar = document.getElementById('search-input');
+    var article = document.getElementsByTagName('article')[0];
+    var searchResults = document.getElementById('search-results');
+    var cancelButton = document.getElementById("cancel-search");
+    var searchStatus = document.getElementById("search-status");
+    var hitsDiv = document.getElementById("hits");
+    var originalTitle = document.title;
+    String.prototype.hashCode = function() {
+      var hash = 0, i, chr;
+      if (this.length === 0) return hash;
+      for (i = 0; i < this.length; i++) {
+          chr   = this.charCodeAt(i);
+          hash  = ((hash << 5) - hash) + chr;
+          hash |= 0; // Convert to 32bit integer
+      }
+      return hash;
+    };
+    function toggleResultsIfNecessary() {
+      var query = escape(searchBar.value);
+      if (query.length > 1) {
+        article.style.display = "none";
+        searchResults.style.display = "block";
+        document.title = `Search for "${query}" - Rocket Programming Guide`;
+        return true;
+      } else {
+        article.style.display = "block";
+        searchResults.style.display = "none";
+        document.title = originalTitle;
+        return false;
+      }
+    }
+    function cancelSearch() {
+      searchBar.value = "";
+      toggleResultsIfNecessary();
+    }
+    function escape(string) {
+      var doc = new DOMParser().parseFromString(string, 'text/html');
+      var stripped = doc.body.textContent || "";
+      return stripped.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1").trim();
+    }
+    function replaceAll(text, query, replacement) {
+      var space = new RegExp(lunr.tokenizer.separator, "igm");
+      var find = escape(query).replace(space, "|");
+      return text.replace(new RegExp(find, 'igm'), replacement);
+    }
+    function focus(body, query, length, highlight) {
+      var space = new RegExp(lunr.tokenizer.separator, "igm");
+      var find = escape(query).replace(space, "|");
+      var index = body.search(new RegExp(find, 'igm'));
+      if (index === -1) {
+        return body.substring(0, length) + '..';
+      } else {
+        var r = body.substring(0, 50).hashCode() % (length / 8);
+        var left = Math.max(index - (length / 8) - r, 0);
+        var right = Math.min(body.length, left + length);
+        var focused = body.substring(left, right).trim();
+        var prefix = (left === 0) ? '' : '..';
+        var suffix = (right === body.length) ? '' : '..';
+        return prefix + focused.replace(new RegExp(find, 'igm'), highlight) + suffix;
+      }
+    }
+    on_search_results("../../v0-4/js/search-index.js", "search-input", function(docs) {
+      if (!toggleResultsIfNecessary()) {
+        return;
+      }
+      hitsDiv.innerHTML = "";
+      var query = escape(searchBar.value);
+      if (docs.length == 0) {
+        noResults = `<b>We didn't find any results for <em>"${query}"</em>.</b>`;
+        searchStatus.innerHTML = noResults;
+        return;
+      }
+      var top = `<b>Showing ${docs.length} results for <em>"${query}"</em>.</b>`;
+      searchStatus.innerHTML = top;
+      function highlight(token) {
+        return `<em>${token}</em>`;
+      }
+      for (doc of docs) {
+        var docTitle = replaceAll(doc.title, query, highlight);
+        var hitHtml =
+          `
+            <div class="hit">
+              <a href="../../guide/${doc.id}"><b>${docTitle}</b></a>
+              <br />
+              <span>${doc.breadcrumb}</span>
+              <p class="hit-content">${focus(doc.body, query, 400, highlight)}</p>
+            </div>
+        `;
+        hitsDiv.insertAdjacentHTML('beforeend', hitHtml);
+      }
+    })</script><script>function toggleOptions(){if(!(870<=screen.width)){var e=document.querySelector("nav.version-select options");e.style.display="none"===e.style.display?"block":"none"}}</script><script>!function(){var r=null,u=0,a=document.querySelector(".front.clouds"),c=document.querySelector(".back.clouds"),s=20,d=5;window.requestAnimationFrame(function e(n){if(r||(r=n),n-u<50)window.requestAnimationFrame(e);else{var o=n-r,t=s*(o/1e3),i=d*(o/1e3);a.style.backgroundPositionX=-t+"px",c.style.backgroundPositionX=-i+"px",u=n,window.requestAnimationFrame(e)}})}()</script>

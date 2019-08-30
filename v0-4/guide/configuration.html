@@ -1,0 +1,292 @@
+<!doctype html><meta charset=utf-8><meta name=viewport content="width=device-width"><title>Configuration - Rocket Programming Guide</title><meta name=description content="Rocket is a web framework for the Rust
+      programming language that makes it simple to write fast web applications
+      without sacrificing flexibility or type safety."><meta name=author content="Sergio Benitez"><link href="https://fonts.googleapis.com/css?family=Proza+Libre:400,500" rel=stylesheet><link rel=stylesheet href=../../v0-4/css/style.css media=all><link rel=icon type=image/png href=../../v0-4/images/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=../../v0-4/images/favicon-16x16.png sizes=16x16><style media=screen>.clouds.back{background:transparent url(../../v0-4/images/clouds-back.png) repeat}.clouds.front{background:transparent url(../../v0-4/images/clouds-front.png) repeat-x}#logo{background-image:url(../../v0-4/images/logo.svg)}@media(max-width:870px){#logo{background-image:url(../../v0-4/images/logo-small.svg)}}input#search-input{background-image:url(../../v0-4/images/search-icon.svg)}.cancel-search{background:url(../../v0-4/images/cancel-icon.svg) no-repeat center}.admonition.note .title{background-image:url(../../v0-4/images/pencil-icon.svg)}.admonition.tip .title{background-image:url(../../v0-4/images/star-icon.svg)}.admonition.warning .title{background-image:url(../../v0-4/images/warning-icon.svg)}</style><header><div class="back clouds"></div><div class="front clouds"></div><div class=container><a id=logo href=../../index.html ><span>Rocket Homepage</span></a><nav class=version-select><span onclick=toggleOptions()>v0.4 <i></i></span><options><a href=../../v0-3.html >v0.3</a></options></nav><input type=checkbox id=toggle> <label for=toggle class=hamburger><span></span> <span></span> <span></span></label><nav class=main><a href=../../v0-4/overview.html>overview</a> <a href=../../v0-4/guide.html>guide</a> <a href=../../api_subdomain/v0-4/rocket.html>api</a> <a href=../../v0-4/news.html>news</a> <a href=https://github.com/SergioBenitez/Rocket/tree/v0.4>code</a></nav><div class=centered><h1><a href=../../v0-4/guide.html>Guide</a></h1><h4>The ins and outs of Rocket, in detail.</h4></div></div></header><section class="grid tight blocky-code"><div id=sidebar><nav><input id=search-input placeholder="Search guide..."><div class=toc><ul class=small><li><a href=../../index.html>Introduction</a></ul><ul class=small><li><a href=../../index.html>Quickstart</a></ul><ul class=small><li><a href=../../index.html>Getting Started</a></ul><ul class=small><li><a href=../../index.html>Overview</a></ul><ul class=small><li><a href=../../v0-4/guide/requests.html>Requests</a></ul><ul class=small><li><a href=../../v0-4/guide/responses.html>Responses</a></ul><ul class=small><li><a href=../../index.html>State</a></ul><ul class=small><li><a href=../../index.html>Fairings</a></ul><ul class=small><li><a href=../../v0-4/guide/testing.html>Testing</a></ul><ul><li><a href=#configuration>Configuration</a><ul><li><a href=#environment>Environment</a><li><a href=#rockettoml>Rocket.toml</a><li><a href=#data-limits>Data Limits</a><li><a href=#extras>Extras</a><li><a href=#environment-variables>Environment Variables</a><li><a href=#programmatic>Programmatic</a><li><a href=#configuring-tls>Configuring TLS</a></ul></ul><ul class=small><li><a href=../../index.html>Pastebin</a></ul><ul class=small><li><a href=../../index.html>Conclusion</a></ul></div></nav></div><article><h2 id=configuration>Configuration<a class=headerlink href=#configuration title="perma link">#</a></h2><p>Rocket aims to have a flexible and usable configuration system. Rocket applications can be configured via a configuration file, through environment variables, or both. Configurations are separated into three environments: development, staging, and production. The working environment is selected via an environment variable.<h3 id=environment>Environment<a class=headerlink href=#environment title="perma link">#</a></h3><p>At any point in time, a Rocket application is operating in a given <em>configuration environment</em>. There are three such environments:<ul><li><code>development</code> (short: <code>dev</code>)<li><code>staging</code> (short: <code>stage</code>)<li><code>production</code> (short: <code>prod</code>)</ul><p>Without any action, Rocket applications run in the <code>development</code> environment for debug builds and the <code>production</code> environment for non-debug builds. The environment can be changed via the <code>ROCKET_ENV</code> environment variable. For example, to launch an application in the <code>staging</code> environment, we can run:<table class="code hltable"><tr><td class=linenos><div class=linenodiv><pre>1</pre></div><td class=code><div class="code hl"><pre><span></span><span class=nv>ROCKET_ENV</span><span class=o>=</span>stage cargo run
+</pre></div></table><p>Note that you can use the short or long form of the environment name to specify the environment, <code>stage</code> <em>or</em> <code>staging</code> here. Rocket tells us the environment we have chosen and its configuration when it launches:<table class="code hltable"><tr><td class=linenos><div class=linenodiv><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div><td class=code><div class="code hl"><pre><span></span>$ sudo <span class=nv>ROCKET_ENV</span><span class=o>=</span>staging cargo run
+🔧  Configured <span class=k>for</span> staging.
+    <span class=o>=</span>> address: <span class=m>0</span>.0.0.0
+    <span class=o>=</span>> port: <span class=nv>8000</span>
+    <span class=o>=</span>> log: <span class=nv>normal</span>
+    <span class=o>=</span>> workers: <span class=o>[</span>logical cores * <span class=m>2</span><span class=o>]</span>
+    <span class=o>=</span>> secret key: <span class=nv>generated</span>
+    <span class=o>=</span>> limits: <span class=nv>forms</span> <span class=o>=</span> <span class=nv>32KiB</span>
+    <span class=o>=</span>> keep-alive: <span class=nv>5s</span>
+    <span class=o>=</span>> tls: disabled
+🛰  Mounting <span class=s1>'/'</span>:
+    <span class=o>=</span>> GET / <span class=o>(</span>hello<span class=o>)</span>
+🚀  Rocket has launched from http://0.0.0.0:8000
+</pre></div></table><h3 id=rockettoml>Rocket.toml<a class=headerlink href=#rockettoml title="perma link">#</a></h3><p>An optional <code>Rocket.toml</code> file can be used to specify the configuration parameters for each environment. If it is not present, the default configuration parameters are used. Rocket searches for the file starting at the current working directory. If it is not found there, Rocket checks the parent directory. Rocket continues checking parent directories until the root is reached.<p>The file must be a series of TOML tables, at most one for each environment, and an optional "global" table. Each table contains key-value pairs corresponding to configuration parameters for that environment. If a configuration parameter is missing, the default value is used. The following is a complete <code>Rocket.toml</code> file, where every standard configuration parameter is specified with the default value:<table class="code hltable"><tr><td class=linenos><div class=linenodiv><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26</pre></div><td class=code><div class="code hl"><pre><span></span><span class=k>[development]</span>
+<span class=na>address</span> <span class=o>=</span> <span class=s>"localhost"</span>
+<span class=na>port</span> <span class=o>=</span> <span class=s>8000</span>
+<span class=na>workers</span> <span class=o>=</span> <span class=s>[number of cpus * 2]</span>
+<span class=na>keep_alive</span> <span class=o>=</span> <span class=s>5</span>
+<span class=na>log</span> <span class=o>=</span> <span class=s>"normal"</span>
+<span class=na>secret_key</span> <span class=o>=</span> <span class=s>[randomly generated at launch]</span>
+<span class=na>limits</span> <span class=o>=</span> <span class=s>{ forms = 32768 }</span>
+<span class=k>[staging]</span>
+<span class=na>address</span> <span class=o>=</span> <span class=s>"0.0.0.0"</span>
+<span class=na>port</span> <span class=o>=</span> <span class=s>8000</span>
+<span class=na>workers</span> <span class=o>=</span> <span class=s>[number of cpus * 2]</span>
+<span class=na>keep_alive</span> <span class=o>=</span> <span class=s>5</span>
+<span class=na>log</span> <span class=o>=</span> <span class=s>"normal"</span>
+<span class=na>secret_key</span> <span class=o>=</span> <span class=s>[randomly generated at launch]</span>
+<span class=na>limits</span> <span class=o>=</span> <span class=s>{ forms = 32768 }</span>
+<span class=k>[production]</span>
+<span class=na>address</span> <span class=o>=</span> <span class=s>"0.0.0.0"</span>
+<span class=na>port</span> <span class=o>=</span> <span class=s>8000</span>
+<span class=na>workers</span> <span class=o>=</span> <span class=s>[number of cpus * 2]</span>
+<span class=na>keep_alive</span> <span class=o>=</span> <span class=s>5</span>
+<span class=na>log</span> <span class=o>=</span> <span class=s>"critical"</span>
+<span class=na>secret_key</span> <span class=o>=</span> <span class=s>[randomly generated at launch]</span>
+<span class=na>limits</span> <span class=o>=</span> <span class=s>{ forms = 32768 }</span>
+</pre></div></table><p>The <code>workers</code> and <code>secret_key</code> default parameters are computed by Rocket automatically; the values above are not valid TOML syntax. When manually specifying the number of workers, the value should be an integer: <code>workers = 10</code>. When manually specifying the secret key, the value should a 256-bit base64 encoded string. Such a string can be generated using a tool such as openssl: <code>openssl rand -base64 32</code>.<p>The "global" pseudo-environment can be used to set and/or override configuration parameters globally. A parameter defined in a <code>[global]</code> table sets, or overrides if already present, that parameter in every environment. For example, given the following <code>Rocket.toml</code> file, the value of <code>address</code> will be <code>"1.2.3.4"</code> in every environment:<table class="code hltable"><tr><td class=linenos><div class=linenodiv><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div><td class=code><div class="code hl"><pre><span></span><span class=k>[global]</span>
+<span class=na>address</span> <span class=o>=</span> <span class=s>"1.2.3.4"</span>
+<span class=k>[development]</span>
+<span class=na>address</span> <span class=o>=</span> <span class=s>"localhost"</span>
+<span class=k>[production]</span>
+<span class=na>address</span> <span class=o>=</span> <span class=s>"0.0.0.0"</span>
+</pre></div></table><h3 id=data-limits>Data Limits<a class=headerlink href=#data-limits title="perma link">#</a></h3><p>The <code>limits</code> parameter configures the maximum amount of data Rocket will accept for a given data type. The parameter is a table where each key corresponds to a data type and each value corresponds to the maximum size in bytes Rocket should accept for that type.<p>By default, Rocket limits forms to 32KiB (32768 bytes). To increase the limit, simply set the <code>limits.forms</code> configuration parameter. For example, to increase the forms limit to 128KiB globally, we might write:<table class="code hltable"><tr><td class=linenos><div class=linenodiv><pre>1
+2</pre></div><td class=code><div class="code hl"><pre><span></span><span class=k>[global.limits]</span>
+<span class=na>forms</span> <span class=o>=</span> <span class=s>131072</span>
+</pre></div></table><p>The <code>limits</code> parameter can contain keys and values that are not endemic to Rocket. For instance, the <a href=../../index.html#incoming-data-limits><code>Json</code></a> type reads the <code>json</code> limit value to cap incoming JSON data. You should use the <code>limits</code> parameter for your application's data limits as well. Data limits can be retrieved at runtime via the <a href=../../index.html#method.limits><code>Request::limits()</code></a> method.<h3 id=extras>Extras<a class=headerlink href=#extras title="perma link">#</a></h3><p>In addition to overriding default configuration parameters, a configuration file can also define values for any number of <em>extra</em> configuration parameters. While these parameters aren't used by Rocket directly, other libraries, or your own application, can use them as they wish. As an example, the <a href=../../index.html>Template</a> type accepts a value for the <code>template_dir</code> configuration parameter. The parameter can be set in <code>Rocket.toml</code> as follows:<table class="code hltable"><tr><td class=linenos><div class=linenodiv><pre>1
+2
+3
+4
+5</pre></div><td class=code><div class="code hl"><pre><span></span><span class=k>[development]</span>
+<span class=na>template_dir</span> <span class=o>=</span> <span class=s>"dev_templates/"</span>
+<span class=k>[production]</span>
+<span class=na>template_dir</span> <span class=o>=</span> <span class=s>"prod_templates/"</span>
+</pre></div></table><p>This sets the <code>template_dir</code> extra configuration parameter to <code>"dev_templates/"</code> when operating in the <code>development</code> environment and <code>"prod_templates/"</code> when operating in the <code>production</code> environment. Rocket will prepend the <code>[extra]</code> tag to extra configuration parameters when launching:<table class="code hltable"><tr><td class=linenos><div class=linenodiv><pre>1
+2
+3</pre></div><td class=code><div class="code hl"><pre><span></span>🔧  Configured <span class=k>for</span> development.
+    <span class=o>=</span>> ...
+    <span class=o>=</span>> <span class=o>[</span>extra<span class=o>]</span> template_dir: <span class=s2>"dev_templates/"</span>
+</pre></div></table><p>To retrieve a custom, extra configuration parameter in your application, we recommend using an <a href=../../index.html#ad-hoc-fairings>ad-hoc attach fairing</a> in combination with <a href=../../index.html#managed-state>managed state</a>. For example, if your application makes use of a custom <code>assets_dir</code> parameter:<table class="code hltable"><tr><td class=linenos><div class=linenodiv><pre>1
+2
+3
+4
+5</pre></div><td class=code><div class="code hl"><pre><span></span><span class=k>[development]</span>
+<span class=na>assets_dir</span> <span class=o>=</span> <span class=s>"dev_assets/"</span>
+<span class=k>[production]</span>
+<span class=na>assets_dir</span> <span class=o>=</span> <span class=s>"prod_assets/"</span>
+</pre></div></table><p>The following code will:<ol><li>Read the configuration parameter in an ad-hoc <code>attach</code> fairing.<li>Store the parsed parameter in an <code>AssertsDir</code> structure in managed state.<li>Retrieve the parameter in an <code>assets</code> route via the <code>State</code> guard.</ol><table class="code hltable"><tr><td class=linenos><div class=linenodiv><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20</pre></div><td class=code><div class="code hl"><pre><span></span><span class=k>struct</span> <span class=nc>AssetsDir</span><span class=p>(</span><span class=nb>String</span><span class=p>);</span><span class=w></span>
+<span class=cp>#[get(</span><span class=s>"/&lt;asset..>"</span><span class=cp>)]</span><span class=w></span>
+<span class=k>fn</span> <span class=nf>assets</span><span class=p>(</span><span class=n>asset</span>: <span class=nc>PathBuf</span><span class=p>,</span><span class=w> </span><span class=n>assets_dir</span>: <span class=nc>State</span><span class=o>&lt;</span><span class=n>AssetsDir</span><span class=o>></span><span class=p>)</span><span class=w> </span>-> <span class=nb>Option</span><span class=o>&lt;</span><span class=n>NamedFile</span><span class=o>></span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>    </span><span class=n>NamedFile</span>::<span class=n>open</span><span class=p>(</span><span class=n>Path</span>::<span class=n>new</span><span class=p>(</span><span class=o>&</span><span class=n>assets_dir</span><span class=p>.</span><span class=mi>0</span><span class=p>).</span><span class=n>join</span><span class=p>(</span><span class=n>asset</span><span class=p>)).</span><span class=n>ok</span><span class=p>()</span><span class=w></span>
+<span class=p>}</span><span class=w></span>
+<span class=k>fn</span> <span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>    </span><span class=n>rocket</span>::<span class=n>ignite</span><span class=p>()</span><span class=w></span>
+<span class=w>        </span><span class=p>.</span><span class=n>mount</span><span class=p>(</span><span class=s>"/"</span><span class=p>,</span><span class=w> </span><span class=n>routes</span><span class=o>!</span><span class=p>[</span><span class=n>assets</span><span class=p>])</span><span class=w></span>
+<span class=w>        </span><span class=p>.</span><span class=n>attach</span><span class=p>(</span><span class=n>AdHoc</span>::<span class=n>on_attach</span><span class=p>(</span><span class=s>"Assets Config"</span><span class=p>,</span><span class=w> </span><span class=o>|</span><span class=n>rocket</span><span class=o>|</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>            </span><span class=kd>let</span><span class=w> </span><span class=n>assets_dir</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>rocket</span><span class=p>.</span><span class=n>config</span><span class=p>()</span><span class=w></span>
+<span class=w>                </span><span class=p>.</span><span class=n>get_str</span><span class=p>(</span><span class=s>"assets_dir"</span><span class=p>)</span><span class=w></span>
+<span class=w>                </span><span class=p>.</span><span class=n>unwrap_or</span><span class=p>(</span><span class=s>"assets/"</span><span class=p>)</span><span class=w></span>
+<span class=w>                </span><span class=p>.</span><span class=n>to_string</span><span class=p>();</span><span class=w></span>
+<span class=w>            </span><span class=nb>Ok</span><span class=p>(</span><span class=n>rocket</span><span class=p>.</span><span class=n>manage</span><span class=p>(</span><span class=n>AssetsDir</span><span class=p>(</span><span class=n>assets_dir</span><span class=p>)))</span><span class=w></span>
+<span class=w>        </span><span class=p>}))</span><span class=w></span>
+<span class=w>        </span><span class=p>.</span><span class=n>launch</span><span class=p>();</span><span class=w></span>
+<span class=p>}</span><span class=w></span>
+</pre></div></table><h3 id=environment-variables>Environment Variables<a class=headerlink href=#environment-variables title="perma link">#</a></h3><p>All configuration parameters, including extras, can be overridden through environment variables. To override the configuration parameter <code>{param}</code>, use an environment variable named <code>ROCKET_{PARAM}</code>. For instance, to override the "port" configuration parameter, you can run your application with:<table class="code hltable"><tr><td class=linenos><div class=linenodiv><pre>1
+2
+3
+4
+5</pre></div><td class=code><div class="code hl"><pre><span></span><span class=nv>ROCKET_PORT</span><span class=o>=</span><span class=m>3721</span> ./your_application
+🔧  Configured <span class=k>for</span> development.
+    <span class=o>=</span>> ...
+    <span class=o>=</span>> port: <span class=m>3721</span>
+</pre></div></table><p>Environment variables take precedence over all other configuration methods: if the variable is set, it will be used as the value for the parameter. Variable values are parsed as if they were TOML syntax. As illustration, consider the following examples:<table class="code hltable"><tr><td class=linenos><div class=linenodiv><pre>1
+2
+3
+4
+5
+6
+7</pre></div><td class=code><div class="code hl"><pre><span></span><span class=nv>ROCKET_INTEGER</span><span class=o>=</span><span class=m>1</span>
+<span class=nv>ROCKET_FLOAT</span><span class=o>=</span><span class=m>3</span>.14
+<span class=nv>ROCKET_STRING</span><span class=o>=</span>Hello
+<span class=nv>ROCKET_STRING</span><span class=o>=</span><span class=s2>"Hello"</span>
+<span class=nv>ROCKET_BOOL</span><span class=o>=</span><span class=nb>true</span>
+<span class=nv>ROCKET_ARRAY</span><span class=o>=[</span><span class=m>1</span>,<span class=s2>"b"</span>,3.14<span class=o>]</span>
+<span class=nv>ROCKET_DICT</span><span class=o>={</span><span class=nv>key</span><span class=o>=</span><span class=s2>"abc"</span>,val<span class=o>=</span><span class=m>123</span><span class=o>}</span>
+</pre></div></table><h3 id=programmatic>Programmatic<a class=headerlink href=#programmatic title="perma link">#</a></h3><p>In addition to using environment variables or a config file, Rocket can also be configured using the <a href=../../index.html><code>rocket::custom()</code></a> method and <a href=../../index.html><code>ConfigBuilder</code></a>:<table class="code hltable"><tr><td class=linenos><div class=linenodiv><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div><td class=code><div class="code hl"><pre><span></span><span class=k>use</span><span class=w> </span><span class=n>rocket</span>::<span class=n>config</span>::<span class=p>{</span><span class=n>Config</span><span class=p>,</span><span class=w> </span><span class=n>Environment</span><span class=p>};</span><span class=w></span>
+<span class=kd>let</span><span class=w> </span><span class=n>config</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>Config</span>::<span class=n>build</span><span class=p>(</span><span class=n>Environment</span>::<span class=n>Staging</span><span class=p>)</span><span class=w></span>
+<span class=w>    </span><span class=p>.</span><span class=n>address</span><span class=p>(</span><span class=s>"1.2.3.4"</span><span class=p>)</span><span class=w></span>
+<span class=w>    </span><span class=p>.</span><span class=n>port</span><span class=p>(</span><span class=mi>9234</span><span class=p>)</span><span class=w></span>
+<span class=w>    </span><span class=p>.</span><span class=n>finalize</span><span class=p>()</span><span class=o>?</span><span class=p>;</span><span class=w></span>
+<span class=n>rocket</span>::<span class=n>custom</span><span class=p>(</span><span class=n>config</span><span class=p>)</span><span class=w></span>
+<span class=w>    </span><span class=p>.</span><span class=n>mount</span><span class=p>(..)</span><span class=w></span>
+<span class=w>    </span><span class=p>.</span><span class=n>launch</span><span class=p>();</span><span class=w></span>
+</pre></div></table><p>Configuration via <code>rocket::custom()</code> replaces calls to <code>rocket::ignite()</code> and all configuration from <code>Rocket.toml</code> or environment variables. In other words, using <code>rocket::custom()</code> results in <code>Rocket.toml</code> and environment variables being ignored.<h3 id=configuring-tls>Configuring TLS<a class=headerlink href=#configuring-tls title="perma link">#</a></h3><div class="admonition warning"><span class=title><b>Warning:</b> Rocket's built-in TLS is <strong>not</strong> considered ready for production use. It is intended for development use <em>only</em>.</span></div><p>Rocket includes built-in, native support for TLS >= 1.2 (Transport Layer Security). In order for TLS support to be enabled, Rocket must be compiled with the <code>"tls"</code> feature. To do this, add the <code>"tls"</code> feature to the <code>rocket</code> dependency in your <code>Cargo.toml</code> file:<table class="code hltable"><tr><td class=linenos><div class=linenodiv><pre>1
+2</pre></div><td class=code><div class="code hl"><pre><span></span><span class=k>[dependencies]</span>
+<span class=na>rocket</span> <span class=o>=</span> <span class=s>{ version = "0.4.2", features = ["tls"] }</span>
+</pre></div></table><p>TLS is configured through the <code>tls</code> configuration parameter. The value of <code>tls</code> must be a table with two keys:<ul><li><code>certs</code>: <em>[string]</em> a path to a certificate chain in PEM format<li><code>key</code>: <em>[string]</em> a path to a private key file in PEM format for the certificate in <code>certs</code></ul><p>The recommended way to specify these parameters is via the <code>global</code> environment:<table class="code hltable"><tr><td class=linenos><div class=linenodiv><pre>1
+2
+3</pre></div><td class=code><div class="code hl"><pre><span></span><span class=k>[global.tls]</span>
+<span class=na>certs</span> <span class=o>=</span> <span class=s>"/path/to/certs.pem"</span>
+<span class=na>key</span> <span class=o>=</span> <span class=s>"/path/to/key.pem"</span>
+</pre></div></table><p>Of course, you can always specify the configuration values per environment:<table class="code hltable"><tr><td class=linenos><div class=linenodiv><pre>1
+2</pre></div><td class=code><div class="code hl"><pre><span></span><span class=k>[development]</span>
+<span class=na>tls</span> <span class=o>=</span> <span class=s>{ certs = "/path/to/certs.pem", key = "/path/to/key.pem" }</span>
+</pre></div></table><p>Or via environment variables:<table class="code hltable"><tr><td class=linenos><div class=linenodiv><pre>1</pre></div><td class=code><div class="code hl"><pre><span></span><span class=nv>ROCKET_TLS</span><span class=o>={</span><span class=nv>certs</span><span class=o>=</span><span class=s2>"/path/to/certs.pem"</span>,key<span class=o>=</span><span class=s2>"/path/to/key.pem"</span><span class=o>}</span> cargo run
+</pre></div></table><hr><div class=grid><div class=col style=float:left><a href=../../v0-4/guide/testing.html>◄ Testing</a></div><div class="col text-right"><a href=../../index.html style=margin-left:auto>Pastebin ►</a></div></div></article><div id=search-results style=display:none><div class=cancel-search onclick=cancelSearch()></div><span id=search-status></span><hr><br><div id=hits></div></div></section><footer class=grid><div class=container><div class="col mobile-hide"><a href=https://sergio.bz>© 2016-2019 Sergio Benitez</a></div><div class="col centered"><img src=../../v0-4/images/logo-small.svg alt="Small Rocket Logo"></div><div class="col text-right mobile-hide"><a href=#>BACK TO TOP Δ</a></div></div></footer><script src=../../ajax/libs/lunr-js/2-3-3/lunr.min.js charset=utf-8></script><script>function load_index(e,i,s){var a=new XMLHttpRequest;a.open("GET",e,!0),a.onload=function(){if(200<=a.status&&a.status<400){var e=JSON.parse(a.responseText),n=lunr(function(){this.pipeline.reset(),this.pipeline.add(lunr.trimmer),this.field("title",{boost:10}),this.field("body"),this.ref("id");var n=this;e.documents.forEach(function(e){n.add(e)})}),t={};for(var o in e.documents){var r=e.documents[o];t[r.id]=r}i(n,t)}else s("error talking to server")},a.onerror=s,a.send()}function on_search_results(e,n,t){var o,r,i=!1;load_index(e,function(e,n){o=e,r=n,i=!0},function(){console.log("error loading index")});var s=document.getElementById(n);s.addEventListener("keyup",function(){if(i){var e=s.value.trim(),n=o.query(function(n){e.toLowerCase().split(" ").filter(Boolean).forEach(function(e){n.term(e,{wildcard:lunr.Query.wildcard.TRAILING})})}).map(function(e){return r[e.ref]});t(n)}else console.log("index not loaded. aborting search")})}</script><script>var searchBar = document.getElementById('search-input');
+    var article = document.getElementsByTagName('article')[0];
+    var searchResults = document.getElementById('search-results');
+    var cancelButton = document.getElementById("cancel-search");
+    var searchStatus = document.getElementById("search-status");
+    var hitsDiv = document.getElementById("hits");
+    var originalTitle = document.title;
+    String.prototype.hashCode = function() {
+      var hash = 0, i, chr;
+      if (this.length === 0) return hash;
+      for (i = 0; i < this.length; i++) {
+          chr   = this.charCodeAt(i);
+          hash  = ((hash << 5) - hash) + chr;
+          hash |= 0; // Convert to 32bit integer
+      }
+      return hash;
+    };
+    function toggleResultsIfNecessary() {
+      var query = escape(searchBar.value);
+      if (query.length > 1) {
+        article.style.display = "none";
+        searchResults.style.display = "block";
+        document.title = `Search for "${query}" - Rocket Programming Guide`;
+        return true;
+      } else {
+        article.style.display = "block";
+        searchResults.style.display = "none";
+        document.title = originalTitle;
+        return false;
+      }
+    }
+    function cancelSearch() {
+      searchBar.value = "";
+      toggleResultsIfNecessary();
+    }
+    function escape(string) {
+      var doc = new DOMParser().parseFromString(string, 'text/html');
+      var stripped = doc.body.textContent || "";
+      return stripped.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1").trim();
+    }
+    function replaceAll(text, query, replacement) {
+      var space = new RegExp(lunr.tokenizer.separator, "igm");
+      var find = escape(query).replace(space, "|");
+      return text.replace(new RegExp(find, 'igm'), replacement);
+    }
+    function focus(body, query, length, highlight) {
+      var space = new RegExp(lunr.tokenizer.separator, "igm");
+      var find = escape(query).replace(space, "|");
+      var index = body.search(new RegExp(find, 'igm'));
+      if (index === -1) {
+        return body.substring(0, length) + '..';
+      } else {
+        var r = body.substring(0, 50).hashCode() % (length / 8);
+        var left = Math.max(index - (length / 8) - r, 0);
+        var right = Math.min(body.length, left + length);
+        var focused = body.substring(left, right).trim();
+        var prefix = (left === 0) ? '' : '..';
+        var suffix = (right === body.length) ? '' : '..';
+        return prefix + focused.replace(new RegExp(find, 'igm'), highlight) + suffix;
+      }
+    }
+    on_search_results("../../v0-4/js/search-index.js", "search-input", function(docs) {
+      if (!toggleResultsIfNecessary()) {
+        return;
+      }
+      hitsDiv.innerHTML = "";
+      var query = escape(searchBar.value);
+      if (docs.length == 0) {
+        noResults = `<b>We didn't find any results for <em>"${query}"</em>.</b>`;
+        searchStatus.innerHTML = noResults;
+        return;
+      }
+      var top = `<b>Showing ${docs.length} results for <em>"${query}"</em>.</b>`;
+      searchStatus.innerHTML = top;
+      function highlight(token) {
+        return `<em>${token}</em>`;
+      }
+      for (doc of docs) {
+        var docTitle = replaceAll(doc.title, query, highlight);
+        var hitHtml =
+          `
+            <div class="hit">
+              <a href="../../guide/${doc.id}"><b>${docTitle}</b></a>
+              <br />
+              <span>${doc.breadcrumb}</span>
+              <p class="hit-content">${focus(doc.body, query, 400, highlight)}</p>
+            </div>
+        `;
+        hitsDiv.insertAdjacentHTML('beforeend', hitHtml);
+      }
+    })</script><script>function toggleOptions(){if(!(870<=screen.width)){var e=document.querySelector("nav.version-select options");e.style.display="none"===e.style.display?"block":"none"}}</script><script>!function(){var r=null,u=0,a=document.querySelector(".front.clouds"),c=document.querySelector(".back.clouds"),s=20,d=5;window.requestAnimationFrame(function e(n){if(r||(r=n),n-u<50)window.requestAnimationFrame(e);else{var o=n-r,t=s*(o/1e3),i=d*(o/1e3);a.style.backgroundPositionX=-t+"px",c.style.backgroundPositionX=-i+"px",u=n,window.requestAnimationFrame(e)}})}()</script>
