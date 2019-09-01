@@ -76,7 +76,7 @@
 </a><span></span>
 <section class="tight dark">
     <main class=container>
-        <h2 id=anatomy-of-a-rocket-application>Anatomy of Egua<a class=headerlink href=#anatomy-of-a-rocket-application title="perma link">#</a></h2>
+        <h2 id=anatomy-of-a-rocket-application>Anatomy of Egua</h2>
         <p>Here is some of Egua syntax.
             <div id=tabs-panel class=grid>
                 <input type=radio name=tab-state id=routing checked>
@@ -87,140 +87,268 @@
                 <input type=radio name=tab-state id=launching>
                 <div class=tabs>
                     <label for=routing id=routing-tab class=tab><img src=images/routing-tab-icon.svg alt="Routing Icon"> Strings</label>
-                    <label for=dynamic-params id=dynamic-params-tab class=tab><img src=images/dynamic-params-tab-icon.svg alt="Dynamic Params Icon"> Dynamic Params</label>
-                    <label for=handling-data id=handling-data-tab class=tab><img src=images/handling-data-tab-icon.svg alt="Handling Data Icon"> Handling Data</label>
-                    <label for=request-guards id=request-guards-tab class=tab><img src=images/request-guards-tab-icon.svg alt="Request Guards Icon"> Request Guards</label>
-                    <label for=responders id=responders-tab class=tab><img src=images/responders-tab-icon.svg alt="Responders Icon"> Responders</label>
-                    <label for=launching id=launching-tab class=tab><img src=images/launching-tab-icon.svg alt="Launching Icon"> Launching</label>
+                    <label for=dynamic-params id=dynamic-params-tab class=tab><img src=images/dynamic-params-tab-icon.svg alt="Dynamic Params Icon"> Math</label>
+                    <label for=handling-data id=handling-data-tab class=tab><img src=images/handling-data-tab-icon.svg alt="Handling Data Icon"> Conditionals</label>
+                    <label for=request-guards id=request-guards-tab class=tab><img src=images/request-guards-tab-icon.svg alt="Request Guards Icon"> Looping</label>
+                    <label for=responders id=responders-tab class=tab><img src=images/responders-tab-icon.svg alt="Responders Icon"> Lists</label>
+                    <label for=launching id=launching-tab class=tab><img src=images/launching-tab-icon.svg alt="Launching Icon"> Functions</label>
                 </div>
                 <div class="panels lighter-code">
                     <div id=routing-panel class=panel>
-                        <p>Rocket's main task is to route incoming requests to the appropriate request handler using your application's declared routes. Routes are declared using Rocket's <em>route</em> attributes. The attribute describes the requests that match the route. The attribute is placed on top of a function that is the request handler for that route.
-                            <p>As an example, consider the simple route below:
+                        <p>• Strings are given with double " ".<br>
+                            • Concatenation is done with +.<br>
+                            • No typed variable required to assign string to it. <br>
+                            
+                            
+                            <p>An example, using simple string structure:
                                 <table class="code hltable">
                                     <tr>
                                         <td class=linenos>
                                             <div class=linenodiv><pre>1
 2
 3
-4</pre></div>
+4
+5
+6</pre></div>
                                             <td class=code>
-                                                <div class="code hl"><pre><span></span><span class=cp>#[get(</span><span class=s>"/"</span><span class=cp>)]</span><span class=w></span>
-<span class=k>fn</span> <span class=nf>index</span><span class=p>()</span><span class=w> </span>-> <span class=kp>&</span><span class=nb>'static</span><span class=w> </span><span class=kt>str</span><span class=w> </span><span class=p>{</span><span class=w></span>
-<span class=w>   </span><span class=s>"Hello, world!"</span><span class=w></span>
-<span class=p>}</span><span class=w></span>
+                                                # String concatentation and printing <br>
+<br>
+                                                x = "Hello World" <br>
+                                                y = "Hello Egua" <br>
+                                                <br>
+                                                printf x + ", or, " + y <br>
 </pre></div>
                                 </table>
-                                <p>This route, named <code>index</code>, will match against incoming HTTP <code>GET</code> requests to the <code>/</code> path, the index. The request handler returns a string. Rocket will use the string as the body of a fully formed HTTP response.</div>
+                                <p>
+                                    Running program: <br>
+                                    <code>World, or, Hello Egua</code></div>
                     <div id=dynamic-params-panel class=panel>
-                        <p>Rocket allows you to interpret segments of a request path dynamically. To illustrate, let's use the following route:
+                        <p>     • Egua accepts basic +, -, / and * operations. <br>
+                            • Exponent is given with **. 2 ** 2 = 4. <br>
+                            • Module is given by %. <br>
+                            • The arithmetic of Egua is linear from left to right, so it does not use the mathematical priority rules. WATCH OUT! <br>
+                            • Parentheses do not require mathematical operation. <br>
+                                
+                                
                             <table class="code hltable">
                                 <tr>
                                     <td class=linenos>
                                         <div class=linenodiv><pre>1
 2
 3
-4</pre></div>
+4
+5
+6
+7</pre></div>
                                         <td class=code>
-                                            <div class="code hl"><pre><span></span><span class=cp>#[get(</span><span class=s>"/hello/&lt;name>/&lt;age>"</span><span class=cp>)]</span><span class=w></span>
-<span class=k>fn</span> <span class=nf>hello</span><span class=p>(</span><span class=n>name</span>: <span class=nb>String</span><span class=p>,</span><span class=w> </span><span class=n>age</span>: <span class=kt>u8</span><span class=p>)</span><span class=w> </span>-> <span class=nb>String</span> <span class=p>{</span><span class=w></span>
-<span class=w>    </span><span class=n>format</span><span class=o>!</span><span class=p>(</span><span class=s>"Hello, {} year old named {}!"</span><span class=p>,</span><span class=w> </span><span class=n>age</span><span class=p>,</span><span class=w> </span><span class=n>name</span><span class=p>)</span><span class=w></span>
-<span class=p>}</span><span class=w></span>
+                                                x = 23 / 2 + 15.0 % 3.0 ** 2 * -4 <br>
+                                                y = 6 <br>
+                                                z = y / 2 <br>
+                                                printf 5 <br>
+                                                printf x <br>
+                                                printf y <br>
+                                                printf z <br>
 </pre></div>
                             </table>
-                            <p>The <code>hello</code> route above matches two dynamic path segments declared inside brackets in the path: <code>&lt;name></code> and <code>&lt;age></code>. <em>Dynamic</em> means that the segment can be <em>any</em> value the end-user desires.
-                                <p>Each dynamic parameter (<code>name</code> and <code>age</code>) must have a type, here <code>&str</code> and <code>u8</code>, respectively. Rocket will attempt to parse the string in the parameter's position in the path into that type. The route will only be called if parsing succeeds. To parse the string, Rocket uses the <a href=index.html>FromParam</a> trait, which you can implement for your own types!</div>
+                            <p>
+                                    Running program: <br>
+                                   <code> 5 <br>
+                                    -9 <br>
+                                        6 <br>
+                                    3 <br></code>
+                            </div>
                     <div id=handling-data-panel class=panel>
-                        <p>Request body data is handled in a special way in Rocket: via the <a href=index.html>FromData</a> trait. Any type that implements <code>FromData</code> can be derived from incoming body data. To tell Rocket that you're expecting request body data, the <code>data</code> route argument is used with the name of the parameter in the request handler:
+                        <p>• All conditionals must end with End, whether only the if or the if and else set. <br>
+                            • Logical operators are <,>, <=,> = and ==.                               
                             <table class="code hltable">
                                 <tr>
                                     <td class=linenos>
                                         <div class=linenodiv><pre>1
 2
 3
-4</pre></div>
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+</pre></div>
                                         <td class=code>
-                                            <div class="code hl"><pre><span></span><span class=cp>#[post(</span><span class=s>"/login"</span><span class=cp>, data = </span><span class=s>"&lt;user_form>"</span><span class=cp>)]</span><span class=w></span>
-<span class=k>fn</span> <span class=nf>login</span><span class=p>(</span><span class=n>user_form</span>: <span class=nc>Form</span><span class=o>&lt;</span><span class=n>UserLogin</span><span class=o>></span><span class=p>)</span><span class=w> </span>-> <span class=nb>String</span> <span class=p>{</span><span class=w></span>
-<span class=w>   </span><span class=n>format</span><span class=o>!</span><span class=p>(</span><span class=s>"Hello, {}!"</span><span class=p>,</span><span class=w> </span><span class=n>user_form</span><span class=p>.</span><span class=n>name</span><span class=p>)</span><span class=w></span>
-<span class=p>}</span><span class=w></span>
+                                                y = 6 <br>
+                                                if 5 > 1: <br>
+                                                &nbsp&nbsp&nbsp                                                    printf 7 <br>
+                                                end <br>
+                                                x = 20.0 <br>
+                                                if x < 1000: <br>
+                                                &nbsp&nbsp&nbsp    printf x<br>
+                                                else: <br>
+                                                &nbsp&nbsp&nbsp    printf 10<br>
+                                                end<br>
+                                                if x == 2:<br>
+                                                &nbsp&nbsp&nbsp    if y != x:<br>
+                                                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp        printf 3<br>
+                                                &nbsp&nbsp&nbsp   end<br>
+                                                else:<br>
+                                                &nbsp&nbsp&nbsp  printf y<br>
+                                                end<br>
+                                                if y >= 5:<br>
+                                                &nbsp&nbsp&nbsp   printf y<br>
+                                                end<br>
+                                                <br>
+                                                if y <= 6:<br>
+                                                &nbsp&nbsp&nbsp   printf y<br> 
+                                                end <br>
 </pre></div>
                             </table>
-                            <p>The <code>login</code> route above says that it expects <code>data</code> of type <code>Form&lt;UserLogin></code> in the <code>user_form</code> parameter. The <a href=index.html>Form</a> type is a built-in Rocket type that knows how to parse web forms into structures. Rocket will automatically attempt to parse the request body into the <code>Form</code> and call the <code>login</code> handler if parsing succeeds. Other built-in <code>FromData</code> types include <a href=index.html><code>Data</code></a>, <a href=index.html><code>Json</code></a>, and <a href=index.html><code>Flash</code></a>.</div>
+                            <p> Running program: <br>
+                                <code> 7 <br>
+                                    20 <br>
+                                          6 <br>
+                                               6 <br>
+                                                6</code></div>
                     <div id=request-guards-panel class=panel>
-                        <p>In addition to dynamic path and data parameters, request handlers can also contain a third type of parameter: <em>request guards</em>. Request guards aren't declared in the route attribute, and any number of them can appear in the request handler signature.
-                            <p>Request guards <em>protect</em> the handler from running unless some set of conditions are met by the incoming request metadata. For instance, if you are writing an API that requires sensitive calls to be accompanied by an API key in the request header, Rocket can protect those calls via a custom <code>ApiKey</code> request guard:
+                        <p>• While loop needs End at end of scope.
                                 <table class="code hltable">
                                     <tr>
                                         <td class=linenos>
                                             <div class=linenodiv><pre>1
-2</pre></div>
+2
+3
+4
+5</pre></div>
                                             <td class=code>
-                                                <div class="code hl"><pre><span></span><span class=cp>#[get(</span><span class=s>"/sensitive"</span><span class=cp>)]</span><span class=w></span>
-<span class=k>fn</span> <span class=nf>sensitive</span><span class=p>(</span><span class=n>key</span>: <span class=nc>ApiKey</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w> </span><span class=p>...</span><span class=w> </span><span class=p>}</span><span class=w></span>
-</pre></div>
+                                                    a = 0 <br>
+                                                    while a < 5: <br>
+                                                    &nbsp&nbsp&nbsp    a = a + 1 <br>
+                                                    &nbsp&nbsp&nbsp    printf a <br>
+                                                    end <br>
+                                                    
                                 </table>
-                                <p><code>ApiKey</code> protects the <code>sensitive</code> handler from running incorrectly. In order for Rocket to call the <code>sensitive</code> handler, the <code>ApiKey</code> type needs to be derived through a <a href=index.html><code>FromRequest</code></a> implementation, which in this case, validates the API key header. Request guards are a powerful and unique Rocket concept; they centralize application policy and invariants through types.</div>
+                                <p>
+                                        Running program: <br>
+                                       <code> 1  <br>
+                                            2 <br>
+                                                  3<br>
+                                                        4<br>
+                                                                    5</code><br>
+                                </div>
                     <div id=responders-panel class=panel>
-                        <p>The return type of a request handler can be any type that implements <a href=index.html>Responder</a>:
+                        <p>
+                                • .append() appends elements to the list. <br>
+                                • .pop() removes the last element from the list. <br>
+                                • len() returns the size of the list. <br>
                             <table class="code hltable">
                                 <tr>
                                     <td class=linenos>
                                         <div class=linenodiv><pre>1
-2</pre></div>
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14</pre></div>
                                         <td class=code>
-                                            <div class="code hl"><pre><span></span><span class=cp>#[get(</span><span class=s>"/"</span><span class=cp>)]</span><span class=w></span>
-<span class=k>fn</span> <span class=nf>route</span><span class=p>()</span><span class=w> </span>-> <span class=nc>T</span><span class=w> </span><span class=p>{</span><span class=w> </span><span class=p>...</span><span class=w> </span><span class=p>}</span><span class=w></span>
-</pre></div>
+                                                b = 9 <br>
+                                                a = [1,b,3.2,4,5.2,6,7,8] <br>
+                                                d = [] <br>
+                                                printf a <br>
+                                                printf a[0] <br>
+                                                c = a[4] <br>
+                                                e = len(a) <br>
+                                                printf "Length : " + e <br>
+                                                d.append(2) <br>
+                                                d.append(6) <br>
+                                                printf "Appended 2, 6 " <br>
+                                                printf d <br>
+                                                d.pop() <br>
+                                                printf "Using pop" <br>
                             </table>
-                            <p>Above, T must implement <code>Responder</code>. Rocket implements <code>Responder</code> for many of the standard library types including <code>&str</code>, <code>String</code>, <code>File</code>, <code>Option</code>, and <code>Result</code>. Rocket also implements custom responders such as <a href=index.html>Redirect</a>, <a href=index.html>Flash</a>, and <a href=index.html>Template</a>.
-                                <p>The task of a <code>Responder</code> is to generate a <a href=index.html><code>Response</code></a>, if possible. <code>Responder</code>s can fail with a status code. When they do, Rocket calls the corresponding error catcher, a <code>catch</code> route, which can be declared as follows:
-                                    <table class="code hltable">
-                                        <tr>
-                                            <td class=linenos>
-                                                <div class=linenodiv><pre>1
-2</pre></div>
-                                                <td class=code>
-                                                    <div class="code hl"><pre><span></span><span class=cp>#[catch(404)]</span><span class=w></span>
-<span class=k>fn</span> <span class=nf>not_found</span><span class=p>()</span><span class=w> </span>-> <span class=nc>T</span><span class=w> </span><span class=p>{</span><span class=w> </span><span class=p>...</span><span class=w> </span><span class=p>}</span><span class=w></span>
-</pre></div>
-                                    </table>
+                            <p>
+                                    Running program: <br>
+<code>[1,9,3.2,4,5.2,6,7,8] <br>
+1 <br>
+Length : 8 <br>
+Appended 2, 6 <br>
+[2,6] <br>
+Using pop </code>
+                                   
                     </div>
                     <div id=launching-panel class=panel>
-                        <p>Launching a Rocket application is the funnest part! For Rocket to begin dispatching requests to routes, the routes need to be <em>mounted</em>. After mounting, the application needs to be <em>launched</em>. These two steps, usually done in <code>main</code>, look like:
+                        <p>     - Function is defined with function. <br>
+                                - Function can perform actions on its scope when called or return value, which requires the function call to be assigned to a variable. <br>
+                                - Every function requires End at the end of its scope. <br>
                             <table class="code hltable">
                                 <tr>
                                     <td class=linenos>
                                         <div class=linenodiv><pre>1
 2
-3</pre></div>
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14</pre></div>
                                         <td class=code>
-                                            <div class="code hl"><pre><span></span><span class=n>rocket</span>::<span class=n>ignite</span><span class=p>()</span><span class=w></span>
-<span class=w>   </span><span class=p>.</span><span class=n>mount</span><span class=p>(</span><span class=s>"/base"</span><span class=p>,</span><span class=w> </span><span class=n>routes</span><span class=o>!</span><span class=p>[</span><span class=n>index</span><span class=p>,</span><span class=w> </span><span class=n>another</span><span class=p>])</span><span class=w></span>
-<span class=w>   </span><span class=p>.</span><span class=n>launch</span><span class=p>();</span><span class=w></span>
-</pre></div>
+                                                func g(x): <br>
+                                                &nbsp&nbsp&nbspreturn x <br>
+                                            end <br>
+                                            <br>
+                                            func f(): <br>
+                                            &nbsp&nbsp&nbspx = 20 <br>
+                                            &nbsp&nbsp&nbspprintf 5 <br>
+                                            &nbsp&nbsp&nbspa = g(x) <br>
+                                            &nbsp&nbsp&nbspprintf a <br>
+                                            end <br>
+                                            <br>
+                                            x = 10 <br>
+                                            f() <br>
+                                            printf x <br>
                             </table>
-                            <p>The <code>mount</code> call takes a base path and a set of routes via the <code>routes!</code> macro. The base path (<code>/base</code> above) is prepended to the path of every route in the list. This effectively namespaces the routes, allowing for easier composition.
-                                <p>The <code>launch</code> call starts the server. In development, Rocket prints useful information to the console to let you know everything is okay.
-                                    <table class="code hltable">
-                                        <tr>
-                                            <td class=linenos>
-                                                <div class=linenodiv><pre>1</pre></div>
-                                                <td class=code>
-                                                    <div class="code hl"><pre><span></span>🚀  Rocket has launched from http://localhost:8000
-</pre></div>
+                            <p>      Running program: <br>
+                                   <code> 5 <br>
+                                    20 <br>
+                                    10 <br></code>
+                            
                                     </table>
                     </div>
                 </div>
             </div>
-            <h2 id=how-rocket-works>How Rocket Works<a class=headerlink href=#how-rocket-works title="perma link">#</a></h2>
-            <p>Every request received by a Rocket web application follows a simple 3-step process from request to response.
+            <h2 id=how-rocket-works>How Egua IDE Works</h2>
+            <p>Some features you can use in Egua Online IDE.
                 <div class="grid work-step">
                     <div class="col no-flex center centered circle-container">
                         <div class="blue circle">1</div>
-                        <h4>Validation</h4></div>
+                        <h4>Code Editor</h4></div>
                     <div class="col blocky-code">
-                        <p>First, Rocket validates a matching request by ensuring that all of the types in a given handler can be derived from the incoming request. If the types cannot be derived, the request is forwarded to the next matching route until a route’s types validate or there are no more routes to try. If all routes fail, a customizable <strong>404</strong> error is returned.
+                        <p>Work efficiently in a code editor with a function hidden option and Monokai Theme.
                             <table class="code hltable">
                                 <tr>
                                     <td class=linenos>
@@ -229,50 +357,42 @@
 3
 4</pre></div>
                                         <td class=code>
-                                            <div class="code hl"><pre><span></span><span class=cp>#[post(</span><span class=s>"/user"</span><span class=cp>, data = </span><span class=s>"&lt;new_user>"</span><span class=cp>)]</span><span class=w></span>
-<span class=k>fn</span> <span class=nf>new_user</span><span class=p>(</span><span class=n>admin</span>: <span class=nc>AdminUser</span><span class=p>,</span><span class=w> </span><span class=n>new_user</span>: <span class=nc>Form</span><span class=o>&lt;</span><span class=n>User</span><span class=o>></span><span class=p>)</span><span class=w> </span>-> <span class=nc>T</span><span class=w> </span><span class=p>{</span><span class=w></span>
-<span class=w>   </span><span class=p>...</span><span class=w></span>
-<span class=p>}</span><span class=w></span>
+                                                # Egua IDE [www.egua.tech] <br><br><br><br>
 </pre></div>
                             </table>
-                            <p>For the <code>new_user</code> handler above to be called, the following conditions must hold:
-                                <ul>
-                                    <li>The request method must be <code>POST</code>.
-                                        <li>The request path must be <code>/user</code>.
-                                            <li>The request must contain <code>data</code> in its body.
-                                                <li>The request metadata must authenticate an <code>AdminUser</code>.
-                                                    <li>The request body must be a form that parses into a <code>User</code> struct.</ul>
+                            <p>Features: <br>
+                                &nbsp&nbsp&nbsp• Monokai theme <br>
+                                &nbsp&nbsp&nbsp• Div screen <br>
+                                &nbsp&nbsp&nbsp• Lines enumerated
+
                     </div>
                 </div>
                 <div class="grid work-step">
                     <div class="col no-flex center centered circle-container">
                         <div class="purple circle">2</div>
-                        <h4>Processing</h4></div>
+                        <h4>Examples</h4></div>
                     <div class="col blocky-code">
-                        <p>Next, the request is processed by an arbitrary handler. This is where most of the business logic in an application resides, and the part of your applications you’ll likely spend the most time writing. In Rocket, handlers are simply functions - that’s it! The only caveat is that the function’s return type must implement the <code>Responder</code> trait. The <code>new_user</code> function above is an example of a handler.</div>
+                        <p>The online IDE has a sample session, which contains code / scripts previously developed for quick testing and simplified learning of the Egua language. <br>
+                            • Hello, World, Strings, Math, Conditional, Looping, Functions, Arguments, Fibonnaci, Lists and Factorial.
+                        </div>
                 </div>
                 <div class="grid work-step">
                     <div class="col no-flex center centered circle-container">
                         <div class="red circle">3</div>
-                        <h4>Response</h4></div>
+                        <h4>Egua Console</h4></div>
                     <div class="col blocky-code">
-                        <p>Finally, Rocket responds to the client by transforming the return value of the handler into an HTTP response. The HTTP response generated from the returned value depends on the type’s specific <code>Responder</code> trait implementation.
+                        <p>With the console you can run your code and check the script output. It's very simple, just hit <code>Run</code>.
                             <table class="code hltable">
                                 <tr>
                                     <td class=linenos>
-                                        <div class=linenodiv><pre>1</pre></div>
+                                        <div class=linenodiv><pre> <br><br><br></pre></div>
                                         <td class=code>
-                                            <div class="code hl"><pre><span></span><span class=k>fn</span> <span class=nf>route</span><span class=p>()</span><span class=w> </span>-> <span class=nc>T</span><span class=w> </span><span class=p>{</span><span class=w> </span><span class=p>...</span><span class=w> </span><span class=p>}</span><span class=w></span>
+                                                >> Egua 1.0.0 | [www.egua.tech] <br>
+                                                Syntactically correct program: true <br>
+                                                Running program: <br> <br> <br>
 </pre></div>
                             </table>
-                            <p>If the function above is used as a handler, for instance, then the type <code>T</code> must implement <code>Responder</code>. Rocket provides many useful responder types out of the box. They include:
-                                <ul>
-                                    <li><code>Json&lt;T></code>: Serializes the structure T into JSON and returns it to the client.
-                                        <li><code>Template</code>: Renders a template file and returns it to the client.
-                                            <li><code>Redirect</code>: Returns a properly formatted HTTP redirect.
-                                                <li><code>NamedFile</code>: Streams a given file to the client with the Content-Type taken from the file’s extension.
-                                                    <li><code>Stream</code>: Streams data to the client from an arbitrary <code>Read</code> value.
-                                                        <li>Many Primitive Types: <code>String</code>, <code>&str</code>, <code>File</code>, <code>Option</code>, <code>Result</code>, and others all implement the <code>Responder</code> trait.</ul>
+                            <p>You can also <code>Clear</code> your console to run another script just using clear button.
                     </div>
                 </div>
     </main>
