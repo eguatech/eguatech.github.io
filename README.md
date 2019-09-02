@@ -1,3 +1,3 @@
 # This is Egua website
 
-The Egua programming language
+Source code for www.egua.tech
