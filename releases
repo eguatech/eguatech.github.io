@@ -52,7 +52,7 @@
     <div class=container><a id=logo href="/"><span>Linguagem de Programação Egua</span></a>
         <input type=checkbox id=toggle>
         <label for=toggle class=hamburger><span></span> <span></span> <span></span></label>
-        <nav class=main><a href="documentacao">documentacao</a> <a href="releases">releases</a> <a href="https://egua.tech/egua/" target="_blank">ide online</a> <a href="https://github.com/eguatech/exemplos" target="_blank">examples</a> <a href="https://github.com/eguatech/egua" target="_blank">source code</a></nav>
+        <nav class=main><a href="documentacao">documentacao</a> <a href="releases">versão <a href="https://egua.tech/egua/" target="_blank">ide online</a> <a href="https://github.com/eguatech/exemplos" target="_blank">exemplos <a href="https://github.com/eguatech/egua" target="_blank">código fonte</a></nav>
         <div class=centered>
             <h1>Releases</h1>
             <h4>The latest release in the world of Egua.</h4></div>

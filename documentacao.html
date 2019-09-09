@@ -13,7 +13,7 @@
 
 
 <meta name=viewport content="width=device-width">
-<title>documentacao - Linguagem de Programação Egua</title>
+<title>Documentação - Linguagem de Programação Egua</title>
 <meta name=description content="Egua is a simple and lightly interpreted programming language designed to encourage scientific research.">
 <meta name=author content="Lucas Pompeu and Heictor Costa">
 <link href="https://fonts.googleapis.com/css?family=Proza+Libre:400,500" rel=stylesheet>
@@ -64,10 +64,10 @@
     <div class=container><a id=logo href="/"><span>Linguagem de Programação Egua</span></a>
         <input type=checkbox id=toggle>
         <label for=toggle class=hamburger><span></span> <span></span> <span></span></label>
-        <nav class=main><a href="documentacao">documentação</a> <a href="https://github.com/eguatech/egua/releases" target="_blank">releases</a> <a href="https://egua.tech/egua/" target="_blank">ide online</a> <a href="https://github.com/eguatech/examples" target="_blank">examples</a> <a href="https://github.com/eguatech" target="_blank">source code</a></nav>
+        <nav class=main><a href="documentacao">documentação</a> <a href="https://github.com/eguatech/egua/releases" target="_blank">versão</a><a href="https://egua.tech/egua/" target="_blank">ide online</a> <a href="https://github.com/eguatech/examples" target="_blank">exemplos</a> <a href="https://github.com/eguatech" target="_blank">código fonte</a></nav>
         <div class=centered>
             <h1>Documentação</h1>
-            <h4>A brief look at what makes Egua special.</h4></div>
+            <h4>Uma breve olhada no que torna o Egua especial.</h4></div>
     </div>
 </header>
 <a href=https://github.com/eguatech target="_blank" class=github-corner aria-label="View source on Github">
@@ -88,8 +88,8 @@
 </a><span></span>
 <section class="tight dark">
     <main class=container>
-        <h2 id=anatomy-of-a-rocket-application>Anatomy of Egua</h2>
-        <p>Here is some of Egua syntax.
+        <h2 id=anatomy-of-a-rocket-application>Anatomia de Egua</h2>
+        <p>Aqui estão algumas especificações da sintaxe do Egua.
             <div id=tabs-panel class=grid>
                 <input type=radio name=tab-state id=routing checked>
                 <input type=radio name=tab-state id=dynamic-params>
@@ -99,20 +99,20 @@
                 <input type=radio name=tab-state id=launching>
                 <div class=tabs>
                     <label for=routing id=routing-tab class=tab><img src=images/routing-tab-icon.svg alt="Routing Icon"> Strings</label>
-                    <label for=dynamic-params id=dynamic-params-tab class=tab><img src=images/dynamic-params-tab-icon.svg alt="Dynamic Params Icon"> Math</label>
-                    <label for=handling-data id=handling-data-tab class=tab><img src=images/handling-data-tab-icon.svg alt="Handling Data Icon"> Conditionals</label>
-                    <label for=request-guards id=request-guards-tab class=tab><img src=images/request-guards-tab-icon.svg alt="Request Guards Icon"> Looping</label>
-                    <label for=responders id=responders-tab class=tab><img src=images/responders-tab-icon.svg alt="Responders Icon"> Lists</label>
-                    <label for=launching id=launching-tab class=tab><img src=images/launching-tab-icon.svg alt="Launching Icon"> Functions</label>
+                    <label for=dynamic-params id=dynamic-params-tab class=tab><img src=images/dynamic-params-tab-icon.svg alt="Dynamic Params Icon"> Matemática</label>
+                    <label for=handling-data id=handling-data-tab class=tab><img src=images/handling-data-tab-icon.svg alt="Handling Data Icon"> Condicionais</label>
+                    <label for=request-guards id=request-guards-tab class=tab><img src=images/request-guards-tab-icon.svg alt="Request Guards Icon"> Repetição</label>
+                    <label for=responders id=responders-tab class=tab><img src=images/responders-tab-icon.svg alt="Responders Icon"> Listas</label>
+                    <label for=launching id=launching-tab class=tab><img src=images/launching-tab-icon.svg alt="Launching Icon"> Funções</label>
                 </div>
                 <div class="panels lighter-code">
                     <div id=routing-panel class=panel>
-                        <p>• Strings are given with double " ".<br>
-                            • Concatenation is done with +.<br>
-                            • No typed variable required to assign string to it. <br>
+                        <p>• Strings são dadas com dupla aspas " ".<br>
+                            • A concatenação é feita com +.<br>
+                            • Nenhuma variável tipada é necessária para atribuir uma string a ela. <br>
 
 
-                            <p>An example, using simple string structure:
+                            <p>Um exemplo, usando uma estrutura de strings simples:
                                 <table class="code hltable">
                                     <tr>
                                         <td class=linenos>
@@ -123,7 +123,7 @@
 5
 6</pre></div>
                                             <td class=code>
-                                                # String concatentation and printing <br>
+                                                # Concatentação e impressão de strings <br>
 <br>
                                                 x = "Hello World" <br>
                                                 y = "Hello Egua" <br>
@@ -132,14 +132,14 @@
 </pre></div>
                                 </table>
                                 <p>
-                                    Running program: <br>
+                                    Programa em execução: <br>
                                     <code>World, or, Hello Egua</code></div>
                     <div id=dynamic-params-panel class=panel>
-                        <p>     • Egua accepts basic +, -, / and * operations. <br>
-                            • Exponent is given with **. 2 ** 2 = 4. <br>
-                            • Module is given by %. <br>
-                            • The arithmetic of Egua is linear from left to right, so it does not use the mathematical priority rules. WATCH OUT! <br>
-                            • Parentheses do not require mathematical operation. <br>
+                        <p>  • O Egua aceita operações básicas +, -, / e *. <br>
+                             • O expoente é dado com **. 2 ** 2 = 4. <br>
+                             • O módulo é dado por %. <br>
+                             • A aritmética de Egua é linear da esquerda para a direita, portanto, não usa as regras de prioridade matemática. CUIDADO! <br>
+                             • Parênteses não permite operação matemática. <br>
 
 
                             <table class="code hltable">
@@ -163,15 +163,15 @@
 </pre></div>
                             </table>
                             <p>
-                                    Running program: <br>
+                                    Programa em execução: <br>
                                    <code> 5 <br>
                                     -9 <br>
                                         6 <br>
                                     3 <br></code>
                             </div>
                     <div id=handling-data-panel class=panel>
-                        <p>• All conditionals must end with End, whether only the if or the if and else set. <br>
-                            • Logical operators are <,>, <=,> = and ==.
+                        <p>• Todos os condicionais devem terminar com End, seja apenas o if ou o if e else. <br>
+                             • Operadores lógicos são <,>, <=,> = e ==.
                             <table class="code hltable">
                                 <tr>
                                     <td class=linenos>
@@ -227,14 +227,14 @@
                                                 end <br>
 </pre></div>
                             </table>
-                            <p> Running program: <br>
+                            <p> Programa em execução: <br>
                                 <code> 7 <br>
                                     20 <br>
                                           6 <br>
                                                6 <br>
                                                 6</code></div>
                     <div id=request-guards-panel class=panel>
-                        <p>• While loop needs End at end of scope.
+                        <p>• O laço de repetição while precisa do fim do escopo.
                                 <table class="code hltable">
                                     <tr>
                                         <td class=linenos>
@@ -252,7 +252,7 @@
 
                                 </table>
                                 <p>
-                                        Running program: <br>
+                                        Programa em execução: <br>
                                        <code> 1  <br>
                                             2 <br>
                                                   3<br>
@@ -261,9 +261,9 @@
                                 </div>
                     <div id=responders-panel class=panel>
                         <p>
-                                • .append() appends elements to the list. <br>
-                                • .pop() removes the last element from the list. <br>
-                                • len() returns the size of the list. <br>
+                                • .append () acrescenta elementos à lista. <br>
+                                 • .pop () remove o último elemento da lista. <br>
+                                 • len () retorna o tamanho da lista. <br>
                             <table class="code hltable">
                                 <tr>
                                     <td class=linenos>
@@ -298,7 +298,7 @@
                                                 printf "Using pop" <br>
                             </table>
                             <p>
-                                    Running program: <br>
+                                    Programa em execução: <br>
 <code>[1,9,3.2,4,5.2,6,7,8] <br>
 1 <br>
 Length : 8 <br>
@@ -308,9 +308,9 @@ Using pop </code>
 
                     </div>
                     <div id=launching-panel class=panel>
-                        <p>     - Function is defined with function. <br>
-                                - Function can perform actions on its scope when called or return value, which requires the function call to be assigned to a variable. <br>
-                                - Every function requires End at the end of its scope. <br>
+                        <p>     - Função é definida com func. <br>
+                                 - A função pode executar ações em seu escopo quando chamada ou retornar valor, o que requer que a chamada da função seja atribuída a uma variável. <br>
+                                 - Toda função requer End no final de seu escopo. <br>
                             <table class="code hltable">
                                 <tr>
                                     <td class=linenos>
@@ -344,7 +344,7 @@ Using pop </code>
                                             f() <br>
                                             printf x <br>
                             </table>
-                            <p>      Running program: <br>
+                            <p>      Programa em execução: <br>
                                    <code> 5 <br>
                                     20 <br>
                                     10 <br></code>
@@ -353,14 +353,14 @@ Using pop </code>
                     </div>
                 </div>
             </div>
-            <h2 id=how-rocket-works>How Egua IDE Works</h2>
-            <p>Some features you can use in Egua Online IDE.
+            <h2 id=how-rocket-works>Como a IDE Online funciona</h2>
+            <p>Alguns recursos que você pode usar na IDE Online.
                 <div class="grid work-step">
                     <div class="col no-flex center centered circle-container">
                         <div class="blue circle">1</div>
-                        <h4>Code Editor</h4></div>
+                        <h4>Editor de Código</h4></div>
                     <div class="col blocky-code">
-                        <p>Work efficiently in a code editor with a function hidden option and Monokai Theme.
+                        <p>Trabalhe eficientemente em um editor de código com uma opção de função oculta e tema Monokai.
                             <table class="code hltable">
                                 <tr>
                                     <td class=linenos>
@@ -369,51 +369,51 @@ Using pop </code>
 3
 4</pre></div>
                                         <td class=code>
-                                                # Egua IDE [www.egua.tech] <br><br><br><br>
+                                                # Egua 0.1.0 [www.egua.tech] <br><br><br><br>
 </pre></div>
                             </table>
-                            <p>Features: <br>
-                                &nbsp&nbsp&nbsp• Monokai theme <br>
-                                &nbsp&nbsp&nbsp• Div screen <br>
-                                &nbsp&nbsp&nbsp• Lines enumerated
+                            <p>Funcionalidades: <br>
+                                &nbsp&nbsp&nbsp• Tema monokai <br>
+                                &nbsp&nbsp&nbsp• Divisão de tela <br>
+                                &nbsp&nbsp&nbsp• Numeração de linhas
 
                     </div>
                 </div>
                 <div class="grid work-step">
                     <div class="col no-flex center centered circle-container">
                         <div class="purple circle">2</div>
-                        <h4>Examples</h4></div>
+                        <h4>Exemplos</h4></div>
                     <div class="col blocky-code">
-                        <p>The online IDE has a sample session, which contains code / scripts previously developed for quick testing and simplified learning of the Egua language. <br>
-                            • Hello, World, Strings, Math, Conditional, Looping, Functions, Arguments, Fibonnaci, Lists and Factorial.
+                        <p>A IDE online possui uma sessão de exemplos, que contém códigos/scripts desenvolvidos anteriormente para testes rápidos e aprendizado simplificado da linguagem Egua. <br>
+                            Olá, Mundo, Strings, Matemática, Condicional, Looping, Funções, Argumentos, Fibonnaci, Listas e Fatorial.
                         </div>
                 </div>
                 <div class="grid work-step">
                     <div class="col no-flex center centered circle-container">
                         <div class="red circle">3</div>
-                        <h4>Egua Console</h4></div>
+                        <h4>Terminal Egua</h4></div>
                     <div class="col blocky-code">
-                        <p>With the console you can run your code and check the script output. It's very simple, just hit <code>Run</code>.
+                        <p>Com o terminal, você pode executar seu código e verificar a saída do script. É muito simples, basta pressionar <code>Executar</code>.
                             <table class="code hltable">
                                 <tr>
                                     <td class=linenos>
                                         <div class=linenodiv><pre> <br><br><br></pre></div>
                                         <td class=code>
-                                                >> Egua 1.0.0 | [www.egua.tech] <br>
-                                                Syntactically correct program: true <br>
-                                                Running program: <br> <br> <br>
+                                                >> Egua 0.1.0 | [www.egua.tech] <br>
+                                                Programa sintaticamente correto: true <br>
+                                                Programa em execução: <br> <br> <br>
 </pre></div>
                             </table>
-                            <p>You can also <code>Clear</code> your console to run another script just using clear button.
+                            <p>Você também pode <code>Limpar</code> seu console para executar outro script usando o botão Limpar.
                     </div>
                 </div>
     </main>
 </section>
 <footer class=grid>
     <div class=container>
-        <div class="col mobile-hide"><a href=https://github.com/gm2sc-ifpa target="_blank">© 2019 Lucas, Heictor and GM2SC</a></div>
+        <div class="col mobile-hide"><a href=https://github.com/gm2sc-ifpa target="_blank">© 2019 Lucas, Heictor e GM2SC</a></div>
         <div class="col centered"><img src=images/logo-small.png alt="Egua"></div>
-        <div class="col text-right mobile-hide"><a href=#>BACK TO TOP Δ</a></div>
+        <div class="col text-right mobile-hide"><a href=#>VOLTAR AO TOPOP Δ</a></div>
     </div>
 </footer>
 <script>
