@@ -4,18 +4,19 @@
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-147268561-1"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
 
-  gtag('config', 'UA-147268561-1');
+    gtag('config', 'UA-147268561-1');
 </script>
 
 
 <meta name=viewport content="width=device-width">
 <title>Documentação - Linguagem de Programação Egua</title>
-<meta name=description content="Egua é uma linguagem de programação leve e interpretada, projetada para incentivar a pesquisa científica.">
-<meta name=author content="Lucas Pompeu and Heictor Costa">
+<meta name=description
+    content="Egua é uma linguagem de programação leve e interpretada, projetada para incentivar a pesquisa científica.">
+<meta name=author content="Lucas Pompeu">
 <link href="https://fonts.googleapis.com/css?family=Proza+Libre:400,500" rel=stylesheet>
 <link rel=stylesheet href=css/style.css media=all>
 <link rel="icon" href="egua.png" type="image/x-icon">
@@ -64,18 +65,25 @@
     <div class=container><a id=logo href="/"><span>Linguagem de Programação Egua</span></a>
         <input type=checkbox id=toggle>
         <label for=toggle class=hamburger><span></span> <span></span> <span></span></label>
-        <nav class=main><a href="documentacao">documentação</a> <a href="https://github.com/eguatech/egua/releases" target="_blank">versão</a><a href="https://egua.tech/egua/" target="_blank">ide online</a> <a href="https://github.com/eguatech/examples" target="_blank">exemplos</a> <a href="https://github.com/eguatech" target="_blank">código fonte</a></nav>
+        <nav class=main><a href="documentacao">documentação</a> <a href="https://github.com/eguatech/egua/releases"
+                target="_blank">versão</a><a href="https://egua.tech/egua/" target="_blank">ide online</a> <a
+                href="https://github.com/eguatech/examples" target="_blank">exemplos</a> <a
+                href="https://github.com/eguatech" target="_blank">código fonte</a></nav>
         <div class=centered>
             <h1>Documentação</h1>
-            <h4>Uma breve olhada no que torna o Egua especial.</h4></div>
+            <h4>Uma breve olhada no que torna o Egua especial.</h4>
+        </div>
     </div>
 </header>
 <a href=https://github.com/eguatech target="_blank" class=github-corner aria-label="View source on Github">
-    <svg width=75 height=75 viewBox="0 0 250 250" style=fill:#fff;z-index:10;color:#151513;mix-blend-mode:screen;position:absolute;top:0;border:0;right:0 aria-hidden=true>
+    <svg width=75 height=75 viewBox="0 0 250 250"
+        style=fill:#fff;z-index:10;color:#151513;mix-blend-mode:screen;position:absolute;top:0;border:0;right:0
+        aria-hidden=true>
         <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
         <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7
        120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9
-       125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill=currentColor style="transform-origin:130px 106px" class=octo-arm></path>
+       125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill=currentColor
+            style="transform-origin:130px 106px" class=octo-arm></path>
         <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6
        C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0
        C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1
@@ -98,12 +106,18 @@
                 <input type=radio name=tab-state id=responders>
                 <input type=radio name=tab-state id=launching>
                 <div class=tabs>
-                    <label for=routing id=routing-tab class=tab><img src=images/routing-tab-icon.svg alt="Routing Icon"> Strings</label>
-                    <label for=dynamic-params id=dynamic-params-tab class=tab><img src=images/dynamic-params-tab-icon.svg alt="Dynamic Params Icon"> Matemática</label>
-                    <label for=handling-data id=handling-data-tab class=tab><img src=images/handling-data-tab-icon.svg alt="Handling Data Icon"> Condicionais</label>
-                    <label for=request-guards id=request-guards-tab class=tab><img src=images/request-guards-tab-icon.svg alt="Request Guards Icon"> Repetição</label>
-                    <label for=responders id=responders-tab class=tab><img src=images/responders-tab-icon.svg alt="Responders Icon"> Listas</label>
-                    <label for=launching id=launching-tab class=tab><img src=images/launching-tab-icon.svg alt="Launching Icon"> Funções</label>
+                    <label for=routing id=routing-tab class=tab><img src=images/routing-tab-icon.svg alt="Routing Icon">
+                        Strings</label>
+                    <label for=dynamic-params id=dynamic-params-tab class=tab><img
+                            src=images/dynamic-params-tab-icon.svg alt="Dynamic Params Icon"> Matemática</label>
+                    <label for=handling-data id=handling-data-tab class=tab><img src=images/handling-data-tab-icon.svg
+                            alt="Handling Data Icon"> Condicionais</label>
+                    <label for=request-guards id=request-guards-tab class=tab><img
+                            src=images/request-guards-tab-icon.svg alt="Request Guards Icon"> Repetição</label>
+                    <label for=responders id=responders-tab class=tab><img src=images/responders-tab-icon.svg
+                            alt="Responders Icon"> Listas</label>
+                    <label for=launching id=launching-tab class=tab><img src=images/launching-tab-icon.svg
+                            alt="Launching Icon"> Funções</label>
                 </div>
                 <div class="panels lighter-code">
                     <div id=routing-panel class=panel>
@@ -116,66 +130,75 @@
                                 <table class="code hltable">
                                     <tr>
                                         <td class=linenos>
-                                            <div class=linenodiv><pre>1
+                                            <div class=linenodiv>
+                                                <pre>1
 2
 3
 4
 5
-6</pre></div>
-                                            <td class=code>
-                                                # Concatentação e impressão de strings <br>
-<br>
-                                                x = "Hello World" <br>
-                                                y = "Hello Egua" <br>
-                                                <br>
-                                                printf x + ", or, " + y <br>
-</pre></div>
-                                </table>
-                                <p>
-                                    Programa em execução: <br>
-                                    <code>World, or, Hello Egua</code></div>
-                    <div id=dynamic-params-panel class=panel>
-                        <p>  • O Egua aceita operações básicas +, -, / e *. <br>
-• O expoente é dado com **. 2 ** 2 = 4. <br>
-• O módulo é dado por %. <br>
-• A aritmética de Egua é linear da esquerda para a direita, portanto, não usa as regras de prioridade matemática. CUIDADO! <br>
-• Parênteses não permite operação matemática. <br>
+6</pre>
+                                            </div>
+                                        <td class=code>
+                                            # Concatentação e impressão de strings <br>
+                                            <br>
+                                            x = "Hello World" <br>
+                                            y = "Hello Egua" <br>
+                                            <br>
+                                            printf x + ", or, " + y <br>
+                                            </pre>
+                    </div>
+                    </table>
+                    <p>
+                        Programa em execução: <br>
+                        <code>World, or, Hello Egua</code>
+                </div>
+                <div id=dynamic-params-panel class=panel>
+                    <p> • O Egua aceita operações básicas +, -, / e *. <br>
+                        • O expoente é dado com **. 2 ** 2 = 4. <br>
+                        • O módulo é dado por %. <br>
+                        • A aritmética de Egua é linear da esquerda para a direita, portanto, não usa as regras de
+                        prioridade matemática. CUIDADO! <br>
+                        • Parênteses não permite operação matemática. <br>
 
 
-                            <table class="code hltable">
-                                <tr>
-                                    <td class=linenos>
-                                        <div class=linenodiv><pre>1
+                        <table class="code hltable">
+                            <tr>
+                                <td class=linenos>
+                                    <div class=linenodiv>
+                                        <pre>1
 2
 3
 4
 5
 6
-7</pre></div>
-                                        <td class=code>
-                                                x = 23 / 2 + 15.0 % 3.0 ** 2 * -4 <br>
-                                                y = 6 <br>
-                                                z = y / 2 <br>
-                                                printf 5 <br>
-                                                printf x <br>
-                                                printf y <br>
-                                                printf z <br>
-</pre></div>
-                            </table>
-                            <p>
-                                    Programa em execução: <br>
-                                   <code> 5 <br>
+7</pre>
+                                    </div>
+                                <td class=code>
+                                    x = 23 / 2 + 15.0 % 3.0 ** 2 * -4 <br>
+                                    y = 6 <br>
+                                    z = y / 2 <br>
+                                    printf 5 <br>
+                                    printf x <br>
+                                    printf y <br>
+                                    printf z <br>
+                                    </pre>
+                </div>
+                </table>
+                <p>
+                    Programa em execução: <br>
+                    <code> 5 <br>
                                     -9 <br>
                                         6 <br>
                                     3 <br></code>
-                            </div>
-                    <div id=handling-data-panel class=panel>
-                        <p>• Todos os condicionais devem terminar com End, seja apenas o if ou o if e else. <br>
-• Operadores lógicos são <,>, <=,> = e ==.
+            </div>
+            <div id=handling-data-panel class=panel>
+                <p>• Todos os condicionais devem terminar com End, seja apenas o if ou o if e else. <br>
+                    • Operadores lógicos são <,>, <=,> = e ==.
                             <table class="code hltable">
                                 <tr>
                                     <td class=linenos>
-                                        <div class=linenodiv><pre>1
+                                        <div class=linenodiv>
+                                            <pre>1
 2
 3
 4
@@ -199,75 +222,80 @@
 22
 23
 24
-</pre></div>
-                                        <td class=code>
-                                                y = 6 <br>
-                                                if 5 > 1: <br>
-                                                &nbsp&nbsp&nbsp                                                    printf 7 <br>
+</pre>
+                                        </div>
+                                    <td class=code>
+                                        y = 6 <br>
+                                        if 5 > 1: <br>
+                                        &nbsp&nbsp&nbsp printf 7 <br>
+                                        end <br>
+                                        x = 20.0 <br>
+                                        if x < 1000: <br>
+                                            &nbsp&nbsp&nbsp printf x<br>
+                                            else: <br>
+                                            &nbsp&nbsp&nbsp printf 10<br>
+                                            end<br>
+                                            if x == 2:<br>
+                                            &nbsp&nbsp&nbsp if y != x:<br>
+                                            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp printf 3<br>
+                                            &nbsp&nbsp&nbsp end<br>
+                                            else:<br>
+                                            &nbsp&nbsp&nbsp printf y<br>
+                                            end<br>
+                                            if y >= 5:<br>
+                                            &nbsp&nbsp&nbsp printf y<br>
+                                            end<br>
+                                            <br>
+                                            if y <= 6:<br>
+                                                &nbsp&nbsp&nbsp printf y<br>
                                                 end <br>
-                                                x = 20.0 <br>
-                                                if x < 1000: <br>
-                                                &nbsp&nbsp&nbsp    printf x<br>
-                                                else: <br>
-                                                &nbsp&nbsp&nbsp    printf 10<br>
-                                                end<br>
-                                                if x == 2:<br>
-                                                &nbsp&nbsp&nbsp    if y != x:<br>
-                                                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp        printf 3<br>
-                                                &nbsp&nbsp&nbsp   end<br>
-                                                else:<br>
-                                                &nbsp&nbsp&nbsp  printf y<br>
-                                                end<br>
-                                                if y >= 5:<br>
-                                                &nbsp&nbsp&nbsp   printf y<br>
-                                                end<br>
-                                                <br>
-                                                if y <= 6:<br>
-                                                &nbsp&nbsp&nbsp   printf y<br>
-                                                end <br>
-</pre></div>
-                            </table>
-                            <p> Programa em execução: <br>
-                                <code> 7 <br>
+                                                </pre>
+            </div>
+            </table>
+            <p> Programa em execução: <br>
+                <code> 7 <br>
                                     20 <br>
                                           6 <br>
                                                6 <br>
                                                 6</code></div>
-                    <div id=request-guards-panel class=panel>
-                        <p>• O laço de repetição while precisa do fim do escopo.
-                                <table class="code hltable">
-                                    <tr>
-                                        <td class=linenos>
-                                            <div class=linenodiv><pre>1
+                <div id=request-guards-panel class=panel>
+                    <p>• O laço de repetição while precisa do fim do escopo.
+                        <table class="code hltable">
+                            <tr>
+                                <td class=linenos>
+                                    <div class=linenodiv>
+                                        <pre>1
 2
 3
 4
-5</pre></div>
-                                            <td class=code>
-                                                    a = 0 <br>
-                                                    while a < 5: <br>
-                                                    &nbsp&nbsp&nbsp    a = a + 1 <br>
-                                                    &nbsp&nbsp&nbsp    printf a <br>
-                                                    end <br>
+5</pre>
+                                    </div>
+                                <td class=code>
+                                    a = 0 <br>
+                                    while a < 5: <br>
+                                        &nbsp&nbsp&nbsp a = a + 1 <br>
+                                        &nbsp&nbsp&nbsp printf a <br>
+                                        end <br>
 
-                                </table>
-                                <p>
-                                        Programa em execução: <br>
-                                       <code> 1  <br>
+                        </table>
+                        <p>
+                            Programa em execução: <br>
+                            <code> 1  <br>
                                             2 <br>
                                                   3<br>
                                                         4<br>
                                                                     5</code><br>
-                                </div>
-                    <div id=responders-panel class=panel>
-                        <p>
-                                • .append () acrescenta elementos à lista. <br>
- • .pop () remove o último elemento da lista. <br>
- • len () retorna o tamanho da lista. <br>
-                            <table class="code hltable">
-                                <tr>
-                                    <td class=linenos>
-                                        <div class=linenodiv><pre>1
+                </div>
+                <div id=responders-panel class=panel>
+                    <p>
+                        • .append () acrescenta elementos à lista. <br>
+                        • .pop () remove o último elemento da lista. <br>
+                        • len () retorna o tamanho da lista. <br>
+                        <table class="code hltable">
+                            <tr>
+                                <td class=linenos>
+                                    <div class=linenodiv>
+                                        <pre>1
 2
 3
 4
@@ -280,41 +308,44 @@
 11
 12
 13
-14</pre></div>
-                                        <td class=code>
-                                                b = 9 <br>
-                                                a = [1,b,3.2,4,5.2,6,7,8] <br>
-                                                d = [] <br>
-                                                printf a <br>
-                                                printf a[0] <br>
-                                                c = a[4] <br>
-                                                e = len(a) <br>
-                                                printf "Length : " + e <br>
-                                                d.append(2) <br>
-                                                d.append(6) <br>
-                                                printf "Appended 2, 6 " <br>
-                                                printf d <br>
-                                                d.pop() <br>
-                                                printf "Using pop" <br>
-                            </table>
-                            <p>
-                                    Programa em execução: <br>
-<code>[1,9,3.2,4,5.2,6,7,8] <br>
+14</pre>
+                                    </div>
+                                <td class=code>
+                                    b = 9 <br>
+                                    a = [1,b,3.2,4,5.2,6,7,8] <br>
+                                    d = [] <br>
+                                    printf a <br>
+                                    printf a[0] <br>
+                                    c = a[4] <br>
+                                    e = len(a) <br>
+                                    printf "Length : " + e <br>
+                                    d.append(2) <br>
+                                    d.append(6) <br>
+                                    printf "Appended 2, 6 " <br>
+                                    printf d <br>
+                                    d.pop() <br>
+                                    printf "Using pop" <br>
+                        </table>
+                        <p>
+                            Programa em execução: <br>
+                            <code>[1,9,3.2,4,5.2,6,7,8] <br>
 1 <br>
 Length : 8 <br>
 Appended 2, 6 <br>
 [2,6] <br>
 Using pop </code>
 
-                    </div>
-                    <div id=launching-panel class=panel>
-                        <p>     • Função é definida com function. <br>
- • A função pode executar ações em seu escopo quando chamada ou retornar valor, o que requer que a chamada da função seja atribuída a uma variável. <br>
- • Toda função requer End no final de seu escopo. <br>
-                            <table class="code hltable">
-                                <tr>
-                                    <td class=linenos>
-                                        <div class=linenodiv><pre>1
+                </div>
+                <div id=launching-panel class=panel>
+                    <p> • Função é definida com function. <br>
+                        • A função pode executar ações em seu escopo quando chamada ou retornar valor, o que requer que
+                        a chamada da função seja atribuída a uma variável. <br>
+                        • Toda função requer End no final de seu escopo. <br>
+                        <table class="code hltable">
+                            <tr>
+                                <td class=linenos>
+                                    <div class=linenodiv>
+                                        <pre>1
 2
 3
 4
@@ -327,91 +358,107 @@ Using pop </code>
 11
 12
 13
-14</pre></div>
-                                        <td class=code>
-                                                function g(x): <br>
-                                                &nbsp&nbsp&nbspreturn x <br>
-                                            end <br>
-                                            <br>
-                                            function f(): <br>
-                                            &nbsp&nbsp&nbspx = 20 <br>
-                                            &nbsp&nbsp&nbspprintf 5 <br>
-                                            &nbsp&nbsp&nbspa = g(x) <br>
-                                            &nbsp&nbsp&nbspprintf a <br>
-                                            end <br>
-                                            <br>
-                                            x = 10 <br>
-                                            f() <br>
-                                            printf x <br>
-                            </table>
-                            <p>      Programa em execução: <br>
-                                   <code> 5 <br>
+14</pre>
+                                    </div>
+                                <td class=code>
+                                    function g(x): <br>
+                                    &nbsp&nbsp&nbspreturn x <br>
+                                    end <br>
+                                    <br>
+                                    function f(): <br>
+                                    &nbsp&nbsp&nbspx = 20 <br>
+                                    &nbsp&nbsp&nbspprintf 5 <br>
+                                    &nbsp&nbsp&nbspa = g(x) <br>
+                                    &nbsp&nbsp&nbspprintf a <br>
+                                    end <br>
+                                    <br>
+                                    x = 10 <br>
+                                    f() <br>
+                                    printf x <br>
+                        </table>
+                        <p> Programa em execução: <br>
+                            <code> 5 <br>
                                     20 <br>
                                     10 <br></code>
 
-                                    </table>
-                    </div>
+                            </table>
                 </div>
-            </div>
-            <h2 id=how-rocket-works>Como a IDE Online funciona</h2>
-            <p>Alguns recursos que você pode usar na IDE Online.
-                <div class="grid work-step">
-                    <div class="col no-flex center centered circle-container">
-                        <div class="blue circle">1</div>
-                        <h4>Editor de Código</h4></div>
-                    <div class="col blocky-code">
-                        <p>Trabalhe eficientemente em um editor de código com uma opção de função oculta e tema Monokai.
-                            <table class="code hltable">
-                                <tr>
-                                    <td class=linenos>
-                                        <div class=linenodiv><pre>1
+                </div>
+                </div>
+                <h2 id=how-rocket-works>Como a IDE Online funciona</h2>
+                <p>Alguns recursos que você pode usar na IDE Online.
+                    <div class="grid work-step">
+                        <div class="col no-flex center centered circle-container">
+                            <div class="blue circle">1</div>
+                            <h4>Editor de Código</h4>
+                        </div>
+                        <div class="col blocky-code">
+                            <p>Trabalhe eficientemente em um editor de código com uma opção de função oculta e tema
+                                Monokai.
+                                <table class="code hltable">
+                                    <tr>
+                                        <td class=linenos>
+                                            <div class=linenodiv>
+                                                <pre>1
 2
 3
-4</pre></div>
+4</pre>
+                                            </div>
                                         <td class=code>
-                                                # Egua IDE [www.egua.tech] <br><br><br><br>
-</pre></div>
-                            </table>
-                            <p>funcionalidades: <br>
-                                &nbsp&nbsp&nbsp• Tema monokai <br>
-                                &nbsp&nbsp&nbsp• Divisão de tela <br>
-                                &nbsp&nbsp&nbsp• Numeração de linhas
+                                            # Egua IDE [www.egua.tech] <br><br><br><br>
+                                            </pre>
+                        </div>
+                        </table>
+                        <p>funcionalidades: <br>
+                            &nbsp&nbsp&nbsp• Tema monokai <br>
+                            &nbsp&nbsp&nbsp• Divisão de tela <br>
+                            &nbsp&nbsp&nbsp• Numeração de linhas
 
                     </div>
-                </div>
-                <div class="grid work-step">
-                    <div class="col no-flex center centered circle-container">
-                        <div class="purple circle">2</div>
-                        <h4>Exemplos</h4></div>
-                    <div class="col blocky-code">
-                        <p>A IDE online possui uma sessão de exemplos, que contém códigos/scripts desenvolvidos anteriormente para testes rápidos e aprendizado simplificado da linguagem Egua. <br>
-                            Olá, Mundo, Strings, Matemática, Condicional, Looping, Funções, Argumentos, Fibonnaci, Listas e Fatorial.
-                        </div>
-                </div>
-                <div class="grid work-step">
-                    <div class="col no-flex center centered circle-container">
-                        <div class="red circle">3</div>
-                        <h4>Terminal Egua</h4></div>
-                    <div class="col blocky-code">
-                        <p>Com o terminal, você pode executar seu código e verificar a saída do script. É muito simples, basta pressionar <code>Executar</code>.
-                            <table class="code hltable">
-                                <tr>
-                                    <td class=linenos>
-                                        <div class=linenodiv><pre> <br><br><br></pre></div>
-                                        <td class=code>
-                                                >> Egua 0.1.0 | [www.egua.tech] <br>
-                                                Programa sintaticamente correto: true <br>
-                                                Programa em execução: <br> <br> <br>
-</pre></div>
-                            </table>
-                            <p>Você também pode <code>Limpar</code> seu console para executar outro script usando o botão Limpar.
                     </div>
-                </div>
+                    <div class="grid work-step">
+                        <div class="col no-flex center centered circle-container">
+                            <div class="purple circle">2</div>
+                            <h4>Exemplos</h4>
+                        </div>
+                        <div class="col blocky-code">
+                            <p>A IDE online possui uma sessão de exemplos, que contém códigos/scripts desenvolvidos
+                                anteriormente para testes rápidos e aprendizado simplificado da linguagem Egua. <br>
+                                Olá, Mundo, Strings, Matemática, Condicional, Looping, Funções, Argumentos, Fibonnaci,
+                                Listas e Fatorial.
+                        </div>
+                    </div>
+                    <div class="grid work-step">
+                        <div class="col no-flex center centered circle-container">
+                            <div class="red circle">3</div>
+                            <h4>Terminal Egua</h4>
+                        </div>
+                        <div class="col blocky-code">
+                            <p>Com o terminal, você pode executar seu código e verificar a saída do script. É muito
+                                simples, basta pressionar <code>Executar</code>.
+                                <table class="code hltable">
+                                    <tr>
+                                        <td class=linenos>
+                                            <div class=linenodiv>
+                                                <pre> <br><br><br></pre>
+                                            </div>
+                                        <td class=code>
+                                            >> Egua 0.1.0 | [www.egua.tech] <br>
+                                            Programa sintaticamente correto: true <br>
+                                            Programa em execução: <br> <br> <br>
+                                            </pre>
+                        </div>
+                        </table>
+                        <p>Você também pode <code>Limpar</code> seu console para executar outro script usando o botão
+                            Limpar.
+                    </div>
+                    </div>
     </main>
 </section>
 <footer class=grid>
     <div class=container>
-        <div class="col mobile-hide"><a href=https://github.com/gm2sc-ifpa target="_blank">© 2019 Lucas, Heictor e GM2SC</a></div>
+        <div class="col mobile-hide"><a href=https://github.com/gm2sc-ifpa target="_blank">© 2019 Lucas, Heictor e
+                GM2SC</a></div>
         <div class="col centered"><img src=images/logo-small.png alt="Egua"></div>
         <div class="col text-right mobile-hide"><a href=#>VOLTAR AO TOPOP Δ</a></div>
     </div>
@@ -425,7 +472,7 @@ Using pop </code>
     }
 </script>
 <script>
-    ! function() {
+    ! function () {
         var r = null,
             u = 0,
             a = document.querySelector(".front.clouds"),
