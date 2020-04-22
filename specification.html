@@ -1,0 +1,2296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Content-Type" content="text/html; charset=windows-1254">
+  <meta name="keywords" content="Modeling, Code Generation, Semantic Web, Pyronome, Sanpark, Syntax, System Modeling">
+  <meta name="description" content="Modo is an easy to use modeling language which is used for modeling systems, their subsystems, containing systems and environment.">
+  <meta name="author" content="Sanpark">
+  <meta property="og:title" content="Modo. Modeling Language for Everyone!">
+  <meta property="og:site_name" content="Modo. Modeling Language for Everyone!"/>
+  <meta property="og:url" content="http://www.modolanguage.org/">
+  <meta property="og:image" content="http://www.modolanguage.org/assets/img/facebooklogo.png">
+  <meta property="og:site_name" content="Modo. Modeling Language for Everyone!">
+  <meta property="og:type" content="website" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="620" />
+  <meta property="og:image:height" content="435" />
+  <meta property="og:description" content="Modo is an easy-to-use modeling language which is used for modeling systems, their subsystems, containing systems and environment.">
+
+  <!-- Fav Icons -->
+  <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="assets/img/favicon.png" type="image/png">
+  <!-- Materialize CSS -->
+  <link rel="stylesheet" href="assets/css/materialize.min.css">
+  <link rel="stylesheet" href="assets/css/ionicons.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <title>Modo. Modeling Language for Everyone!</title>
+</head>
+
+<body>
+    <ul class="side-nav fixed" id="ulMobileMenu">
+        <li class="white center-align"><img style="margin-top: 20px;" src="assets/img/egua.png" width="180" alt="Modo"></li>
+        <li><a class="grey-text active" href="index.html">Home</a></li>
+        <li><a class="grey-text" href="about.html">About</a></li>
+        <li class="active"><a class="grey-text" href="specification.html">Specification</a></li>
+        <li><a class="grey-text" href="contact.html">Contact</a></li>
+        <li><a class="grey-text" href="get-started.html">Get Started!</a></li>
+        <li><a target="_blank" class="grey-text" href="https://github.com/eguatech"><i class="ion-social-github" style="margin-right: 0px;"></i>&nbsp;GitHub</a></li>
+    </ul>
+    <nav id="navbarFixed" class="white hide-on-large-only">
+        <div class="nav-wrapper container">
+          <a href="index.html" class="brand-logo light-blue-text hide-on-med-and-down"><img src="assets/img/egua.png" alt="Modo"></a>
+          <a href="#" data-activates="ulMobileMenu" class="button-collapse aMobileMenuButton"><i class="ion-navicon-round"></i></a>
+        </div>
+    </nav>
+<main id="mainDocumentation" class="row noMargin">
+    <!-- Content Start -->
+    <div class="wrapper col s12">
+<section id="sectionSpecification" data-linker="aSpecification">
+
+    <div class="container scrollspy" id="divIntroduction">
+      <h1>Introduction</h1>
+      <p>By reducing the time and cost of the solutions of real life problems, information technologies had a deep impact
+        on the every little aspect of both our professional and daily lives. Especially with the urge of the internet
+        era, this impact is drastically increasing as the solutions now became time-free and location-free (<a href="#divAppendixB">Park and Lim, 1999</a>;
+        <a href="#divAppendixB">Calvary et al., 2003</a>; <a href="#divAppendixB">Rau et al., 2004</a>;
+        <a href="#divAppendixB">Lam and Swayne, 2001</a>; <a href="#divAppendixB">Kim 2001</a>).</p>
+
+        <p>One of the largest challenges of the IT field is the gap between the real world systems and their representations
+            in the computer, or to be more specific today's online world. Numerous professionals proposed notations, languages
+            and methods to provide solutions to narrow this gap (<a href="#divAppendixB">Kernighan and Ritchie, 1978</a>;
+            <a href="#divAppendixB">Wirth, 1971</a>; <a href="#divAppendixB">Gosling et al., 2005</a>;
+            <a href="#divAppendixB">Tom, 2001</a>; <a href="#divAppendixB">Booch et al., 2000</a>;
+            <a href="#divAppendixB">Heng and Mackie, 2009</a>; <a href="#divAppendixB">Laporti et al., 2009</a>;
+            <a href="#divAppendixB">Horsburgh et al., 2009</a>; <a href="#divAppendixB">Reinhartz-Berger and Sturm, 2009</a>
+            <a href="#divAppendixB">; Schwabe and Rossi, 1998</a>). Most of those solutions are being used by many of the
+        IT and related professionals today.</p>
+        <p>However, with the increasing shift of systems to the online world there still resides a need to have a representation
+        tool to model and convert real life systems to the world of computers.</p>
+        <p>Considering the online world of today and the predicted integrated and semantic, structure of tomorrow, one can
+        easily say that this new tool</p>
+        <ul class="collection">
+            <li class="collection-item">should allow faster modeling, </li>
+            <li class="collection-item">should be easy to use,</li>
+            <li class="collection-item">should be able to represent every element of the real life systems,</li>
+            <li class="collection-item">should be able to represent the relations between the elements of the real life systems,</li>
+            <li class="collection-item">should easily be used for modeling different systems, </li>
+            <li class="collection-item">should be able to produce a representation which can be interpreted not only by humans but also by machines,</li>
+            <li class="collection-item">should be able to produce a representation which can easily be converted to the existing or the future technologies.</li>
+        </ul>
+          <!-- <ul class="hide">
+            <li><i class="material-icons">keyboard_arrow_right</i> should allow faster modeling, </li>
+            <li><i class="material-icons">keyboard_arrow_right</i> should be easy to use,</li>
+            <li><i class="material-icons">keyboard_arrow_right</i> should be able to represent every element of the real life systems,</li>
+            <li><i class="material-icons">keyboard_arrow_right</i> should be able to represent the relations between the elements of the real life systems,</li>
+            <li> <i class="material-icons">keyboard_arrow_right</i> should easily be used for modeling different systems, </li>
+            <li><i class="material-icons">keyboard_arrow_right</i> should be able to produce a representation which can be interpreted not only by humans but also by machines,
+            </li>
+            <li><i class="material-icons">keyboard_arrow_right</i> should be able to produce a representation which can easily be converted to the existing or the future technologies.</li>
+        </ul> -->
+        <p>Considering the above reasons and more, we propose the Modo language.</p>
+        <h2>About the document</h2>
+        <p>This document contains the specification of the Modo language. In this first chapter, Introduction, the acknowledgement
+        and the general information about the document is mentioned.</p>
+
+        <p>The rest of the document contains the following chapters:</p>
+
+        <p><a href="#divMotivation">Motivation</a> chapter covers the underlying reasons, which led us to develop Modo.</p>
+
+        <p><a href="#divDefinition">Definitions</a> chapter covers the technical terminology and jargon that we find compulsory
+        to make the most use of this document.</p>
+
+        <p><a href="#divStructureAndSyntax">Structure and Syntax</a> chapter gives detailed information about the syntax of
+            the language using Extended Backus-Naur Form, Extended BNF (ISO/IEC 14977, 1996). Along with the syntax, lexical
+        sequence, constraints and rules are also described.</p>
+
+        <p><a href="#divElements">Elements</a> chapter covers the element declarations and the uses of the elements in Modo
+            definitions.
+        </p>
+
+        <p><a href="#divSelectors">Selectors</a> chapter introduces selectors conceptually. Additionally selector syntax and
+        the uses of the selectors are described in this chapter.</p>
+
+        <p><a href="#divExpressions">Expressions</a> chapter gives information about the expressions for operators, constants,
+        strings and elements.</p>
+
+        <h2>Scope</h2>
+        <p>This document specifies/contains structure and syntax of the Modo language.</p>
+        <p>This document does not specify/contain</p>
+        <ul class="collection">
+            <li class="collection-item">use cases</li>
+            <li class="collection-item">system dependent elements/methods</li>
+            <li class="collection-item">technology dependent elements/methods</li>
+            <li class="collection-item">conversions and interpretations of Modo to other technologies</li>
+        </ul>
+
+        <h2>Conformance</h2>
+        <p>This document is intended for developers, designers, system designers and modelers and other related professionals
+        whose activities contain modeling of real life systems for computer technologies.</p>
+        <p>For better understanding of this document, the audience must have experience in the following:</p>
+        <ul class="collection">
+            <li class="collection-item">Object oriented system modeling</li>
+            <li class="collection-item">Computer programming languages</li>
+            <li class="collection-item">EBNF notation (<a href="#divAppendixA">ISO/IEC 14977, 1996</a>)</li>
+        </ul>
+
+        <h2>Credits And Acknowlegement</h2>
+        <p>The authors thank Sanpark IT &amp; Design Co. Ltd., for maintaining the professional environment and encouragement
+            that resulted and catalyzed the development of Modo. They also thank Recep Kütük from Sanpark for the Modo identity
+        and the document formatting.</p>
+        <p>Modo language is shaped by the ideas, practice and experience of Aykut Aydınlı and the Sanpark crew; starting from
+        2005. The latest version of Modo is shaped by Aykut Aydınlı and Doruk Eker. </p>
+        <p>This document is authored and edited by Aykut Aydınlı and Doruk Eker.</p>
+
+    </div>
+
+    <div class="container scrollspy" id="divMotivation">
+      <h1>Motivation</h1>
+      <p>The basic idea that initiated the effort for the development of Modo was to create a modeling tool, which is able
+      to model a real life system, its elements and the relations between them.</p>
+
+      <p>Modo focuses on the system to be modeled, as it exists. The technological boundaries and constraints, which are
+        only obstacles of the computer systems, are neglected during the modeling process. The model then can be converted
+        to the required technologies. This conversion can be designed to catalyze any software development process, reducing
+    the cycle time of development/maintenance and increasing the quality of the software.</p>
+
+    <p>Moreover, Modo is aimed to be a contribution for the ongoing studies for the Semantic Web, which is considered
+        to be the next era of online information delivery (<a href="#divAppendixB">Berners-Lee  et al., 2001</a>). Modo
+        models represent entities of real life systems and the relations between them. Thus the system is modeled at
+        the semantic level, and more importantly this model is completely machine-readable. With the help of this property,
+        Modo can act as a common definition language at semantic level and help different systems (online/offline) to
+    be integrated.</p>
+
+    <p>All those properties of the language led us to show the effort to develop Modo.</p>
+</div>
+
+<div class="container scrollspy" id="divDefinition">
+  <h1>Definition</h1>
+  <p>This document contains technical details about Modo language. These technical details necessitate the use of technical
+    terminology. This chapter gives the definitions of some of these technical terms for making the most use of this
+    document.
+</p>
+<ul class="collection">
+    <li class="collection-item"><strong>System</strong> is the real life system that is modeled using Modo.</li>
+    <li class="collection-item"><strong>Element</strong> is the single member of a system.</li>
+    <li class="collection-item"><strong>Member Element</strong> is the sub element of an element.</li>
+    <li class="collection-item"><strong>Modo  Generator/Compiler/Interpreter</strong> is the application that can compile and convert the Modo
+    declarations into different technologies or formats. </li>
+    <li class="collection-item"><strong>Syntax</strong> is a piece of code that is sequenced together to form a meaningful Modo sentences.</li>
+    <li class="collection-item"><strong>Grammar</strong> is the set of rules that are used to code Modo declarations.</li>
+</ul>
+</div>
+
+<div class="container scrollspy" id="divStructureAndSyntax">
+  <h1>Structure And Syntax</h1>
+  <p>This chapter describes the basic structure of the Modo language. Additionally Modo syntax is introduced in this
+    chapter.
+</p>
+<h2>Syntax</h2>
+<p>This section defines the Modo syntax. Besides some fundamental differences, Modo syntax shows similarities to Cascading
+    Style Sheets (CSS) language specified in Bos et al. (<a href="#divAppendixB">Bos et al., 2009</a>). The reasons
+    for these similarities are 1) CSS provides great ease for the definition of the elements and their properties
+and 2) common use of CSS language among different disciplines, especially designers and developers.</p>
+
+<p>Modo syntax is defined using Extended BNF metalanguage specified in ISO/IEC 14977 (<a href="#divAppendixB">ISO/IEC 14977, 1996</a>).
+    By using the Extended BNF metalanguage, syntactic sequence of the Modo is separated into lexical units. This
+helps to identify every lexical unit in a meaningful Modo sentence.</p>
+
+<p>These definitions include some of the main syntactic parts of the Modo language. For the complete list of definitions,
+    please refer to <a href="#divAppendixA">Appendix  A. Grammar</a>.</p>
+
+    <p>Following example shows the declaration of an element in Modo syntax:</p>
+    <!-- Code preview card -->
+    <div class="divModoCodePreview">
+        <code>
+            <pre>
+<span class="grey-text">/* Company Element Declaration */</span>
+Company <span style="color:#069;font-weight:700;">{</span>
+    Name <span style="color:#069;font-weight:700">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700;">;</span>
+    <span style="color:#069;font-weight:700;">$</span>Name <span style="color:#069;font-weight:700">=</span> <span style="color: #7e11cf;">"Doe Software Inc."</span>;
+    Founder <span style="color:#069;font-weight:700">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700;">;</span>
+    <span style="color:#069;font-weight:700;">$</span>Founder <span style="color:#069;font-weight:700">=</span> <span style="color:#7e11cf">"John Doe"</span>;
+    TaxNumber <span style="color:#069;font-weight:700">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700;">;</span>
+    <span style="color:#069;font-weight:700;">$</span>TaxNumber <span style="color:#069;font-weight:700">=</span> <span style="color:#7e11cf">"123456789987654321"</span><span style="color:#069;font-weight:700;">;</span>
+<span style="color:#069;font-weight:700;">}</span></pre>
+  </code>
+</div>
+<p>The example above shows the declaration of <span class="spanInlineIdentifier">Company</span> element.
+    On line 1, a descriptive comment is added to the declaration. On line 2, the declaration of the Company element
+    starts.
+</p>
+
+<p>On lines 3, 5 and 7 the member elements, <span class="spanInlineIdentifier">Name</span>, <span class="spanInlineIdentifier">Founder</span>            and <span class="spanInlineIdentifier">TaxNumber</span> of the <span class="spanInlineIdentifier">Company</span>            element are declared respectively. On lines 4, 6 and 8 initial values of those member elements are assigned.
+    Please note that the
+    <span class="spanInlineIdentifier">dollar  symbol &quot;$&quot;</span> preceding the member element
+name refers to the value of that member element.</p>
+
+<p>Finally on line 9, <span class="spanInlineIdentifier">Company</span> element declaration ends with
+    <span class="spanInlineIdentifier">end declaration symbol &quot;}&quot;</span>.
+</p>
+
+<blockquote cite="">
+    <strong>Note</strong>: The above example assumes that the element <span class="spanInlineIdentifier">String</span>            has already been defined.
+</blockquote>
+
+<h2>Tokenization</h2>
+<p>For better understanding, Modo syntax is separated into tokens at lexical level. A Modo declaration consists of
+    a sequence of these tokens.
+</p>
+
+<p>Following is the general Extended BNF notation of the Modo:</p>
+<div class="divEBNFCodePreview">
+    <code>
+        <pre>
+modo = {
+    directive | rule | declaration | comment
+};
+    </pre>
+</code>
+</div>
+<p>As you can see above, Modo definition consists of directives, rules, declarations and comments. Followings are
+    the Extended BNF notations of each token:
+</p>
+<div class="divEBNFCodePreview">
+    <code>
+        <pre>
+(* Directive Definition *)
+directive = {blank}, at symbol, identifier,
+    {blank} -, expression, {blank},
+    end sentence symbol;
+
+(* Rule Definition *)
+rule = {blank}, at symbol, {blank},
+    start group symbol, {blank},
+    expression, {blank}, end group symbol,
+    {blank}, start declaration symbol,
+    {blank}, modo, {blank},
+    end declaration symbol;
+
+(* Comment Definition *)
+comment = delimited comment
+    | single line comment;
+
+(* Declaration Definition *)
+declaration = {
+    assignment
+    | basic declaration
+    | extended declaration
+};
+  </pre>
+</code>
+</div>
+<p>Characters (<a href="#divAppendixB">The Unicode Standard, 2003</a>), letters, numerals, symbols and operators used
+    in Modo syntax are defined as follows:
+</p>
+<div class="divEBNFCodePreview">
+    <code>
+        <pre>
+letter = "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H"
+    | "I" | "J" | "K" | "L" | "M" | "N" | "O" | "P"
+    | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X"
+    | "Y" | "Z" | "a" | "b" | "c" | "d" | "e" | "f"
+    | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n"
+    | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v"
+    | "w" | "x" | "y" | "z";
+
+character = any Unicode character;
+
+whitespace = {
+    space character
+    | tab character
+    | line feed character
+    | carriage return character
+    | form feed character
+};
+
+new line = carriage return character
+    | line feed character
+    | next line character
+    | line separator character
+    | paragraph separator character;
+
+space character = " ";
+
+tab character =
+    ? The Unicode Standard Tab Character (U+0009) ? ;
+    
+line feed character =
+    ? The Unicode Standard Line Feed Character (U+000A) ? ;
+
+carriage return character =
+    ? The Unicode Standard Carriage Return Character (U+000D) ? ;
+
+form feed character =
+    ? The Unicode Standard Form Feed Character (U+000C) ? ;
+
+next line character =
+    ? The Unicode Standard Next Line Character (U+0085) ? ;
+
+line separator character =
+    ? The Unicode Standard Line Separator Character (U+2028) ? ;
+
+paragraph separator character =
+    ? The Unicode Standard Paragraph Separator Character (U+2029) ? ;
+
+digit = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7"
+    | "8" | "9";
+
+at symbol = "@";
+
+assignment symbol = "=";
+
+end sentence symbol = ";";
+
+start group symbol = "(";
+
+end group symbol = ")";
+
+start declaration symbol = "{";
+
+end declaration symbol = "}";
+
+backslash symbol = "\";
+
+start attribute selector symbol = "[";
+
+end attribute selector symbol = "]";
+
+start delimited comment symbol = "/*";
+
+end delimited comment symbol = "*/";
+
+start single line comment symbol = "//";
+
+dot symbol = ".";
+
+comma symbol = ",";
+
+underscore symbol = "_";
+
+hyphens symbol = "-";
+
+escaped single quote symbol = "\'";
+
+escaped double quote symbol = '\&amp;quot;';
+
+single quote symbol = "'";
+
+double quote symbol = '&amp;quot;';
+
+increment operator = "++";
+
+decrement operator = "--";
+
+unary operator = "+" | "-" | "!" | "~"
+    | increment operator
+    | decrement operator;
+
+operator = "*" | "/" | "%" | "+" | "-" | "&amp;lt;&amp;lt;" | "&amp;gt;&amp;gt;" | "&amp;lt;"
+    | "&amp;gt;" | "&amp;lt;=" | "&amp;gt;=" | "==" | "!=" | "&amp;" | "^" | "|"
+    | "&amp;&amp;" | "||";
+
+unary selector operator = "$", ".", "#", "?", " ";
+
+selector operator = "&amp;gt;", "&amp;lt;", "+", "-", "~", "^", ":",
+    "::", "%", "&amp;", "|", "\", "/";
+
+selector expression operator = "*" | "/" | "%" | "+" | "-"
+    | "&amp;lt;&amp;lt;" | "&amp;gt;&amp;gt;" | "&amp;lt;" | "&amp;gt;" | "=" | "&amp;" | "^" | "|"
+    | "&amp;lt;=" | "&amp;gt;=" | "==" | "!=" | "*=" | "/=" | "%="
+    | "+=" | "-=" | "&amp;=" | "^=" | "|=" | "$=" | "~="
+    | ".=" | "#=" | "?=" | ":=" | "&amp;&amp;" | "||";
+
+universal selector = "*";
+</pre>
+</code>
+</div>
+<p>Additionally there are some extra tokens used in Modo syntax. For the sake of continuity, only main syntactic parts
+    are shown here. Please refer to <a href="#divAppendixA">Appendix A. Grammar</a> for complete list of tokens.</p>
+
+    <p>In Modo syntax, characters of any kind including <span class="spanInlineIdentifier">whitespace</span>            are not allowed between syntactic parts.</p>
+
+    <p>Only the <span class="spanInlineIdentifier">space character</span>, <span class="spanInlineIdentifier">tab character</span>,
+        <span class="spanInlineIdentifier">line feed character</span>, <span class="spanInlineIdentifier">carriage return character</span>            and <span class="spanInlineIdentifier">form feed character</span> can occur in <span class="spanInlineIdentifier">whitespace</span></p>
+        <h2>Characters and case</h2>
+
+        <p>Modo syntax is case-insensitive. Elements and member elements declared in Modo can be considered as case-insensitive.</p>
+
+        <p>Following is the Extended BNF notation of <span class="spanInlineIdentifier">identifier</span> and
+            <span class="spanInlineIdentifier">lhs identifier</span>:</p>
+            <div class="divEBNFCodePreview">
+                <code>
+                    <pre>
+identifier = {letter | underscore symbol} -,
+    {digit | letter | underscore symbol};
+                </pre>
+            </code>
+        </div>
+        <p>The <span class="spanInlineIdentifier">identifier</span> definition above shows that the <span class="spanInlineIdentifier">identifier</span>            starts with <span class="spanInlineIdentifier">letter</span> or <span class="spanInlineIdentifier">underscore symbol  &quot;_&quot;</span>            and can continue with <span class="spanInlineIdentifier">digit</span>, <span class="spanInlineIdentifier">letter</span>            or
+            <span class="spanInlineIdentifier">underscore symbol &quot;_&quot;</span>.</p>
+            <div class="divEBNFCodePreview">
+                <code>
+<pre>
+lhs identifier = {
+    letter | underscore symbol | hyphens symbol
+} -, {
+    digit | letter | underscore symbol | hyphens symbol
+};
+</pre>
+              </code>
+          </div>
+          <p>The left-hand side selector (lhs) identifier shows that <span class="spanInlineIdentifier">lhs identifier</span>            starts with either <span class="spanInlineIdentifier">letter</span>, <span class="spanInlineIdentifier">underscore symbol &quot;_&quot;</span>            or <span class="spanInlineIdentifier">hyphens symbol &quot;-&quot;</span>.</p>
+          <div class="divModoCodePreview">
+            <code>
+<pre>
+<span class="grey-text">/* Company Element Declaration */</span>
+Company <span style="color:#069;font-weight:700;">{</span>
+    Name <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700;">;</span>
+    <span style="color:#069;font-weight:700;">$</span>Name <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">"Doe\'s Software Inc."</span><span style="color:#069;font-weight:700;">;</span>
+    Founder <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700;">;</span>
+    <span style="color:#069;font-weight:700;">$</span>Founder <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">"John Doe"</span><span style="color:#069;font-weight:700;">;</span>
+    TaxNumber <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700;">;</span>
+    <span style="color:#069;font-weight:700;">$</span>TaxNumber <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">"123456789987654321"</span><span style="color:#069;font-weight:700;">;</span>
+<span style="color:#069;font-weight:700;">}</span>
+</pre>
+          </code>
+      </div>
+      <p>The example above shows the declaration of <span class="spanInlineIdentifier">Company</span> element.
+        In this declaration
+        <span class="spanInlineIdentifier">Company</span>, <span class="spanInlineIdentifier">Name</span>,
+        <span class="spanInlineIdentifier">Founder</span> and <span class="spanInlineIdentifier">TaxNumber</span>            are the left-hand side identifiers.</p>
+
+        <p>Additionally, there is an alternative use of<span class="spanInlineIdentifier"> backslash symbol &quot;\&quot;</span>            in strings. Backslash symbol is used to print single and double quote symbols in string values. Also for printing
+            backslash symbol in string values, one must specify two backslash symbols <span class="spanInlineIdentifier">&quot;\\&quot;</span>            consecutively.</p>
+
+            <p>Following is the Extended BNF notation of <span class="spanInlineIdentifier">escaped single quote symbol</span>            and
+                <span class="spanInlineIdentifier">escaped double quote symbol</span>:
+            </p>
+            <div class="divEBNFCodePreview">
+                <code>
+<pre>
+escaped single quote symbol = "\'";
+
+escaped double quote symbol = '\"';
+</pre>
+                  </code>
+              </div>
+              <p>In addition to that, <span class="spanInlineIdentifier">string</span>, <span class="spanInlineIdentifier">single quote escaped string</span>            and <span class="spanInlineIdentifier">double quote escaped string</span> definitions are as follows:</p>
+              <div class="divEBNFCodePreview">
+                <code>
+<pre>
+string = (single quote symbol, single quote escaped string,
+    single quote symbol) | (double quote symbol,
+    double quote escaped string, double quote symbol);
+
+single quote escaped string = {
+    (any Unicode character - single quote symbol)
+    | escaped single quote symbol};
+
+double quote escaped string = {
+    (any Unicode character - double quote symbol)
+    | escaped double quote symbol};
+</pre>
+      </code>
+  </div>
+  <h2>Directives</h2>
+  <p>Directives are the instructions directly related with the Modo generators/compilers/interpreters. They are not
+    a part of the system declared in Modo. Directives start with <span class="spanInlineIdentifier">at symbol &quot;@&quot;</span>            and continue with <span class="spanInlineIdentifier">identifier</span> and <span class="spanInlineIdentifier">expression</span>.
+    Finally, directives end with <span class="spanInlineIdentifier">end sentence symbol &quot;;&quot;</span>.</p>
+    <div class="divEBNFCodePreview">
+        <code>
+<pre>(* Directive Definition *)
+
+directive = {blank},
+    at symbol,
+    identifier,
+    {blank} -,
+    expression,
+    {blank},
+    end sentence symbol;
+</pre>
+      </code>
+  </div>
+  <h2>Rules</h2>
+  <p>In Modo syntax, <span class="spanInlineIdentifier">Rules</span> play an important role of representing
+    the different states of a system. In real life, the elements of a system might contain different properties or
+    values for different states of the system. When modeling the system, those different states, values and properties
+    must be included in the model. In Modo syntax, those different properties and values are reflected using the
+    Rules.
+</p>
+
+<p>Declarations, types and the values of the elements can be specified depending on rules. With the help of rules,
+    values and properties of the system can be changed or set depending on one or more conditions. Rules start with
+    <span class="spanInlineIdentifier">at symbol &quot;@&quot;</span>.</p>
+
+    <p>There are two types of rules: 1) Rule blocks and 2) inline rules. Following is the Extended BNF notation of rules
+    (rule blocks) and inline rules:</p>
+    <div class="divEBNFCodePreview">
+        <code>
+<pre>
+rule = {blank},
+    at symbol,
+    {blank},
+    start group symbol,
+    {blank},
+    expression,
+    {blank},
+    end group symbol,
+    {blank},
+    start declaration symbol,
+    {blank},
+    modo,
+    {blank},
+    end declaration symbol;
+</pre>
+      </code>
+  </div>
+  <p>The <span class="spanInlineIdentifier">rule</span> definition above shows that <span class="spanInlineIdentifier">rule</span>            starts with <span class="spanInlineIdentifier">at symbol &quot;@&quot;</span>, and continues with
+    <span class="spanInlineIdentifier">start group symbol</span>,
+    <span class="spanInlineIdentifier">expression</span> and <span class="spanInlineIdentifier">end group symbol</span>.
+    After rule expression is specified, rule specific declaration starts with <span class="spanInlineIdentifier">start declaration symbol</span>.
+    Any meaningful Modo declaration can be placed between declaration symbols. Finally, <span class="spanInlineIdentifier">rule</span>            ends with <span class="spanInlineIdentifier">end declaration  symbol</span>.</p>
+    <div class="divEBNFCodePreview">
+        <code>
+<pre>
+inline rule = {blank},
+    at symbol,
+    {blank},
+    start group symbol,
+    {blank},
+    expression,
+    {blank},
+    end group symbol;
+</pre>
+      </code>
+  </div>
+  <p>Similarly, the <span class="spanInlineIdentifier">inline rule</span> starts with <span class="spanInlineIdentifier">at symbol &quot;@&quot;</span>            and continues with <span class="spanInlineIdentifier">start group symbol</span>, <span class="spanInlineIdentifier">expression</span>            and <span class="spanInlineIdentifier">end group symbol</span>.</p>
+  <p>Following example shows the use of rules in Modo declarations:</p>
+  <div class="divModoCodePreview">
+    <code>
+<pre>
+Company <span style="color:#069;font-weight:700;">{</span>
+    Name <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700;">;</span>
+    <span style="color:#069;font-weight:700;">$</span>Name <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">"Doe Software Inc."</span><span style="color:#069;font-weight:700;">;</span>
+    <span style="color:#069;font-weight:700;">$</span>Name = <span style="color: #7e11cf;">"DOE Corp."</span> <span style="color:#069;font-weight:700;">@</span> <span style="color:#069;font-weight:700;">(</span><span style="color:#069;font-weight:700;">$</span>CurrentYear <span style="color:#069;font-weight:700;">&lt;</span> <span style="color: #7e11cf;">2008</span><span style="color:#069;font-weight:700;">)</span><span style="color:#069;font-weight:700;">;</span>
+    Founder <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700;">;</span>
+    <span style="color:#069;font-weight:700;">$</span>Founder <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">"John Doe"</span><span style="color:#069;font-weight:700;">;</span>
+    TaxNumber <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700;">;</span>
+    <span style="color:#069;font-weight:700;">$</span>TaxNumber <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">"123456789987654321"</span><span style="color:#069;font-weight:700;">;</span>
+<span style="color:#069;font-weight:700;">}</span></pre>
+</code>
+</div>
+<p>The example above shows the use of inline rules. On line 2, the <span class="spanInlineIdentifier">Name</span>            member element of the <span class="spanInlineIdentifier">Company</span> element is defined and
+    on line 3, it is assigned an initial value. On line 4, another value is assigned to the <span class="spanInlineIdentifier">Name</span>            element, but this time depending on the rule <span class="spanInlineIdentifier">($CurrentYear &gt; 2008)</span>.</p>
+
+    <p>Imagine a scenario where the company's name was changed to <span class="spanInlineIdentifier">&quot;DOE Corp.&quot;</span>            in the year 2008. Therefore, once the value of the <span class="spanInlineIdentifier">CurrentYear</span>            is greater than 2008 the value of the <span class="spanInlineIdentifier">Name</span> element is
+        <span class="spanInlineIdentifier">&quot;DOE Corp.&quot;</span>. In other cases, the value of
+        the <span class="spanInlineIdentifier">Name</span> element is <span class="spanInlineIdentifier">&quot;Doe Software Co.,Ltd.&quot;</span>.</p>
+        <div class="divModoCodePreview">
+            <code>
+<pre>
+Company <span style="color:#069;font-weight:700;">{</span>
+    Name <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700;">;</span>
+    Founder <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700;">;</span>
+    TaxNumber <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700;">;</span>
+    <span style="color:#069;font-weight:700;">$</span>Name <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">"Doe Software Inc."</span><span style="color:#069;font-weight:700;">;</span>
+    <span style="color:#069;font-weight:700;">@</span> <span style="color:#069;font-weight:700;">(</span><span style="color:#069;font-weight:700;">$</span>CurrentYear <span style="color:#069;font-weight:700;">&gt;</span> <span style="color: #7e11cf;">2008</span><span style="color:#069;font-weight:700;">)</span> <span style="color:#069;font-weight:700;">{</span>
+        <span style="color:#069;font-weight:700;">$</span>Name <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">"DOE Corp."</span><span style="color:#069;font-weight:700;">;</span>
+    <span style="color:#069;font-weight:700;">}</span>
+    <span style="color:#069;font-weight:700;">$</span>Founder <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">"John Doe"</span><span style="color:#069;font-weight:700;">;</span>
+    <span style="color:#069;font-weight:700;">$</span>TaxNumber <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">"123456789987654321"</span><span style="color:#069;font-weight:700;">;</span>
+<span style="color:#069;font-weight:700;">}</span>
+</pre>
+  </code>
+</div>
+<p>The example above shows the use of rule blocks. On line 6, rule block starts with <span class="spanInlineIdentifier">at symbol &quot;@&quot;</span>.
+    On line 7, a new value is assigned to the <span class="spanInlineIdentifier">Name</span> element.
+    Finally, rule block ends with <span class="spanInlineIdentifier">end declaration symbol</span>            on line 8.</p>
+
+    <p>One possible implementation of <span class="spanInlineIdentifier">Rules</span> in Modo syntax is
+    to define a value or property of elements that does not change in any state of the system.</p>
+
+    <p>For the previous scenario, assume that the tax number of the company is always the same. Therefore, value of the
+        <span class="spanInlineIdentifier">TaxNumber</span> element never changes. The following example
+    shows the Modo syntax, which defines an everlasting rule.</p>
+    <div class="divModoCodePreview">
+        <code>
+<pre>
+Company <span style="color:#069;font-weight:700;">{</span>
+    Name <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700;">;</span>
+    Founder <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700;">;</span>
+    TaxNumber <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700;">;</span>
+    <span style="color:#069;font-weight:700;">$</span>Name <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">"Doe Software Inc."</span><span style="color:#069;font-weight:700;">;</span>
+    <span style="color:#069;font-weight:700;">$</span>Founder <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">"John Doe"</span><span style="color:#069;font-weight:700;">;</span>
+    <span style="color:#069;font-weight:700;">$</span>TaxNumber <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">"123456789987654321"</span> <span style="color:#069;font-weight:700;">@</span> <span style="color:#069;font-weight:700;">(</span><span style="color: #7e11cf;">1</span><span style="color:#069;font-weight:700;">)</span><span style="color:#069;font-weight:700;">;</span>
+<span style="color:#069;font-weight:700;">}</span>
+</pre>
+  </code>
+</div>
+<p>In the above example, the elements are defined similarly to the previous example. However, when assigning values
+    a rule is defined for the value of the <span class="spanInlineIdentifier">TaxNumber</span> element.
+    On line 7, after the value is assigned to the <span class="spanInlineIdentifier">TaxNumber</span>            element the rule <span class="spanInlineIdentifier">(1)</span> is defined. This rule indicates
+    that, for all states of the system the value of the <span class="spanInlineIdentifier">TaxNumber</span>            element is <span class="spanInlineIdentifier">&quot;123456789987654321&quot;</span>.</p>
+    <blockquote cite="">
+        <strong>Note</strong>: The above examples assume that the member element <span class="spanInlineIdentifier">CurrentYear</span>            and element <span class="spanInlineIdentifier">String</span> have already been declared.
+    </blockquote>
+    <h2>Blocks</h2>
+    <p>Blocks are used for element and rule declarations. In Modo syntax, blocks start with <span class="spanInlineIdentifier">start declaration symbol &quot;{&quot;</span>            and end with <span class="spanInlineIdentifier">end declaration symbol &quot;}&quot;</span> (
+        <a href="#divAppendixA">Appendix A. Grammar</a>). Every <span class="spanInlineIdentifier">start  declaration symbol </span>must
+        end with <span class="spanInlineIdentifier">end declaration  symbol</span>.</p>
+
+        <p>Similarly, in string values if a string starts with <span class="spanInlineIdentifier">single quote symbol</span>,
+            it must end with <span class="spanInlineIdentifier">single  quote symbol</span>. In addition,
+            if a string starts with <span class="spanInlineIdentifier">double quote symbol</span>, it must
+            end with <span class="spanInlineIdentifier">double  quote symbol</span>. Every expression that
+            starts with
+            <span class="spanInlineIdentifier">start group symbol &quot;(&quot;</span> likewise ends with
+            <span class="spanInlineIdentifier">end group symbol &quot;)&quot;</span>.</p>
+            <h2>Selectors</h2>
+            <p>Modo syntax provides some pattern-matching rules for element and member element declarations. These pattern-matching
+            rules are called &quot;Selectors&quot;.</p>
+            <p>Modo syntax introduces selectors conceptually. For further information, please refer to <a href="#divSelectors">Selectors</a>.</p>
+            <h2>Elements</h2>
+            <p>Elements are the basic Modo structures that define real life entities. Elements can be declared by single line
+            definitions or block declarations.</p>
+            <p>Following example shows the declaration of <span class="spanInlineIdentifier">Company</span> element.</p>
+            <div class="divModoCodePreview">
+                <code>
+<pre>
+<span class="grey-text">/* Company Element Declaration */</span>
+Company <span style="color:#069;font-weight:700;">{</span>
+    Name <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700;">;</span>
+    <span style="color:#069;font-weight:700;">$</span>Name <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">"Doe Software Inc."</span><span style="color:#069;font-weight:700;">;</span>
+    Founder <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700;">;</span>
+    <span style="color:#069;font-weight:700;">$</span>Founder <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">"John Doe"</span><span style="color:#069;font-weight:700;">;</span>
+    TaxNumber <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700;">;</span>
+    <span style="color:#069;font-weight:700;">$</span>TaxNumber <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">"123456789987654321"</span><span style="color:#069;font-weight:700;">;</span>
+<span style="color:#069;font-weight:700;">}</span>
+</pre>
+              </code>
+          </div>
+          <p>Elements can be declared by extending built-in or previously declared elements. Following example shows the declaration
+            of <span class="spanInlineIdentifier">Worker</span> and <span class="spanInlineIdentifier">Developer</span>            elements:</p>
+            <div class="divModoCodePreview">
+                <code>
+<pre>
+Worker <span style="color:#069;font-weight:700;">{</span>
+    FirstName <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700;">;</span>
+    LastName <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700;">;</span>
+    Department <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700;">;</span>
+<span style="color:#069;font-weight:700;">}</span>
+</pre>
+                </code>
+            </div>
+            <p>The example above shows the declaration of <span class="spanInlineIdentifier">Worker</span> element.
+                On line 1, <span class="spanInlineIdentifier">&quot;Worker&quot;</span> identifier is specified
+                and declaration of the <span class="spanInlineIdentifier">Worker</span> element starts with
+                <span class="spanInlineIdentifier">start declaration symbol</span>. On line 2, <span class="spanInlineIdentifier">FirstName</span>            member element is defined. On line 3, <span class="spanInlineIdentifier">LastName</span> member
+                element is defined and on line 4, <span class="spanInlineIdentifier">Department</span> member
+                element is defined. Finally, element declaration ends with <span class="spanInlineIdentifier">end declaration symbol</span>.</p>
+
+                <p>Below is the declaration of the <span class="spanInlineIdentifier">Developer</span> element, which
+                    is an extension of the
+                    <span class="spanInlineIdentifier">Worker</span> element.</p>
+                    <div class="divModoCodePreview">
+                        <code>
+<pre>
+Developer <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">Worker</span> <span style="color:#069;font-weight:700;">{</span>
+    <span style="color:#069;font-weight:700;">$</span>Department <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">"Software Development"</span><span style="color:#069;font-weight:700;">;</span>
+<span style="color:#069;font-weight:700;">}</span>
+</pre>
+                      </code>
+                  </div>
+                  <p>The example above extends the <span class="spanInlineIdentifier">Worker</span> declaration. On line
+                    1, <span class="spanInlineIdentifier">Developer</span> element is declared extending the
+                    <span class="spanInlineIdentifier">Worker</span> element. Additionally on line 2, a specific value
+                    is assigned to the <span class="spanInlineIdentifier">Department</span> element. </p>
+                    <h2>Declarations</h2>
+                    <p>There are three types of Modo element declarations:</p>
+
+                    <ul type="square" class="collection">
+                        <li class="collection-item">Assignments</li>
+                        <li class="collection-item">Basic Declarations</li>
+                        <li class="collection-item">Extended Declarations</li>
+                    </ul>
+                    <p><strong>Assignments</strong> are one-line declarations where the assignment symbol &quot;=&quot; is used and values
+                    are assigned to the elements and member elements.</p>
+                    <p><strong>Basic declarations </strong>are the typical element declarations as blocks.</p>
+                    <p><strong>Extended declarations</strong> are the declarations that extend built-in or previously declared elements.</p>
+                    <p>For further information about declarations, please refer to <a href="#divElements">Declarations</a>.
+                    </p>
+                    <h2>Expressions</h2>
+                    <p>Modo syntax allows using expressions for assignments. Following example shows the use of expression in assignments:</p>
+                    <div class="divModoCodePreview">
+                        <code>
+<pre>
+Worker <span style="color:#069;font-weight:700;">{</span>
+    <span style="color:#069;font-weight:700;">$</span>FirstName <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">"John"</span><span style="color:#069;font-weight:700;">;</span>
+    <span style="color:#069;font-weight:700;">$</span>LastName <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">"Doe"</span><span style="color:#069;font-weight:700;">;</span>
+    <span style="color:#069;font-weight:700;">$</span>FullName <span style="color:#069;font-weight:700;">=</span> <span style="color:#069;font-weight:700;">(</span><span style="color:#069;font-weight:700;">$</span><span style="color: #7e11cf;">FirstName</span> <span style="color:#069;font-weight:700;">+</span> <span style="color: #7e11cf;">" "</span> <span style="color:#069;font-weight:700;">+</span> <span style="color:#069;font-weight:700;">$</span><span style="color: #7e11cf;">LastName</span><span style="color:#069;font-weight:700;">)</span><span style="color:#069;font-weight:700;">;</span>
+<span style="color:#069;font-weight:700;">}</span>
+</pre>
+                      </code>
+                  </div>
+                  <p>The example above shows the declaration of <span class="spanInlineIdentifier">Worker</span> element.
+                    On line 4, the value of the <span class="spanInlineIdentifier">FullName</span> member element
+                    is specified by an expression. According to this expression, value of the <span class="spanInlineIdentifier">FullName</span>            member element is composed of the value of the <span class="spanInlineIdentifier">FirstName</span>            member element, the <span class="spanInlineIdentifier">space character &quot; &quot;</span> and
+                    the value of the <span class="spanInlineIdentifier">LastName</span> member element.
+                </p>
+                <p>Modo declarations specify the state of the system for the given time periods. This nature of the Modo necessitates
+                    that the assignments must be valid for the given time periods. Therefore, for the above example, when the FirstName
+                    attribute value changes, FullName attribute value must be recalculated and updated by the generators/compilers/interpreters
+                    using this Modo model.
+                </p>
+                <p>For further information, please refer to <a href="#divExpressions">Expressions</a> chapter.</p>
+                <h2>Comments</h2>
+                <p>There are two types of comments:</p>
+
+                <ul type="square" class="collection">
+                    <li class="collection-item">Delimited Comments</li>
+                    <li class="collection-item">Single Line Comments</li>
+                </ul>
+                <div class="divEBNFCodePreview">
+                    <code>
+<pre>
+comment = delimited comment
+    single line comment;
+</pre>
+                  </code>
+              </div>
+              <p>Delimited comments start with <span class="spanInlineIdentifier">start delimited  comment symbol &quot;/*&quot;</span>            and end with <span class="spanInlineIdentifier">end  delimited comment symbol &quot;*/&quot;</span>.
+              </p>
+              <div class="divEBNFCodePreview">
+                <code>
+<pre>
+delimited comment = {blank},
+    start delimited comment symbol,
+    ({character} - end delimited comment symbol),
+    end delimited comment symbol;
+</pre>
+              </code>
+          </div>
+          <p>Single line comments start with <span class="spanInlineIdentifier">start  single line comment symbol &quot;//&quot;</span>            and end with any kind of new line character.</p>
+          <div class="divEBNFCodePreview">
+            <code>
+<pre>
+single line comment = {blank},
+    start single line comment symbol,
+    ({character} - new line),
+    new line;
+</pre>
+            </code>
+        </div>
+        <p>Comments include descriptions and notes about Modo declarations. Modo generators/compilers/interpreters ignore
+            comments during generation, compiling and interpreting process. Comments are useful for making code more readable.
+        </p>
+        <div class="divModoCodePreview">
+            <code>
+<pre>
+<span class="grey-text">/* Beginning of Company element declaration */</span>
+Company <span style="color:#069;font-weight:700;">{</span>
+    
+    <span class="grey-text">/* Name member element definition */</span>
+    Name <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700;">;</span>
+    
+    <span class="grey-text">/* Value assigned to Name element */</span>
+    <span style="color:#069;font-weight:700;">$</span>Name <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">"Doe Software Inc."</span><span style="color:#069;font-weight:700;">;</span>
+
+    <span class="grey-text">/* Founder member element definition */</span>
+    Founder <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700;">;</span>
+
+    <span class="grey-text">/* Value assigned to Founder element */</span>
+    <span style="color:#069;font-weight:700;">$</span>Founder <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">"John Doe"</span><span style="color:#069;font-weight:700;">;</span>
+
+    <span class="grey-text">/* TaxNumber member element definition */</span>
+    TaxNumber <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700;">;</span>
+
+    <span class="grey-text">/* Value assigned to TaxNumber element */</span>
+    <span style="color:#069;font-weight:700;">$</span>TaxNumber <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">"123456789987654321"</span><span style="color:#069;font-weight:700;">;</span>
+}
+<span class="grey-text">/* End of Company element declaration */</span>
+</pre>
+      </code>
+  </div>
+  <p>In the example above, comments are used on lines 1, 3, 5, 7, 9, 11, 13 and 16.</p>
+  <h2>Values</h2>
+  <p>There are two types of values in Modo syntax.</p>
+
+  <ul type="square" class="collection">
+
+    <li class="collection-item">Numeric values (integers and real numbers)</li>
+
+    <li class="collection-item">Strings</li>
+
+</ul>
+
+<p>All the element or member element values must be specified using either numeric values or strings.</p>
+
+<h3>Integers and real numbers</h3>
+
+<p>Integers and real numbers are formed by bringing digits [0-9] together.</p>
+
+<p>Following is the Extended BNF notation of <span class="spanInlineIdentifier">integer</span> and
+    <span class="spanInlineIdentifier">constant</span> (real number) syntax:</p>
+
+    <div class="divEBNFCodePreview">
+        <code>
+<pre>
+integer = "0" | (digit - "0", {digit});
+
+constant = integer, [dot symbol, {digit}-];
+</pre>
+        </code>
+    </div>
+    <p>The syntax above shows that constant (real number) values include integer values. Decimal digits are separated
+        using <span class="spanInlineIdentifier">dot  symbol &quot;.&quot;</span>.
+    </p>
+    <h2>Strings</h2>
+    <p>Except numerals, all the values in Modo declarations must be specified as strings. Strings start with <span class="spanInlineIdentifier">single quote  symbol</span>            or <span class="spanInlineIdentifier">double quote</span> symbol and end with <span class="spanInlineIdentifier">single quote symbol</span>            or <span class="spanInlineIdentifier">double quote symbol</span> respectively. Following examples
+        show the different use of strings:
+    </p>
+    <div class="divModoCodePreview">
+        <code>
+<pre>
+A <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">"This is double quote string."</span><span style="color:#069;font-weight:700;">;</span>
+A <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">'This is single quote string.'</span><span style="color:#069;font-weight:700;">;</span>
+A <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">"This is double quote \" escaped string"</span><span style="color:#069;font-weight:700;">;</span>
+A <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">'This is single quote \' escaped string'</span><span style="color:#069;font-weight:700;">;</span>
+A <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">'This is a \'string\''</span><span style="color:#069;font-weight:700;">;</span>
+A <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">"This is a \"string\""</span><span style="color:#069;font-weight:700;">;</span>
+</pre>
+      </code>
+  </div>
+</div>
+<div class="container scrollspy" id="divElements">
+  <h1>Elements</h1>
+  <p>Modo is used for describing systems. For better understanding, the system, its subsystems, its super system (the
+    system that encompasses the system that is in focus), its environment and context can be separated into meaningful
+    pieces. This approach has different names for different disciplines (e.g. Systems approach, object-oriented design).
+    This approach is handy for analyzing and modeling systems. Sharing the same point of view, Modo offers separation
+    of systems into signicifant unique pieces for modeling. These pieces are called "Elements" in Modo syntax. This
+    chapter gives information about the declaration and usage of elements in Modo syntax.
+</p>
+<h2>Declerations</h2>
+<p>Declarations are used for representing the real-life system entities as Modo elements. There are three types of
+    declarations:
+</p>
+
+<ol class="collection">
+    <li class="collection-item">Assignments</li>
+    <li class="collection-item">Basic Declarations</li>
+    <li class="collection-item">Extended declarations</li>
+</ol>
+
+<p>Following sections give detailed information about declarations.</p>
+
+<h2>Assignments</h2>
+<p>Real-Life entities can have properties and sub elements. In Modo, these properties and sub elements are called
+    &quot;Member Elements&quot;.
+</p>
+
+<p>Declaration of the elements can be made by assigning values to the member elements. In the following example assignments
+    are used to declare the Company element.
+</p>
+<div class="divModoCodePreview">
+    <code>
+<pre>
+Company Name <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700;">;</span>
+Company Founder <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700">;</span>
+Company TaxNumber <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700">;</span>
+Company <span style="color:#069;font-weight:700;">$</span>Name <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">"Doe Software Inc."</span><span style="color:#069;font-weight:700;">;</span>
+Company <span style="color:#069;font-weight:700;">$</span>Founder <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">"John Doe"</span><span style="color:#069;font-weight:700;">;</span>
+Company <span style="color:#069;font-weight:700;">$</span>TaxNumber <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">"123456789987654321"</span><span style="color:#069;font-weight:700;">;</span>
+</pre>
+</code>
+</div>
+<p>The example above shows the declaration of Company element. On line 1, <span class="spanInlineIdentifier">Name</span>            attribute is defined and on line 4 the value <span class="spanInlineIdentifier">&quot;Doe  Software Co.,Ltd.&quot;</span>            is assigned. On line 2, <span class="spanInlineIdentifier">Founder</span> attribute is defined
+    and on line 5, the value <span class="spanInlineIdentifier">&quot;John  Doe&quot;</span> is assigned.
+    Finally, on line 3, <span class="spanInlineIdentifier">TaxNumber</span> attribute is defined and
+    on line 6, the value <span class="spanInlineIdentifier">&quot;123456789987654321&quot;</span>            is assigned.
+</p>
+<h2>Extended Declerations</h2>
+<p>Element declarations can be made by extending built-in or previously defined elements. The extended element carries
+    all the properties of the parent element. Additionally, extended element can have its original member elements.
+</p>
+
+<p>Following are the basic declarations of the <span class="spanInlineIdentifier">Worker</span> element
+    and the <span class="spanInlineIdentifier">Developer</span> element which extends the <span class="spanInlineIdentifier">Worker</span>            element:</p>
+    <div class="divModoCodePreview">
+        <code>
+<pre>
+Worker <span style="color:#069;font-weight:700;">{</span>
+    Name <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700;">;</span>
+    Surname <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700;">;</span>
+    Department <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700;">;</span>
+<span style="color:#069;font-weight:700;">}</span>
+</pre>
+    </code>
+</div>
+<p>The above example is the basic declaration of the <span class="spanInlineIdentifier">Worker</span>            element. On line 1, the declaration of the element starts. On lines 2, 3 and 4, the member elements <span class="spanInlineIdentifier">Name</span>,
+    <span class="spanInlineIdentifier">Surname</span> and <span class="spanInlineIdentifier">Department</span>            are defined respectively.
+</p>
+<div class="divModoCodePreview">
+    <code>
+<pre>
+Developer <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">Worker</span> <span style="color:#069;font-weight:700;">{</span>
+    <span style="color:#069;font-weight:700;">$</span>Department <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">"Software Development"</span><span style="color:#069;font-weight:700;">;</span>
+    Expertise <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700;">;</span>
+<span style="color:#069;font-weight:700;">}</span>
+</pre>
+</code>
+</div>
+<p>On line 1, <span class="spanInlineIdentifier">Developer</span> element is declared extending the
+    <span class="spanInlineIdentifier">Worker</span> element. With this assignment, extended declaration
+    of the <span class="spanInlineIdentifier">Developer</span> element starts. On line 2, a value,
+    <span class="spanInlineIdentifier">&quot;Software Development&quot;</span>, is assigned to the
+    <span class="spanInlineIdentifier">Department</span> element. In the above example the <span class="spanInlineIdentifier">Department</span>            element belongs to the <span class="spanInlineIdentifier">Worker</span> element. So in line 2,
+    the Developer element extends the <span class="spanInlineIdentifier">Worker</span> element via
+    assigning a value to an existing member element. However in line 3, a new member element <span class="spanInlineIdentifier">Expertise</span>,
+    which belongs only to <span class="spanInlineIdentifier">Developer</span> element, is defined.
+    So this time, the <span class="spanInlineIdentifier">Worker</span> element is extended via defining
+    a new member element.
+</p>
+<h2>Using Elements</h2>
+<p>Declaration process of the Modo elements is not limited to specifying the member elements, but it also includes
+    relating them with each other and other Modo elements. This section gives details about using elements.
+</p>
+<h2>Member Elements</h2>
+<p>In Modo syntax, all the properties/attributes of an element are also elements, which are called member elements.
+    Member element declaration starting without any preceding characters, defines the type of the member element.
+The type of the member elements can be a built-in or previously declared element.</p>
+
+<p>When the definition of the member element starts with the <span class="spanInlineIdentifier">dollar symbol &quot;$&quot;</span>,
+    this assignment specifies the initial value of this element in the system. If the initial value is assigned with
+a rule, then that value will be condition dependent.</p>
+
+<p>Following is the Modo declaration of the <span class="spanInlineIdentifier">Company</span> element:</p>
+<div class="divModoCodePreview">
+    <code>
+<pre>
+Company <span style="color:#069;font-weight:700;">{</span>
+    Name <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700;">;</span>
+    <span style="color:#069;font-weight:700;">$</span>Name <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">"Doe Software Inc."</span><span style="color:#069;font-weight:700;">;</span>
+    <span style="color:#069;font-weight:700;">$</span>Name <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">"DOE Corp."</span> <span style="color:#069;font-weight:700;">@</span> <span style="color:#069;font-weight:700;">(</span><span style="color:#069;font-weight:700;">$</span>CurrentYear <span style="color:#069;font-weight:700;">&gt;</span> <span style="color: #7e11cf;">2008</span><span style="color:#069;font-weight:700;">)</span><span style="color:#069;font-weight:700;">;</span>
+    Founder <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700;">;</span>
+    <span style="color:#069;font-weight:700;">$</span>Founder <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">"John Doe"</span><span style="color:#069;font-weight:700;">;</span>
+    TaxNumber <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700;">;</span>
+    <span style="color:#069;font-weight:700;">$</span>TaxNumber <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">"123456789987654321"</span><span style="color:#069;font-weight:700;">;</span>
+<span style="color:#069;font-weight:700;">}</span>
+</pre>
+</code>
+</div>
+<p>In the above example, on lines 2, 5 and 7, the member elements <span class="spanInlineIdentifier">Name</span>,
+    <span class="spanInlineIdentifier">Founder</span> and <span class="spanInlineIdentifier">TaxNumber</span>            are declared respectively. Their types are also specified as
+    <span class="spanInlineIdentifier">String</span>, which is another built-in or previously declared
+    element. On lines, 3, 6 and 8 initial values are assigned with the help of <span class="spanInlineIdentifier">dollar symbol &quot;$&quot;</span>.
+    On line 4, a different value is assigned to the <span class="spanInlineIdentifier">Name</span>            member element, but this time depending on a rule <span class="spanInlineIdentifier">($CurrentYear &gt; 2008)</span>.</p>
+
+    <p>Modo syntax also allows nested declarations where the member elements can extend an existing element. This nested
+    declaration is one of the ways to define the relationship between the elements.</p>
+
+    <p>Following examples shows the nested declaration of member elements: </p>
+    <div class="divModoCodePreview">
+        <code>
+<pre>
+Worker <span style="color:#069;font-weight:700;">{</span>
+    Name <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700;">;</span>
+    Surname <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700;">;</span>
+    Department <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700;">;</span>
+<span style="color:#069;font-weight:700;">}</span>
+</pre>
+    </code>
+</div>
+<p>The example above shows the declaration of the <span class="spanInlineIdentifier">Worker</span>            element. On lines 2, 3 and 4, the member elements <span class="spanInlineIdentifier">Name</span>,
+    <span class="spanInlineIdentifier">Surname</span> and
+    <span class="spanInlineIdentifier">Department</span> are declared respectively.
+</p>
+<div class="divModoCodePreview">
+    <code>
+<pre>
+Department <span style="color:#069;font-weight:700;">{</span>
+    DepartmentName <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700;">;</span>
+    Manager <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">Worker</span> <span style="color:#069;font-weight:700;">{</span>
+         <span style="color:#069;font-weight:700;">$</span>Department <span style="color:#069;font-weight:700;">=</span> <span style="color:#069;font-weight:700;">$</span><span style="color: #7e11cf;">DepartmentName</span><span style="color:#069;font-weight:700;">;</span>
+    <span style="color:#069;font-weight:700;">}</span>
+<span style="color:#069;font-weight:700;">}</span>
+</pre>
+</code>
+</div>
+<p>The above example shows the declaration of the <span class="spanInlineIdentifier">Department</span>            element. On line 2,
+    <span class="spanInlineIdentifier">DepartmentName</span> member element is declared. On line 3,
+    member element <span class="spanInlineIdentifier">Manager</span> is declared extending the element
+    <span class="spanInlineIdentifier">Worker</span>. On line 4, the value of the
+    <span class="spanInlineIdentifier">Department</span> member element of the <span class="spanInlineIdentifier">Manager</span>            element is assigned to the value of the <span class="spanInlineIdentifier">DepartmentName</span>            member element.
+</p>
+<h2>Accessing Member Elements</h2>
+<p>The value of built-in elements, previously declared elements or member elements could be used while declaring the
+member elements.</p>
+
+<p>Following examples give details about accessing member elements: </p>
+<div class="divModoCodePreview">
+    <code>
+<pre>
+Worker <span style="color:#069;font-weight:700;">{</span>
+    FirstName <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700;">;</span>
+    LastName <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700;">;</span>
+    FullName <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700;">;</span>
+    <span style="color:#069;font-weight:700;">$</span>FullName <span style="color:#069;font-weight:700;">=</span> <span style="color:#069;font-weight:700;">(</span><span style="color:#069;font-weight:700;">$</span><span style="color: #7e11cf;">FirstName</span> <span style="color:#069;font-weight:700;">+</span> <span style="color: #7e11cf;">" "</span> <span style="color:#069;font-weight:700;">+</span> <span style="color:#069;font-weight:700;">$</span><span style="color: #7e11cf;">LastName</span><span style="color:#069;font-weight:700;">)</span><span style="color:#069;font-weight:700;">;</span>
+<span style="color:#069;font-weight:700;">}</span>
+</pre>
+</code>
+</div>
+<p>The example above shows the declaration of <span class="spanInlineIdentifier">Worker</span> element.
+    On line 5, the value of the <span class="spanInlineIdentifier">FullName</span> member element
+    is assigned using an expression that accesses the values of the <span class="spanInlineIdentifier">FirstName</span>            and <span class="spanInlineIdentifier">LastName</span> member elements of the <span class="spanInlineIdentifier">Worker</span>            element.
+</p>
+<div class="divModoCodePreview">
+    <code>
+<pre>
+Worker <span style="color:#069;font-weight:700;">{</span>
+    <span style="color:#069;font-weight:700;">$</span>FirstName <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">""</span><span style="color:#069;font-weight:700;">;</span>
+    <span style="color:#069;font-weight:700;">$</span>LastName <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">""</span><span style="color:#069;font-weight:700;">;</span>
+    <span style="color:#069;font-weight:700;">$</span>FullName <span style="color:#069;font-weight:700;">=</span> <span style="color:#069;font-weight:700;">(</span><span style="color:#069;font-weight:700;">$</span><span style="color: #7e11cf;">FirstName</span> <span style="color:#069;font-weight:700;">+</span> <span style="color: #7e11cf;">" "</span> <span style="color:#069;font-weight:700;">+</span> <span style="color:#069;font-weight:700;">$</span><span style="color: #7e11cf;">LastName</span><span style="color:#069;font-weight:700;">)</span><span style="color:#069;font-weight:700;">;</span>
+<span style="color:#069;font-weight:700;">}</span>
+
+Department <span style="color:#069;font-weight:700;">{</span>
+    DepartmentName <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700;">;</span>
+    Manager <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">Worker</span> <span style="color:#069;font-weight:700;">{</span>
+        Title <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700;">;</span>
+        <span style="color:#069;font-weight:700;">$</span>Title <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">"Manager "</span> <span style="color:#069;font-weight:700;">+</span> <span style="color:#069;font-weight:700;">$</span><span style="color: #7e11cf;">FullName</span><span style="color:#069;font-weight:700;">;</span>
+    <span style="color:#069;font-weight:700;">}</span>
+<span style="color:#069;font-weight:700;">}</span>
+</pre>
+</code>
+</div>
+<p>Above is an example of accessing element attributes in extended declaration. On line 11, <span class="spanInlineIdentifier">Title</span>            attribute is assigned a value using an expression which accesses <span class="spanInlineIdentifier">FullName</span>            attribute of the <span class="spanInlineIdentifier">Worker</span> element.
+</p>
+<h2>Functions and Member Methods</h2>
+<p>Modo syntax does not allow the definition of user defined functions and member methods. However, Modo generators/compilers/interpreters
+can provide some built-in functions and member methods.</p>
+
+<p>This section gives information about using built-in functions and member methods in Modo declarations.</p>
+
+<p>Following example shows the use of member methods in Modo declarations:</p>
+<div class="divModoCodePreview">
+    <code>
+<pre>
+Worker <span style="color:#069;font-weight:700;">{</span>
+    FirstName <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700;">;</span>
+    LastName <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700;">;</span>
+    FullName <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700;">;</span>
+    <span style="color:#069;font-weight:700;">$</span>FullName <span style="color:#069;font-weight:700;">=</span> <span style="color:#069;font-weight:700;">(</span><span style="color:#069;font-weight:700;">$</span><span style="color: #7e11cf;">FirstName</span> <span style="color:#069;font-weight:700;">+</span> " " <span style="color:#069;font-weight:700;">+</span> <span style="color:#069;font-weight:700;">$</span><span style="color: #7e11cf;">LastName</span><span style="color:#069;font-weight:700;">);</span>
+
+    <span class="grey-text">/* FormatCurrency function takes 2 parameters
+     * param1: Amount
+     * param2: Decimal Count
+     */
+    </span>
+    Salary <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700;">;</span>
+    <span style="color:#069;font-weight:700;">$</span>Salary <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">FormatCurrency</span><span style="color:#069;font-weight:700;">(</span><span style="color: #7e11cf;">1500</span><span style="color:#069;font-weight:700;">,</span> <span style="color: #7e11cf;">2</span><span style="color:#069;font-weight:700;">);</span>
+<span style="color:#069;font-weight:700;">}</span>
+</pre>
+</code>
+</div>
+<p>The example above shows the use of member methods in Modo declarations. On line 12, the value of the <span class="spanInlineIdentifier">Salary</span>            member element is specified by the return value of <span class="spanInlineIdentifier">FormatCurrency</span>            function.
+    <span class="spanInlineIdentifier">FormatCurrency</span> function takes two parameters:
+</p>
+
+<ol class="collection">
+    <li class="collection-item">Currency amount and</li>
+    <li class="collection-item">Decimal count</li>
+</ol>
+
+<p>The value of the <span class="spanInlineIdentifier">Salary</span> member element becomes <span class="spanInlineIdentifier">&quot;1500.00&quot;</span>.</p>
+<blockquote class="blockImportant">
+    <p><strong>Warning</strong>: <span class="spanInlineIdentifier">FormatCurrency</span> function used
+    in the example above only shows the use of member methods. This function is not a part of Modo syntax.</p>
+</blockquote>
+<blockquote>
+    <p><strong>Note</strong>: The above examples assume that the element <span class="spanInlineIdentifier">String</span>              has already been declared.</p>
+</blockquote>
+</div>
+
+<div class="container scrollspy" id="divSelectors">
+  <h1>Selectors</h1>
+  <p>Selectors provide control over elements. Selectors can define the scope of the declaration. </p>
+
+  <p>This chapter gives information about the uses of selectors over elements.</p>
+
+  <h2>Selector Syntax</h2>
+  <p>There are two types of selectors:</p>
+  <ul class="collection">
+
+    <li class="collection-item">Left-hand side selectors</li>
+
+    <li class="collection-item">Right-hand side selectors</li>
+
+</ul>
+<p>Following is the Extended BNF notation of left-hand and right-hand side selectors:</p>
+<div class="divEBNFCodePreview">
+    <code>
+<pre>
+lhs selector = (
+    {blank},
+    universal selector | selector operand,
+    {blank},
+    {selector operator, {blank}, selector operand}),
+    {
+    {blank},
+    comma symbol,
+    {blank},
+    lhs selector
+    };
+</pre>
+        </code>
+    </div>
+    <p>Left-hand side selectors have more complex structure than right-hand side selectors. The Extended BNF notation
+        above shows that <span class="spanInlineIdentifier">lhs selector </span>consists of a <span class="spanInlineIdentifier">selector operand</span>            or a <span class="spanInlineIdentifier">universal selector</span>, and a <span class="spanInlineIdentifier">selector operator</span>.
+        Additionally, it is possible to specify more than one <span class="spanInlineIdentifier">lhs selector </span>by
+        separating with <span class="spanInlineIdentifier">comma symbol &quot;,&quot;</span>.
+    </p>
+    <div class="divEBNFCodePreview">
+        <code>
+<pre>
+rhs selector = {blank},
+    [unary selector operator],
+    identifier,
+    {rhs selector};
+</pre>
+    </code>
+</div>
+<p>The Extended BNF notation above shows that <span class="spanInlineIdentifier">rhs selector</span>            consists of optional
+    <span class="spanInlineIdentifier">unary selector operator</span> and an <span class="spanInlineIdentifier">identifier</span>.
+    In addition to that, it is possible to specify more than one <span class="spanInlineIdentifier">rhs selector</span>.
+</p>
+<h2>Universial Selector</h2>
+<p>In Modo selector syntax, <span class="spanInlineIdentifier">&quot;*&quot;</span> symbol plays an
+    important role. This symbol is called <span class="spanInlineIdentifier">universal  selector </span>and
+    used to match any single element. As specified in <a href="#divAppendixA">Appendix  A. Grammar</a>,
+    <span class="spanInlineIdentifier"> universal selector</span> can only be used in left-hand side
+    selectors. The main reason for this convention is, right-hand side selectors are not allowed to address more
+    than one element.
+</p>
+<h2>Grouping</h2>
+<p>Modo syntax provides grouping for left-hand side selectors. Left-hand side selectors may specify more than one
+    element at a time. This is useful for declaring identical elements.
+</p>
+<blockquote class="blockImportant">
+    <p><strong>Warning</strong>: Grouping can only be used on left-hand side selectors. Right-hand side selectors have
+      no grouping support.
+  </p>
+</blockquote>
+<p>Following example shows the use of grouping:</p>
+<div class="divModoCodePreview">
+    <code>
+<pre>
+Developer<span style="color:#069;font-weight:700;">,</span> Designer <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">Worker</span> <span style="color:#069;font-weight:700;">{</span>
+    FirstName <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700;">;</span>
+    LastName <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">String</span><span style="color:#069;font-weight:700;">;</span>
+<span style="color:#069;font-weight:700;">}</span>
+</pre>
+</code>
+</div>
+<p>The example above shows the use of grouping. Both <span class="spanInlineIdentifier">Developer</span>            and <span class="spanInlineIdentifier">Designer</span> elements are of type the <span class="spanInlineIdentifier">Worker</span>            element. These elements are separated with
+    <span class="spanInlineIdentifier">comma symbol</span>.
+</p>
+<h2>Selector Operators</h2>
+<p>There are two types of selector operators:</p>
+<ul class="collection">
+    <li class="collection-item">Unary selector operators</li>
+    <li class="collection-item">Binary selector operators</li>
+</ul>
+<p>This section gives information about the use of these selector operators.</p>
+
+<h2>Unary selector operators</h2>
+<p>Unary selector operators are the selector operators that take one selector operand.</p>
+<p>Following is the Extended BNF notation of the unary selector operators:</p>
+
+<div class="divEBNFCodePreview">
+    <code>
+<pre>
+unary selector operator = "$", ".", "#", "?", " ";
+</pre>
+</code>
+</div>
+<p>Following examples shows the use of unary selector operators:</p>
+<div class="divModoCodePreview">
+    <code>
+<pre>
+<span style="color:#069;font-weight:700;">.</span>Developer <span style="color:#069;font-weight:700;">{ }</span>
+<span style="color:#069;font-weight:700;">#</span>Developer <span style="color:#069;font-weight:700;">{ }</span>
+<span style="color:#069;font-weight:700;">?</span>Developer <span style="color:#069;font-weight:700;">{ }</span>
+Developer <span style="color:#069;font-weight:700;">$</span>Name <span style="color:#069;font-weight:700;">=</span> <span style="color: #7e11cf;">""</span><span style="color:#069;font-weight:700;">;</span>
+</pre>
+    </code>
+</div>
+
+<blockquote class="blockImportant">
+    <p><strong>Warning</strong>: The meaning and the use of these selector operators may be interpreted differently
+      by different Modo generators/compilers/interpreters.
+  </p>
+</blockquote>
+
+<h2>Binary Selector Operators</h2>
+<p>Binary selector operators are the selector operators that take two selector operands.</p>
+<p>Following is the Extended BNF notation of the binary selector operators:</p>
+
+<div class="divEBNFCodePreview">
+    <code>
+<pre>
+selector operator = "&amp;gt;", "&amp;lt;", "+", "-", "~", "^", ":",
+    "::", "%", "&amp;", "|", "\", "/";
+</pre>
+        </code>
+    </div>
+    <p>Following examples shows the use of binary selector operators:</p>
+    <div class="divModoCodePreview">
+        <code>
+<pre>
+Developer <span style="color:#069;font-weight:700;">&gt;</span> <span style="color:#069;font-weight:700;">$</span>Name <span style="color:#069;font-weight:700;">=</span> ""<span style="color:#069;font-weight:700;">;</span>
+Developer <span style="color:#069;font-weight:700;">&lt;</span> <span style="color:#069;font-weight:700;">$</span>Name <span style="color:#069;font-weight:700;">=</span> ""<span style="color:#069;font-weight:700;">;</span>
+Developer <span style="color:#069;font-weight:700;">+</span> Designer <span style="color:#069;font-weight:700;">{ }</span>
+Developer <span style="color:#069;font-weight:700;">-</span> Designer <span style="color:#069;font-weight:700;">{ }</span>
+Developer <span style="color:#069;font-weight:700;">~</span> Designer <span style="color:#069;font-weight:700;">{ }</span>
+Developer <span style="color:#069;font-weight:700;">^</span> Designer <span style="color:#069;font-weight:700;">{ }</span>
+Developer <span style="color:#069;font-weight:700;">%</span> Designer <span style="color:#069;font-weight:700;">{ }</span>
+Developer <span style="color:#069;font-weight:700;">&amp;</span> Designer <span style="color:#069;font-weight:700;">{ }</span>
+Developer <span style="color:#069;font-weight:700;">|</span> Designer <span style="color:#069;font-weight:700;">{ }</span>
+Developer <span style="color:#069;font-weight:700;">/</span> Designer <span style="color:#069;font-weight:700;">{ }</span>
+</pre>
+        </code>
+    </div>
+
+    <blockquote class="blockImportant">
+        <p><strong>Warning</strong>: The meaning and the use of these selector operators may be interpreted differently
+          by different Modo generators/compilers/interpreters.
+      </p>
+  </blockquote>
+
+  <h2>Selector Operands</h2>
+  <p>Selector operands are the components of the selection operation affected by binary and unary selector operators.</p>
+  <p>Following is the Extended BNF notation of <span class="spanInlineIdentifier">selector operand</span>            in Modo syntax:</p>
+
+  <div class="divEBNFCodePreview">
+    <code>
+        <pre>
+selector operand = {blank},
+    [
+    [unary selector operator],
+    lhs identifier
+    ],
+    {blank},
+    [
+    (
+    start group symbol,
+    [
+    selector expression,
+    {
+    {blank},
+    comma symbol,
+    {blank},
+    selector expression
+    }
+    ],
+    {blank},
+    end group symbol)
+    |
+    (start attribute selector symbol,
+    selector expression,
+    {
+    {blank},
+    comma symbol,
+    {blank},
+    selector expression
+    },
+    {blank},
+    end attribute selector symbol
+    )
+    ],
+    {selector operand};
+</pre>
+    </code>
+</div>
+<p>The notation above shows that selector operands start with optional <span class="spanInlineIdentifier">unary selector operator</span>            and <span class="spanInlineIdentifier">lhs identifier</span>. It is possible to specify a selector
+    start with either
+    <span class="spanInlineIdentifier">start group symbol &quot;(&quot;</span> or <span class="spanInlineIdentifier">start attribute  selector symbol &quot;[&quot;</span>.
+    If a selector starts with <span class="spanInlineIdentifier">start group symbol</span>, it must
+    end with <span class="spanInlineIdentifier">end group symbol</span>. Similarly, if a selector
+    starts with <span class="spanInlineIdentifier">start attribute selector  symbol</span>, it must
+    end with <span class="spanInlineIdentifier">end attribute  selector symbol</span>.
+</p>
+
+<h2>Selector Expressions</h2>
+<p>By the help of the selector operand expressions, not only the elements but also its member elements, member element
+values and member methods can be used in the left-hand side selectors.</p>
+<p>Following is the Extended BNF notation of <span class="spanInlineIdentifier">selector  expression</span>            in Modo syntax:</p>
+
+<div class="divEBNFCodePreview">
+    <code>
+<pre>
+selector expression = {blank},
+    {start group symbol},
+    {blank},
+    operand | expression,
+    {
+    {blank},
+    selector expression operator,
+    {blank},
+    {start group symbol},
+    {blank},
+    operand | expression,
+    {blank},
+    {end group symbol},
+    },
+    {blank},
+    {end group symbol};
+</pre>
+    </code>
+</div>
+
+<p>The <span class="spanInlineIdentifier">selector  expression</span> notation above shows that
+    <span class="spanInlineIdentifier">selector expression</span> and <span class="spanInlineIdentifier">expression</span>            notation have several tokens in common except the <span class="spanInlineIdentifier">selector expression operator</span>.</p>
+    <p>Following is the Extended BNF notation of <span class="spanInlineIdentifier">selector  expression operator</span>:</p>
+
+    <div class="divEBNFCodePreview">
+        <code>
+<pre>
+selector expression operator = "*" | "/" | "%" | "+" | "-"
+    | "&amp;lt;&amp;lt;" | "&amp;gt;&amp;gt;" | "&amp;lt;" | "&amp;gt;" | "=" | "&amp;" | "^" | "|"
+    | "&amp;lt;=" | "&amp;gt;=" | "==" | "!=" | "*=" | "/=" | "%="
+    | "+=" | "-=" | "&amp;=" | "^=" | "|=" | "$=" | "~="
+    | ".=" | "#=" | "?=" | ":=" | "&amp;&amp;" | "||";
+</pre>
+      </code>
+  </div>
+
+</div>
+
+<div class="container scrollspy" id="divExpressions">
+  <h1>Expressions</h1>
+  <p>An expression can be defined as a sequence of operands and operators (<a href="#divAppendixB">ECMA-334, 2006</a>).
+  In Modo syntax, expressions are used for the definition of elements and member elements.</p>
+
+  <p>Following is the Extended BNF notation of the expression in Modo syntax:</p>
+  <div class="divEBNFCodePreview">
+    <code>
+<pre>
+expression = {blank},
+    {start group symbol},
+    {blank},
+    operand | expression,
+    {
+    {blank},
+    operator,
+    {blank},
+    {start group symbol},
+    {blank},
+    operand | expression,
+    {blank},
+    {end group symbol},
+    },
+    {blank},
+    {end group symbol};
+</pre>
+    </code>
+</div>
+<p>The <span class="spanInlineIdentifier">expression</span> definition above shows that expressions
+    start with optional
+    <span class="spanInlineIdentifier">start group symbol, &quot;(&quot;</span>. An <span class="spanInlineIdentifier">operand</span>            or <span class="spanInlineIdentifier">expression</span> follows this symbol. Then optional
+    <span class="spanInlineIdentifier">operator</span> and <span class="spanInlineIdentifier">operand/expression</span>            follow. Finally expression syntax ends with optional
+    <span class="spanInlineIdentifier">end group symbol, &quot;)&quot;</span>.
+</p>
+<h2>Operators</h2>
+<p>As mentioned in expression syntax, expressions are composed of operands and operators. Operators specify the operations
+    that will be applied to the operands (<a href="#divAppendixB">ECMA-334, 2006</a>).</p>
+
+    <p>In Modo syntax, there are two types of operators:</p>
+
+    <ol class="collection">
+        <li class="collection-item"><strong>Unary operators</strong> take one operand (e.g. -A, A++).</li>
+        <li class="collection-item"><strong>Binary operators</strong> take two operands (e.g. A + B).</li>
+    </ol>
+
+    <p>Following is the Extended BNF notation of <span class="spanInlineIdentifier">unary operator </span>and
+        <span class="spanInlineIdentifier">operator</span> (Binary operator) in Modo syntax:</p>
+
+        <div class="divEBNFCodePreview">
+            <code>
+<pre>
+unary operator = "+" | "-" | "!" | "~"
+    | increment operator
+    | decrement operator;
+
+operator = "*" | "/" | "%" | "+" | "-" | "&amp;lt;&amp;lt;" | "&amp;gt;&amp;gt;" | "&amp;lt;"
+    | "&amp;gt;" | "&amp;lt;=" | "&amp;gt;=" | "==" | "!=" | "&amp;" | "^" | "|"
+    | "&amp;&amp;" | "||";
+</pre>
+        </code>
+    </div>
+    <p>Expressions are evaluated from left to right. Operator precedence is the key factor that determines which operations
+        will be applied to which operands.
+    </p>
+    <p>Following table lists the precedence of the operators:</p>
+    <table summary="Operator Precedence" class="tableOperator striped" cellpadding="0" cellspacing="0">
+        <thead>
+          <tr>
+            <th scope="col" colspan="3">Operator Precedence</th>
+        </tr>
+        <tr>
+            <th scope="col">&nbsp;</th>
+            <th scope="col">Category</th>
+            <th scope="col">Operators</th>
+        </tr>
+    </thead>
+    <tbody>
+      <!-- TOKAT -->
+      <tr class="trOdd">
+        <td class="col1">1</td>
+        <td><a href="#op1">Unary operators</a></td>
+        <td>+ - ! ~ ++ --</td>
+    </tr>
+    <tr class="trEven">
+        <td class="col1">2</td>
+        <td><a href="#op2">Multiplication operators</a></td>
+        <td>* / %</td>
+    </tr>
+    <tr class="trOdd">
+        <td class="col1">3</td>
+        <td><a href="#op3">Addition operators</a></td>
+        <td>+ -</td>
+    </tr>
+    <tr class="trEven">
+        <td class="col1">4</td>
+        <td><a href="#op4">Shifting operators</a></td>
+        <td>&lt;&lt; &gt;&gt;</td>
+    </tr>
+    <tr class="trOdd">
+        <td class="col1">5</td>
+        <td><a href="#op5">Relational operators</a></td>
+        <td>&lt; &gt; &lt;= =&gt;</td>
+    </tr>
+    <tr class="trEven">
+        <td class="col1">6</td>
+        <td><a href="#op6">Equality operators</a></td>
+        <td>== !=</td>
+    </tr>
+    <tr class="trOdd">
+        <td class="col1">7</td>
+        <td><a href="#op7">Logical AND operator</a></td>
+        <td>&amp;</td>
+    </tr>
+    <tr class="trEven">
+        <td class="col1">8</td>
+        <td><a href="#op8">Logical XOR operator</a></td>
+        <td>^</td>
+    </tr>
+    <tr class="trOdd">
+        <td class="col1">9</td>
+        <td><a href="#op9">Logical OR operator</a></td>
+        <td>|</td>
+    </tr>
+    <tr class="trEven">
+        <td class="col1">10</td>
+        <td><a href="#op10">Conditional AND operator</a></td>
+        <td>&amp;&amp;</td>
+    </tr>
+    <tr class="trOdd">
+        <td class="col1">11</td>
+        <td><a href="#op11">Conditional OR operator</a></td>
+        <td>||</td>
+    </tr>
+</tbody>
+</table>
+
+<p>First column specifies the priority of the operator. Unary operators have the highest priority (1) and conditional
+    OR operator has the lowest (11) one. Second column specifies the category of the operator. Finally, third column
+    lists the operators.
+</p>
+<h2 id="op1">Unary Operators</h2>
+<p>Unary operators have the highest priority. These operators consist of:</p>
+<ol class="collection">
+    <li class="collection-item">
+      <strong>Unary plus operator</strong> is used to form an operation like <span class="spanInlineIdentifier">+A</span>.
+      This operation results simply the value of the operand.
+  </li>
+  <li class="collection-item">
+      <strong>Unary minus operator</strong> is used to form an operation like <span class="spanInlineIdentifier">-A</span>.
+      This operation results the multiplication of the operand by<span class="spanInlineIdentifier"> (-1)</span>.
+  </li>
+  <li class="collection-item">
+      <strong>Negation operator</strong> is used to form an operation like <span class="spanInlineIdentifier">!A</span>.
+      This operation results the logical negative value of the operand.
+  </li>
+  <li class="collection-item">
+      <strong>Bitwise complement operator</strong> is used to form an operation like <span class="spanInlineIdentifier">~A</span>.
+      This operation results the complement of the operand.
+  </li>
+  <li class="collection-item">
+      <strong>Increment and  decrement operators</strong> is used to form an operation like <span class="spanInlineIdentifier">++A</span>,
+      <span class="spanInlineIdentifier">--A</span>, <span class="spanInlineIdentifier">A++</span>              or <span class="spanInlineIdentifier">A--</span>. Increment operator (<span class="spanInlineIdentifier">++A</span>              or <span class="spanInlineIdentifier">A++</span>) increases the operand value by one. Similarly
+      decrement operator (<span class="spanInlineIdentifier">--A</span> or <span class="spanInlineIdentifier">A--</span>)
+      decreases the operand value by one. Evaluating expressions from left to right can yield different results for
+      <span class="spanInlineIdentifier">++A</span> and <span class="spanInlineIdentifier">A++</span>.
+      One must remember that, the operation <span class="spanInlineIdentifier">++A</span> is calculated
+      before the<span class="spanInlineIdentifier"> A++ </span>operation.
+  </li>
+</ol>
+
+<h2 id="op2">Multiplication Operators</h2>
+<p>Multiplication operators have second highest priority. Multiplication operators consist of:</p>
+<ol class="collection">
+    <li class="collection-item">
+      <strong>Multiplication  operator</strong> is used to form an operation like <span class="spanInlineIdentifier">A * B</span>.
+      This operation results the multiplication of the operand <span class="spanInlineIdentifier">A</span>              by <span class="spanInlineIdentifier">B</span>.
+  </li>
+  <li class="collection-item">
+      <strong>Division operator</strong> is used to form an operation like <span class="spanInlineIdentifier">A / B</span>.
+      This operation results the division of the operand <span class="spanInlineIdentifier">A</span>              by <span class="spanInlineIdentifier">B</span>.
+  </li>
+  <li class="collection-item">
+      <strong>Remainder operator</strong> is used to form an operation like <span class="spanInlineIdentifier">A % B</span>.
+      This operation results the remainder of the division of the operand<span class="spanInlineIdentifier"> A</span>              by
+      <span class="spanInlineIdentifier">B</span>.
+  </li>
+</ol>
+<h2 id="op3">Addition Operators</h2>
+<p>Addition operators consist of:</p>
+<ol class="collection">
+    <li class="collection-item">
+      <strong>Addition operator</strong> is used to form an operation like <span class="spanInlineIdentifier">A + B</span>.
+      This operation results the addition of the operands <span class="spanInlineIdentifier">A</span>              and <span class="spanInlineIdentifier">B</span>.
+  </li>
+  <li class="collection-item">
+      <strong>Subtraction operator</strong> is used to form an operation like <span class="spanInlineIdentifier">A - B</span>.
+      This operation results the subtraction of the operand <span class="spanInlineIdentifier">B</span>              from <span class="spanInlineIdentifier">A</span>.
+  </li>
+</ol>
+<h2 id="op4">Shifting Operators</h2>
+<p>"&lt;&lt;" and "&gt;&gt;" symbols are used for bit shifting operations. Shifting operators consists of:</p>
+
+<ol class="collection">
+    <li class="collection-item"><strong>Left-shifting operator</strong> is used to form an operation like A &lt;&lt; 5. The A &lt;&lt; 5 operation
+    yields the 5 bits left-shifted value of the operand A.</li>
+    <li class="collection-item"><strong>Right-shifting operator</strong> is used to form an operation like A &gt;&gt; 5. The A &gt;&gt; 5 operation
+    yields the 5 bits right-shifted value of the operand A.</li>
+</ol>
+<h2 id="op5">Relational Operators</h2>
+<p>&quot;&lt;&quot;, &quot;&gt;&quot;, &quot;&lt;=&quot; ve &quot;&gt;=&quot; symbols are used for relational operations.
+Relational operators consist of:</p>
+
+<ol class="collection">
+    <li class="collection-item">
+      <strong>&quot;Less than&quot; operator</strong> is used to form an operation like <span class="spanInlineIdentifier">A &lt; B</span>.
+      If the value of the operand <span class="spanInlineIdentifier">A</span>, is less than the value
+      of the operand
+      <span class="spanInlineIdentifier">B</span>, <span class="spanInlineIdentifier">A &lt; B </span>operation
+      yields the logical true value. If the value of the operand <span class="spanInlineIdentifier">A</span>,
+      is greater than or equal to the value of the operand
+      <span class="spanInlineIdentifier">B</span>,<span class="spanInlineIdentifier"> A &lt; B</span>              operation yields the logical false value.
+  </li>
+  <li class="collection-item">
+      <strong>&quot;Greater than&quot;  operator</strong> is used to form an operation like <span class="spanInlineIdentifier">A &gt; B</span>.
+      If the value of the operand <span class="spanInlineIdentifier">A</span>, is greater than the
+      value of the operand
+      <span class="spanInlineIdentifier">B</span>, <span class="spanInlineIdentifier">A &gt; B</span>              operation yields the logical true value. If the value of the operand <span class="spanInlineIdentifier">A</span>,
+      is less than or equal to the value of the operand <span class="spanInlineIdentifier">B</span>,
+      <span class="spanInlineIdentifier">A &gt; B</span> operation yields the logical false value.
+  </li>
+  <li class="collection-item">
+      <strong>&quot;Less than or equal to&quot;  operator</strong> is used to form an operation like <span class="spanInlineIdentifier">A &lt;= B</span>.
+      If the value of the operand <span class="spanInlineIdentifier">A</span>, is less than or equal
+      to the value of the operand
+      <span class="spanInlineIdentifier">B</span>, <span class="spanInlineIdentifier">A &lt;= B</span>              operation yields the logical true value. If the value of the operand <span class="spanInlineIdentifier">A</span>              is greater than the value of the operand <span class="spanInlineIdentifier">B</span>,
+      <span class="spanInlineIdentifier">A &lt;= B</span> operation yields the logical false value.
+  </li>
+  <li class="collection-item">
+      <strong>&quot;Greater than or equal  to&quot; operator</strong> is used to form an operation like <span class="spanInlineIdentifier">A &gt;= B</span>.
+      If the value of the operand <span class="spanInlineIdentifier">A</span> is greater than or equal
+      to the value of the operand <span class="spanInlineIdentifier">B</span>, <span class="spanInlineIdentifier">A &gt;= B</span>              operation yields the logical true value. If the value of the operand <span class="spanInlineIdentifier">A</span>              is less than the value of the operand <span class="spanInlineIdentifier">B</span>, <span class="spanInlineIdentifier">A &gt;= B</span>              operation yields the logical false value.
+  </li>
+</ol>
+
+<h2 id="op6">Equality Operators</h2>
+<p>"==" and "!=" operators are used for equality operations. Equality operators consists of:</p>
+
+<ol class="collection">
+    <li class="collection-item">
+      <strong>&quot;Equal to&quot; operator</strong> is used to form an operation like <span class="spanInlineIdentifier">A == B</span>.
+      If the value of the operand <span class="spanInlineIdentifier">A</span> is equal to the value
+      of the operand <span class="spanInlineIdentifier">B</span>,
+      <span class="spanInlineIdentifier">A == B</span> operation yields the logical true value.
+  </li>
+  <li class="collection-item">
+      <strong>&quot;Not equal to&quot;  operator</strong> is used to form an operation like <span class="spanInlineIdentifier">A != B</span>.
+      The <span class="spanInlineIdentifier">A != B</span> operation is logically negative to the
+      operation <span class="spanInlineIdentifier">A == B</span>. If the value of he operand
+      <span class="spanInlineIdentifier">A</span> is not equal to the value of the operand
+      <span class="spanInlineIdentifier">B</span>, <span class="spanInlineIdentifier">A != B</span>              operation yields the logical true value.
+  </li>
+</ol>
+
+<h2 id="op7">Logical AND Operator</h2>
+<p>Logical <span class="spanInlineIdentifier">AND</span> operator is used to form an operation like
+    <span class="spanInlineIdentifier"> A &amp; B</span>. This operation results the bitwise logical
+    <span class="spanInlineIdentifier">AND</span> of the operands <span class="spanInlineIdentifier">A</span>            and <span class="spanInlineIdentifier">B</span>.</p>
+
+    <h2 id="op8">Logical XOR Operator</h2>
+    <p>Logical <span class="spanInlineIdentifier">XOR</span> operator is used to form an operation like
+        <span class="spanInlineIdentifier">A ^ B</span>. This operation results the bitwise logical exclusive
+        OR of the operands <span class="spanInlineIdentifier">A</span> and
+        <span class="spanInlineIdentifier">B</span>.
+    </p>
+
+    <h2 id="op9">Logical OR operator</h2>
+    <p>Logical OR operator is used to form an operation like <span class="spanInlineIdentifier">A | B</span>.
+        This operation results the bitwise logical OR of the operands <span class="spanInlineIdentifier">A</span>            and <span class="spanInlineIdentifier">B</span>.
+    </p>
+
+    <h2 id="op10">Conditional AND operator</h2>
+    <p>Conditional AND operator is used to form an operation like <span class="spanInlineIdentifier">A &amp;&amp; B</span>.
+        This operation results the coditional AND of the operands <span class="spanInlineIdentifier">A</span>            and <span class="spanInlineIdentifier">B</span>.
+    </p>
+
+    <h2 id="op11">Conditional OR operator</h2>
+    <p>Conditional OR operator is used to form an operation like <span class="spanInlineIdentifier">A || B</span>.
+        This operation results the conditional OR of the operands <span class="spanInlineIdentifier">A</span>            and <span class="spanInlineIdentifier">B</span>.
+    </p>
+
+    <h2 id="constants_and_strings">Constants and strings</h2>
+    <p>Constant numeric values and strings can be used as operands in expressions. </p>
+
+    <p>Following is the Extended BNF notation of <span class="spanInlineIdentifier">constant</span> and
+        <span class="spanInlineIdentifier">string</span> in Modo syntax:</p>
+
+        <div class="divEBNFCodePreview">
+            <code>
+<pre>
+constant = integer, [dot symbol, {digit}-];
+</pre>
+            </code>
+        </div>
+
+        <p>The <span class="spanInlineIdentifier">constant</span> definition above shows that only the numeric
+            values are considered as constants. A <span class="spanInlineIdentifier">constant</span> can be
+            integer or real number. Decimal part of the number starts with <span class="spanInlineIdentifier">dot symbol &quot;.&quot;</span>.
+            Just like integer and real number which are numeric constants, <span class="spanInlineIdentifier">string</span>            is the alphanumeric constant.
+        </p>
+        <div class="divEBNFCodePreview">
+            <code>
+<pre>
+string = (single quote symbol,
+    single quote escaped string,
+    single quote symbol)
+    |
+    (double quote symbol,
+    double quote escaped string,
+    double quote symbol);
+</pre>
+            </code>
+        </div>
+        <p>The <span class="spanInlineIdentifier">string</span> definition above shows that strings can start
+            with <span class="spanInlineIdentifier">single quote symbol '</span> or double <span class="spanInlineIdentifier">quote symbol &quot;</span>.</p>
+
+            <blockquote class="blockImportant">
+                <p><strong>Warning</strong>: If a string starts with <span class="spanInlineIdentifier">single quote symbol</span>,
+                  it must end with <span class="spanInlineIdentifier">single quote symbol</span>. In addition,
+                  if a string starts with <span class="spanInlineIdentifier">double quote symbol</span>, it must
+                  end with <span class="spanInlineIdentifier">double  quote symbol</span>.</p>
+              </blockquote>
+
+              <h2>Elements and member elements</h2>
+              <p>Elements and member elements can be considered as operands in Modo expressions.</p>
+              <p>For further information about elements and member elements, please refer to <a href="#divElements">Using elements</a>.</p>
+
+              <h2>Functions and member methods</h2>
+              <p>Unlike C, C++, C#, Java etc., function and/or method definition is not allowed in Modo syntax. Modo represents
+                and forms the system and its states for the given time periods and for the given set of rules. Nevertheless,
+                there can be built-in elements, functions and member methods defined in Modo language references specific for
+                certain generators/compilers/interpreters. These built-in elements, functions and member methods can also be
+                considered as operands in Modo expressions.
+            </p>
+        </div>
+
+        <div class="container scrollspy" id="divAppendixA">
+          <h1>Appendix A. Grammer</h1>
+          <div class="divEBNFCodePreview">
+            <code>
+<pre>
+(**
+ * MODO LANGUAGE DEFINITION
+ * -------------------------
+ * This chapter defines Modo language syntax using
+ * Extended BNF metalanguage.
+ * There are three parts in this definition:
+ * (1) Letters, characters, digits, symbols and operators
+ * (2) Identifier, expression and other lexical units
+ * (3) Final Modo definition
+ *
+ *)
+
+(**
+ * MODO LANGUAGE DEFINITION Part I
+ * --------------------------------
+ * Letters, characters, digits, symbols and operators
+ *)
+
+letter = "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H"
+    | "I" | "J" | "K" | "L" | "M" | "N" | "O" | "P"
+    | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X"
+    | "Y" | "Z" | "a" | "b" | "c" | "d" | "e" | "f"
+    | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n"
+    | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v"
+    | "w" | "x" | "y" | "z";
+
+character = any Unicode character;
+
+whitespace = {
+    space character
+    | tab character
+    | line feed character
+    | carriage return character
+    | form feed character
+};
+
+new line = carriage return character
+    | line feed character
+    | next line character
+    | line separator character
+    | paragraph separator character;
+
+space character = " ";
+
+tab character =
+    ? The Unicode Standard Tab Character (U+0009) ? ;
+
+line feed character =
+    ? The Unicode Standard Line Feed Character (U+000A) ? ;
+
+carriage return character =
+    ? The Unicode Standard Carriage Return Character (U+000D) ? ;
+
+form feed character =
+    ? The Unicode Standard Form Feed Character (U+000C) ? ;
+
+next line character =
+    ? The Unicode Standard Next Line Character (U+0085) ? ;
+
+line separator character =
+    ? The Unicode Standard Line Separator Character (U+2028) ? ;
+
+paragraph separator character =
+    ? The Unicode Standard Paragraph Separator Character (U+2029) ? ;
+
+digit = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7"
+    | "8" | "9";
+
+at symbol = "@";
+
+assignment symbol = "=";
+
+end sentence symbol = ";";
+
+start group symbol = "(";
+
+end group symbol = ")";
+
+start declaration symbol = "{";
+
+end declaration symbol = "}";
+
+backslash symbol = "\";
+
+start attribute selector symbol = "[";
+
+end attribute selector symbol = "]";
+
+start delimited comment symbol = "/*";
+
+end delimited comment symbol = "*/";
+
+start single line comment symbol = "//";
+
+dot symbol = ".";
+
+comma symbol = ",";
+
+underscore symbol = "_";
+
+hyphens symbol = "-";
+
+escaped single quote symbol = "\'";
+
+escaped double quote symbol = '\"';
+
+single quote symbol = "'";
+
+double quote symbol = '"';
+
+increment operator = "++";
+
+decrement operator = "--";
+
+unary operator = "+" | "-" | "!" | "~"
+    | increment operator
+    | decrement operator;
+
+operator = "*" | "/" | "%" | "+" | "-" | "&lt;&lt;" | ">>" | "&lt;"
+    | ">" | "&lt;=" | ">=" | "==" | "!=" | "&amp;" | "^" | "|"
+    | "&amp;&amp;" | "||";
+
+unary selector operator = "$", ".", "#", "?", " ";
+
+selector operator = ">", "&lt;", "+", "-", "~", "^", ":",
+    "::", "%", "&amp;", "|", "\", "/";
+
+selector expression operator = "*" | "/" | "%" | "+" | "-"
+    | "&lt;&lt;" | ">>" | "&lt;" | ">" | "=" | "&amp;" | "^" | "|"
+    | "&lt;=" | ">=" | "==" | "!=" | "*=" | "/=" | "%="
+    | "+=" | "-=" | "&amp;=" | "^=" | "|=" | "$=" | "~="
+    | ".=" | "#=" | "?=" | ":=" | "&amp;&amp;" | "||";
+
+universal selector = "*";
+
+(**
+ * MODO LANGUAGE DEFINITION Part II
+ * ---------------------------------
+ * Identifier, expression and other lexical units
+ *)
+
+(**
+ * Directive Definition
+ *)
+
+directive = {blank},
+    at symbol,
+    identifier,
+    {blank}-,
+    expression,
+    {blank},
+    end sentence symbol;
+
+(**
+ * Rule Definition
+ *)
+
+rule = {blank},
+    at symbol,
+    {blank},
+    start group symbol,
+    {blank},
+    expression,
+    {blank},
+    end group symbol,
+    {blank},
+    start declaration symbol,
+    {blank},
+    modo,
+    {blank},
+    end declaration symbol;
+    inline rule = {blank},
+    at symbol,
+    {blank},
+    start group symbol,
+    {blank},
+    expression,
+    {blank},
+    end group symbol;
+
+(**
+ * Declaration Definition
+ *)
+
+declaration = {
+    assignment
+    | basic declaration
+    | extended declaration
+};
+
+(**
+ * Comment Definition
+ *)
+
+comment = delimited comment
+    | single line comment;
+
+delimited comment = {blank},
+    start delimited comment symbol,
+    ({character} - end delimited comment symbol),
+    end delimited comment symbol;
+
+single line comment = {blank},
+    start single line comment symbol,
+    ({character} - new line),
+    new line;
+
+blank = whitespace | comment;
+
+(**
+ * Other lexical units
+ *)
+
+string = (single quote symbol,
+    single quote escaped string,
+    single quote symbol)
+    | (double quote symbol,
+    double quote escaped string,
+    double quote symbol);
+
+single quote escaped string = {
+    (any Unicode character - single quote symbol)
+    | escaped single quote symbol
+};
+
+double quote escaped string = {
+    (any Unicode character - double quote symbol)
+    | escaped double quote symbol
+};
+
+integer = "0" | (digit - "0", {digit});
+
+constant = integer, [dot symbol, {digit}-];
+
+expression = {blank},
+    {start group symbol},
+    {blank},
+    operand | expression,
+    {
+    {blank},
+    operator,
+    {blank},
+    {start group symbol},
+    {blank},
+    operand | expression,
+    {blank},
+    {end group symbol},
+    },
+    {blank},
+    {end group symbol};
+    member method name = identifier;
+    identifier = {letter | underscore symbol}-,
+    {digit
+    | letter
+    | underscore symbol};
+
+operand = {start group symbol},
+    {blank}, (string) | ([unary operator
+    - (increment operator | decrement operator)],
+    {blank},
+    constant)
+    | ([unary operator],
+    {blank},
+    rhs selector)
+    | (rhs selector,
+    {blank},
+    increment operator | decrement operator)
+    | ([unary operator
+    - (increment operator | decrement operator)],
+    {blank},
+    member method name,
+    {blank},
+    start group symbol,
+    {blank},
+    [
+    expression,
+    {
+    {blank},
+    comma symbol,
+    expression
+    }
+    ],
+    {blank},
+    end group symbol
+    ),
+    {blank},
+    {end group symbol};
+
+assignment = {blank},
+    lhs selector,
+    {blank},
+    assignment symbol,
+    {blank},
+    expression,
+    {blank},
+    [inline rule],
+    {blank},
+    end sentence symbol;
+    basic declaration = {blank},
+    lhs selector,
+    {blank},
+    start declaration symbol,
+    {blank},
+    modo,
+    {blank},
+    end declaration symbol;
+    extended declaration = {blank},
+    lhs selector,
+    {blank},
+    assignment symbol,
+    {blank},
+    rhs selector,
+    {blank},
+    start declaration symbol,
+    {blank},
+    modo,
+    {blank},
+    end declaration symbol;
+    lhs identifier = {
+    letter
+    | underscore symbol
+    | hyphens symbol
+    }-,
+    {
+    digit
+    | letter
+    | underscore symbol
+    | hyphens symbol
+    };
+
+lhs selector = (
+    {blank},
+    universal selector | selector operand,
+    {blank},
+    {
+    selector operator,
+    {blank},
+    selector operand
+    }
+    ),
+    {
+    {blank},
+    comma symbol,
+    {blank},
+    lhs selector
+    };
+
+rhs selector = {blank},
+    [unary selector operator],
+    identifier,
+    {rhs selector};
+    selector operand = {blank},
+    [
+    [unary selector operator],
+    lhs identifier
+    ],
+    {blank},
+    [
+    (
+    start group symbol,
+    [
+    selector expression,
+    {
+    {blank},
+    comma symbol,
+    {blank},
+    selector expression
+    }
+    ],
+    {blank},
+    end group symbol
+    )
+    |
+    (
+    start attribute selector symbol,
+    selector expression,
+    {
+    {blank},
+    comma symbol,
+    {blank},
+    selector expression
+    },
+    {blank},
+    end attribute selector symbol
+    )
+    ],
+    {selector operand};
+    selector expression = {blank},
+    {start group symbol},
+    {blank},
+    operand | expression,
+    {
+    {blank},
+    selector expression operator,
+    {blank},
+    {start group symbol},
+    {blank},
+    operand | expression,
+    {blank},
+    {end group symbol},
+    },
+    {blank},
+    {end group symbol};
+
+(**
+ * MODO LANGUAGE DEFINITION Part III
+ * ----------------------------------
+ * Final Modo definition
+ *)
+
+modo = {
+    directive
+    | rule
+    | declaration
+    | comment
+};
+</pre>
+</code>
+</div>
+</div>
+
+<div class="container scrollspy" id="divAppendixB">
+  <h1>Appendix B. Bibliography</h1>
+  <ol class="collection">
+
+    <li class="collection-item">
+
+      Berners-Lee T., Hendler J., Lasilla O., <em>The Semantic  Web</em>, Scientific American 284, 34 - 43, 2001
+
+  </li>
+
+  <li class="collection-item">
+
+      Booch, G., Jacobson, I. and Rumbaugh, J., <em>OMG Unified Modeling Language Specification</em>, <em>Version 1.3 1st Edition</em>,
+      Object Management Group (OMG), 2000.
+
+  </li>
+
+  <li class="collection-item">
+
+      Bos, B., Çelik, T., Hickson, I. and Lie, H. W. (Eds.), <em>Cascading Style Sheets Level 2 Revision 1 (CSS 2.1) Specification, W3C  Candidate Recommendation 23 April 2009</em>,
+      World Wide Web Consortium (W3C), <a href="http://www.w3.org/TR/CSS2/">http://www.w3.org/TR/CSS2/</a>, Last
+      Access: 02.06.2009.
+
+  </li>
+
+  <li class="collection-item">
+
+      Calvary, G., Coutaz, J., Thevenin, D., Limbourg, Q., Bouillon, L. and Vanderdonckt, J., <em>A Unifying Reference Framework for  multi-target user interfaces</em>,
+      Interacting with Computers 15, 289 - 308, 2003.
+
+  </li>
+
+  <li class="collection-item">
+
+      ECMA-334, <em>C# Language Specification</em>, <em>4th Edition</em>, ECMA International, 2006.
+
+  </li>
+
+  <li class="collection-item">
+
+      Gosling, J., Joy, B., Steele, G. and Bracha, G., <em>The  Java language specification</em>, <em>3rd  Edition</em>,
+      Addison-Wesley, 2005.
+
+  </li>
+
+  <li class="collection-item">
+
+      Heng, B.C.P. and Mackie, R.I., <em>Using  design patterns in object-oriented finite element programming</em>,
+      Computers and Structures 87, 952 - 961, 2009.
+
+  </li>
+
+  <li class="collection-item">
+
+      Horsburgh, J.S., Tarboton, D.G., Piasecki, M., Maidment, D.R., Zaslavsky, I., Valentine, D. and Whitenack, T., <em>An  integrated system for publishing environmental observations data</em>,
+      Environmental Modelling &amp; Software 24, 879 - 888, 2009.
+
+  </li>
+
+  <li class="collection-item">
+
+      ISO/IEC 14977, <em>Information technology - Syntactic  metalanguage - Extended BNF</em>, <em>1st  Edition</em>,
+      International Organization for Standardization (ISO) and International Electrotechnical Commission (IEC), 1996.
+
+  </li>
+
+  <li class="collection-item">
+
+      Kernighan, B., and Ritchie, D., <em>The C Programming  Language</em>, <em>1st Edition</em>, Prentice Hall,
+      1978.
+
+  </li>
+
+  <li class="collection-item">
+
+      Kim, K.S., <em>Information seeking on the Web: Effects of  user and task variables</em>, Library &amp; Information
+      Science Research 23, 233 - 255, 2001.
+
+  </li>
+
+  <li class="collection-item">
+
+      Lam, D. and Swayne, D., <em>Issues of EIS software  design: some lessons learned in the past decade</em>, Environmental
+      Modeling &amp; Software 16, 419 - 425, 2001.
+
+  </li>
+
+  <li class="collection-item">
+
+      Laporti, V., Borges, M.R.S. and Braganholo, V., <em>Athena:  A collaborative approach to requirements elicitation</em>,
+      Computers in Industry 60, 367 - 380, 2009.
+
+  </li>
+
+  <li class="collection-item">
+
+      Park, K.S. and Lim and C.H., <em>A structured  methodology for comparative evaluation of user interface designs using  usability criteria and measures</em>,
+      International Journal of Industrial Ergonomics 23, 379 - 389, 1999.
+
+  </li>
+
+  <li class="collection-item">
+
+      Rau, P.P., Choong, Y. and Salvendy, G., <em>A  cross-cultural study on knowledge representation and structure in human  computer interfaces</em>,
+      International Journal of Industrial Ergonomics 34, 117 - 129, 2004.
+
+  </li>
+
+  <li class="collection-item">
+
+      Reinhartz-Berger, I. and Sturm, A., <em>Utilizing domain models for application design and validation</em>,
+      Information and Software Technology 51, 1275 - 1289, 2009.
+
+  </li>
+
+  <li class="collection-item">
+
+      Schwabe D., Rossi G., <em>An Object Oriented Approach to  Web-Based Applications Design</em>, Theory and Practice
+      of Object Systems 4, 207 - 225, 1998
+
+  </li>
+
+  <li class="collection-item">
+
+      <em>The Unicode Standard</em>, <em>Version 4.1.0</em>, The Unicode Consortium, Boston, MA, Addison-Wesley,
+      Available at <a href="http://www.unicode.org/versions/Unicode4.1.0/">http://www.unicode.org/versions/Unicode4.1.0/</a>,
+      Last Access: 02.06.2009, 2003.
+
+  </li>
+
+  <li class="collection-item">
+
+      Tom, A., Inside C#, Microsoft Press, 2001.
+
+  </li>
+
+  <li class="collection-item">
+
+      Wirth, N., <em>The Programming Language Pascal</em>, Acta Informatica 1, 35 - 63, 1971.
+
+  </li>
+
+</ol>
+</div>
+</section>
+</div>
+</main>
+
+<script type="text/javascript" src="assets/js/jquery-3.2.1.min.js"></script>
+<script src="assets/js/materialize.js"></script>
+<script src="assets/js/documentation.js"></script>
+</body>
+
+</html>
