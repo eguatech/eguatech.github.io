@@ -165,7 +165,7 @@ blockquote {
   background: rgb(227, 78, 100);
 }
 #sectionIndexBanner .container .buttonGoSpecification {
-  background: rgb(183, 51, 150);
+  background:linear-gradient(to bottom, #ea515e, #7d11d1);
 }
 #sectionIndexBanner #rowCodePreview {
   box-sizing: border-box;
