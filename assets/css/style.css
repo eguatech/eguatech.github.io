@@ -99,10 +99,6 @@ blockquote {
   margin: 0 !important;
 }
 
-.landing {
-  min-height: 100vh !important;
-}
-
 .displayFlex {
   display: -webkit-box;
   display: -moz-box;
