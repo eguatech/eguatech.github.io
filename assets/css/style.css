@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Anonymous+Pro");
 .logoColor {
-  background-color: #7e11cf !important;
+  background-color: rgb(227, 78, 100) !important;
 }
 
 .darkBlue {
@@ -154,7 +154,7 @@ blockquote {
   width: auto;
   flex-direction: column;
   justify-content: space-between;
-  padding: 10px;
+  padding: 15px;
   box-sizing: border-box;
 }
 #sectionIndexBanner .container #btnGoStart {
