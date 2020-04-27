@@ -1,298 +1,235 @@
-<!doctype html>
-<meta charset=utf-8>
+<!DOCTYPE html>
+<html lang="en">
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-147268561-1"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Content-Type" content="text/html; charset=windows-1254">
 
-    function gtag() {
-        dataLayer.push(arguments);
-    }
-    gtag('js', new Date());
+  <meta name=description content="Programação simples e moderna">
 
-    gtag('config', 'UA-147268561-1');
-</script>
+  <!-- favicon -->
+  <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
+  <link rel="icon" href="assets/img/egua.png" type="image/png">
 
-<meta name=viewport content="width=device-width">
-<title>Linguagem de Programação Egua</title>
-<meta name=description content="Uma linguagem de programação simples e moderna para aprender a programar.">
-<meta name=author content="Lucas Pompeu">
-<link href="https://fonts.googleapis.com/css?family=Proza+Libre:400,500" rel=stylesheet>
-<link rel=stylesheet href=css/style.css media=all>
-<link rel="icon" href="egua.png" type="image/x-icon">
-<style media=screen>
-    .clouds.back {
-        background: transparent url(images/clouds-back.png) repeat
-    }
-    
-    .clouds.front {
-        background: transparent url(images/clouds-front.png) repeat-x
-    }
-    
-    #logo {
-        background-image: url(images/logo.png)
-    }
-    
-    @media(max-width:870px) {
-        #logo {
-            background-image: url(images/logo-small.png)
-        }
-    }
-    
-    input#search-input {
-        background-image: url(images/search-icon.svg)
-    }
-    
-    .cancel-search {
-        background: url(images/cancel-icon.svg) no-repeat center
-    }
-    
-    .admonition.note .title {
-        background-image: url(images/pencil-icon.svg)
-    }
-    
-    .admonition.tip .title {
-        background-image: url(images/star-icon.svg)
-    }
-    
-    .admonition.warning .title {
-        background-image: url(images/warning-icon.svg)
-    }
-</style>
-<header>
-    <div class="back clouds"></div>
-    <div class="front clouds"></div>
-    <div class=container><a id=logo href="/"><span>Linguagem de Programação Egua</span></a>
-        <input type=checkbox id=toggle>
-        <label for=toggle class=hamburger><span></span> <span></span> <span></span></label>
-        <nav class=main>
-            <a href="https://egua.tech/docs/">documentação</a>
-            <a href="downloads">downloads</a>
-            <a href="comunidade">comunidade</a>
-            <a href="https://github.com/eguatech">github</a>
-        </nav>
-        <div class="centered banner">
-            <h1>Conheça o Egua.</h1>
-            <h2>Uma linguagem de programação simples e moderna para aprender a programar.</h2><a href="http://eguatech.github.io/eguap/" class="button inverted" target="_blank">IDE eguap</a> <a href="http://eguatech.github.io/eguac/" class="button inverted" target="_blank">IDE eguac</a>
+  <!-- css -->
+  <link rel="stylesheet" href="assets/css/materialize.min.css">
+  <link rel="stylesheet" href="assets/css/ionicons.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/scroll.css">
+  <title>Egua Tech - Programação simples e moderna</title>
+</head>
+
+<body>
+  <nav id="navbarFixed" class="white">
+    <div class="nav-wrapper container">
+      <a href="index.html" class="brand-logo light-blue-text hide-on-med-and-down"><img src="assets/img/egua.png"></a>
+      <a href="#" data-activates="ulMobileMenu" class="button-collapse aMobileMenuButton"><i
+          class="ion-navicon-round"></i></a>
+      <ul class="right hide-on-med-and-down">
+        <li class="active"><a class="grey-text" href="index.html">Home</a></li>
+        <li><a class="grey-text" href="./ferramentas.html">Ferramentas</a></li>
+        <li><a class="grey-text" href="dl.html">Downloads</a></li>
+        <li><a class="grey-text" href="comunidade.html">Comunidade</a></li>
+        <li><a class="aGetStarted" href="https://egua.tech/docs" target="_blank">Docs</a></li>
+        <li><a target="_blank" class="grey-text" href="https://github.com/eguatech"><i
+              class="ion-social-github"></i></a></li>
+      </ul>
+      <ul class="side-nav hide-on-large-only" id="ulMobileMenu">
+        <li class="white center-align"><img src="assets/img/egua.png" alt="eguatech" width="80px" height="80px"
+            style="margin-top: 15px;"></li>
+        <li class="active"><a class="grey-text active" href="index.html">Home</a></li>
+        <li><a class="grey-text" href="./ferramentas.html">Ferramentas</a></li>
+        <li><a class="grey-text" href="dl.html">Downloads</a></li>
+        <li><a class="grey-text" href="comunidade.html">Comunidade</a></li>
+        <li><a id="btnQuickstart" class="aGetStarted" href="get-started.html">Get Started!</a></li>
+        <li><a target="_blank" class="grey-text" href="https://github.com/eguatech"><i class="ion-social-github"
+              style="margin-right: 0px;"></i>&nbsp;GitHub</a></li>
+      </ul>
+    </div>
+  </nav>
+  <!-- Index Banner Start -->
+  <section id="sectionIndexBanner" class="displayFlex landing">
+    <div class="container displayFlex center black-text">
+      <div class="row" id="rowLogo">
+        <h1 class="hide-on-small-only"><img src="assets/img/egua.png"></h1>
+        <h2 class="hide-on-small-only">Programação simples e moderna</h2>
+        <h1 class="hide-on-med-and-up"><img src="assets/img/egua.png"></h1>
+        <h3 class="hide-on-med-and-up">Programação simples e moderna</h2>
+      </div>
+      <div class="row hide-on-small-only" id="rowCodePreview">
+        <pre style="color:#3b3b3b"><span style="color: #7e11cf;">classe</span> Programacao <span style="color:#069;font-weight:700">{</span>
+    <span></span> <span style="color:#069;font-weight:700">simples()</span> <span style="color: #7e11cf;">{</span><span style="color:#069;font-weight:700"> </span>
+        <span></span><span style="color:#069;font-weight:700">escreva(</span><span style="color: #7e11cf;">"egua"</span><span style="color:#069;font-weight:700">);
+     }</span><br><span style="color:#069;font-weight:700">}</span>
+        </pre>
+        <pre style="color:#3b3b3b"><span style="color: #7e11cf;">var</span> egua <span style="color:#069;font-weight:700">=</span> <span style="color: #7e11cf;">funcao() </span><span style="color:#069;font-weight:700">{</span>
+    <span></span> <span style="color:#069;font-weight:700">retorna </span><span style="color: #7e11cf;">"Olá Mundo!"</span><span style="color:#069;font-weight:700">;</span><br><span style="color:#069;font-weight:700">};</span>
+        </pre>
+      </div>
+      <div class="row center" id="rowBannerButtons">
+        <div class="col s12 l4 m4">
+          <a href="https://egua.tech/docs" target="_blank" id="btnGoStart" class="aBannerButtons btn btn-large">Docs</a>
         </div>
-        <div class=grid>
-            <div class=col>
-                <hr>
-            </div>
-            <h4 class=col style=text-align:center;margin:0;padding:0>Versão Atual: <a
-                    href="#">0.1.2 (1 Jan, 2020)</a></h4>
-            <div class=col>
-                <hr>
-            </div>
+        <div class="col s12 l4 m4">
+          <a href="./ferramentas.html" id="btnGoSpecification"
+            class="aBannerButtons btn buttonGoSpecification btn-large">Ferramentas</a>
         </div>
+        <div class="col s12 l4 m4">
+          <a target="_blank" href="https://github.com/eguatech"
+            class="aBannerButtons btn buttonGoSpecification btn-large"><i class="ion-social-github"></i>
+            <span>GitHub</span></a>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <section id="sectionWelcome" class="displayFlex alignedCenter black-text">
+    <div class="container displayFlex alignedCenter">
+      <div id="divWelcomeText">
+        <h1 class="light">Egua!</h1>
+        <p class="light">O Egua Tech promove uma série de módulos, ferramentas e linguagem de programação para garantir
+          que a programação seja simples e moderna.</p>
+      </div>
+      <!-- Code preview card -->
+      <div id="divWelcomeCodePreview">
+        <ul id="sublime" style="opacity: 0 !important;">
+          <li>classe Animal {</li>
+          <li>&nbsp&nbsp&nbsp&nbspcorrer() {</li>
+          <li>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspescreva("Correndo Loucamente");</li>
+          <li>&nbsp&nbsp&nbsp&nbsp}</li>
+          <li>}</li>
+          <li></li>
+          <li>classe Cachorro herda Animal {</li>
+          <li>&nbsp&nbsp&nbsp&nbsplatir() {</li>
+          <li>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspescreva("Au Au Au Au");</li>
+          <li>&nbsp&nbsp&nbsp&nbsp}</li>
+          <li>}</li>
+          <li></li>
+          <li>var nomeDoCachorro = Cachorro();</li>
+          <li></li>
+          <li>nomeDoCachorro.correr();</li>
+          <li>nomeDoCachorro.latir();</li>
+        </ul>
+        <div class="card-panel white">
+        </div>
+      </div>
+      <!-- #Code preview card END-->
+    </div>
+  </section>
+  <!-- #Section Welcome END -->
+  <!-- Promotion Table Start -->
+  <section id="sectionPromotionTable" class="displayFlex alignedCenter">
+    <div class="container center white-text">
+      <div class="row">
+        <h3 class="light">EGUA</h3>
+      </div>
+      <div class="row">
+        <p class="light">Programação nunca foi tão simples e moderna!!!</p>
         <br>
-        <div class="grid features">
-            <div class="col centered"><img src=images/helmet.svg alt="Type Safe Icon (helmet)">
-                <h3>Navegador</h3>
-                <figcaption>A Linguagem Egua roda facilmente em qualquer navegador de internet</figcaption>
-            </div>
-            <div class="col centered"><img src=images/robot-free.svg alt="Boilerplate Free Icon (robot-free)">
-                <h3>Interpretada</h3>
-                <figcaption>Utilize menos tempo e diminua o custo computacional com Egua</figcaption>
-            </div>
-            <div class="col centered"><img src=images/sun.svg alt="Easy To Use Icon (sun)" style=margin-top:2px>
-                <h3>Fácil de Programar</h3>
-                <figcaption>Sintaxe simples e intuitiva tornam o Egua simples, seja você Jedi ou Padawan
-                </figcaption>
-            </div>
-        </div>
+        <a href="about.html" class="btn logoColor">docs</a>
+      </div>
     </div>
-</header>
-<a href=https://github.com/eguatech target="_blank" class=github-corner aria-label="View source on Github">
-    <svg width=75 height=75 viewBox="0 0 250 250" style=fill:#fff;z-index:10;color:#151513;mix-blend-mode:screen;position:absolute;top:0;border:0;right:0 aria-hidden=true>
-        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
-        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7
-       120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9
-       125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill=currentColor style="transform-origin:130px 106px" class=octo-arm></path>
-        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6
-       C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0
-       C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1
-       C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4
-       C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9
-       C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5
-       C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9
-       L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill=currentColor class=octo-body></path>
-    </svg>
-</a><span></span>
-<section class="grid mobile-reverse">
-    <div class=container>
-        <div class="col left-main">
-            <h3>Módulo eguap</h3>
-            <hr>
-            <p>Módulo da linguagem eguap é ideal para o aprendizado de lógica de programação e conceitos básicos, como condicionais, funções, laços de repetição, recursividade e diversos outros aspectos da programação de computadores. Módulo projetado para ser ponto de partida para outras linguagens.
-                <p><span class=callout>Disponível Online</span><span class=callout>Disponível em Download</span>
-        </div>
-        <div class="col right-main hl-dark">
-            <table class="code hltable">
-                <tr>
-                    <td class=linenos>
-                        <div class=linenodiv>
-                            <pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12</pre>
-                        </div>
-                        <td class=code>
+  </section>
 
-                            <span class="kt">funcao</span> factorial(n):
-                            <br> &nbsp&nbsp&nbsp <span class="cp">se</span> n <span class="kt">
-                            <</span> <span class="k">2
-                        </span>:
-                            <br> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <span class="kt">retorna</span> <span class="k">1</span>
-                            <br> &nbsp&nbsp&nbsp <span class="cp">contrario</span>:
-                            <br> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp n1 <span class="kt">=</span> n <span class="kt">-</span>
-                            <span class="k">1</span>
-                            <br> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp f <span class="kt">=</span> factorial(n1)
-                            <br> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <span class="kt">retorna</span> n <span class="kt">*</span> f
-                            <br> &nbsp&nbsp&nbsp <span class="kt">fim</span>
-                            <br>
-                            <span class="kt">fim</span>
-                            <br>
-                            <br> x <span class="kt">=</span> fatorial(<span class="k">10</span>)
-                            <br>
-                            <span class="kt">escreva</span> x
-                            <br>
-                            </pre>
-        </div>
+  
+  <section id="download" class="displayFlex">
+    <div class="container center">
+      <div class="row">
+        <h3 class="light">Ferramentas</h3>
+      </div>
+      <div class="row displayFlex">
+        <table class="responsive-table highlight">
+          <thead>
+            <tr>
+              <th style="text-align: center;">Ferramenta</th>
+              <th class="center-align" style="text-align: center;">IDEgua</th>
+              <th class="center-align" style="text-align: center;">Local</th>
+              <th class="center-align" style="text-align: center;">Versão</th>
+              <th class="center-align" style="text-align: center;"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="text-align: center;">Linguagem egua</td>
+              <td class="center-align" style="text-align: center;">✔</td>
+              <td class="center-align" style="text-align: center;">✔</td>
+              <td class="center-align" style="text-align: center;">1.0.0</td>
+              <td class="center-align" style="text-align: center;"><a class="btn logoColor" target="_blank"
+                  href="https://egua.tech/egua">IDEgua</a></td>
+            </tr>
+            <tr>
+              <td style="text-align: center;">Módulo eguap</td>
+              <td class="center-align" style="text-align: center;">✔</td>
+              <td class="center-align" style="text-align: center;">-</td>
+              <td class="center-align" style="text-align: center;">1.0.0</td>
+              <td class="center-align" style="text-align: center;"><a class="btn logoColor" target="_blank"
+                  href="https://egua.tech/eguap">IDEgua</a></td>
+            </tr>
+            <tr>
+              <td style="text-align: center;">Módulo eguac</td>
+              <td class="center-align" style="text-align: center;">✔</td>
+              <td class="center-align" style="text-align: center;">-</td>
+              <td class="center-align" style="text-align: center;">1.0.0</td>
+              <td class="center-align" style="text-align: center;"><a class="btn logoColor" target="_blank"
+                  href="download/Modo.Logo.eps">IDEgua</a></td>
+            </tr>
+            <tr>
+              <td style="text-align: center;">Console eguamat</td>
+              <td class="center-align" style="text-align: center;">✔</td>
+              <td class="center-align" style="text-align: center;">-</td>
+              <td class="center-align" style="text-align: center;">1.0.0</td>
+              <td class="center-align" style="text-align: center;"><a class="btn logoColor" target="_blank"
+                  href="https://egua.tech/eguamat">Console</a></td>
+            </tr>
+            <tr>
+              <td style="text-align: center;">Ferramenta eguafsm</td>
+              <td class="center-align" style="text-align: center;">✔</td>
+              <td class="center-align" style="text-align: center;">-</td>
+              <td class="center-align" style="text-align: center;">1.0.0</td>
+              <td class="center-align" style="text-align: center;"><a class="btn logoColor" target="_blank"
+                  href="https://egua.tech/eguafsm">Ferramenta</a></td>
+            </tr>
+
+          </tbody>
         </table>
+      </div>
     </div>
+  </section>
+  <section id="sectionReadytoGo" class="displayFlex">
+    <div class="container displayFlex alignedCenter">
+      <h1 class="light center-align">Pronto para <img src="assets/img/egua.png" alt="modo programming language"
+          id="imgInlineTextLogo"> ?</h1>
+      <br>
+      <a href="https://egua.tech/docs/introducao/" target="_blank" class="btn logoColor waves-effect waves-light">Introdução</a>
     </div>
-</section>
+  </section>
+  <footer class="page-footer grey darken-3">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text"><img src="assets/img/egua.png" width="50" alt="MODO"></h5>
+          <p class="grey-text text-lighten-4">Egua Tech. Programação Simples e Moderna.</p>
+        </div>
+        <div class="col l4 offset-l2 s12">
+          <ul>
+            <li><a class="grey-text text-lighten-3 light" href="index.html">Home</a></li>
+            <li><a class="grey-text text-lighten-3 light" href="./ferramentas.html">Ferramentas</a></li>
+            <li><a class="grey-text text-lighten-3 light" href="dl.html">Downloads</a></li>
+            <li><a class="grey-text text-lighten-3 light" href="comunidade.html">Comunidade</a></li>
+            <li><a class="grey-text text-lighten-3 bold" href="https://egua.tech/docs" target="_blank">Docs</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+    </div>
+  </footer>
+  <script type="text/javascript" src="assets/js/jquery-3.2.1.min.js"></script>
+  <script src="assets/js/materialize.min.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
 
-<section class="grid mobile-reverse">
-    <div class=container>
-        <div class="col left-main">
-            <h3>Módulo eguac</h3>
-            <hr>
-            <p>Módulo da linguagem eguac é ideal para o aprendizado de estrutura de dados e lógica em Linguagem C, sendo de propósito geral. Seu funcionamente se dá por meio de um servidor auxiliar para a compilação do código, extinguindo a necessidade de processamento local, portanto exige conexão com a internet para possibilitar seu funcionamento.
-                <p><span class=callout>Disponível Online</span><span class=callout>Disponível Android</span>
-        </div>
-        <div class="col right-main hl-dark">
-            <table class="code hltable">
-                <tr>
-                    <td class=linenos>
-                        <div class=linenodiv>
-                            <pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13</pre>
-                        </div>
-                        <td class=code>
-
-                            <span class="kt">funcao</span> (<span class="kt">inteiro</span> somar(<span class="kt">inteiro</span> a, <span class="kt">inteiro</span> b))
-                            <br> &nbsp&nbsp&nbsp <span class="kt">retorna</span> a <span class="kt">+</span> b;
-                            <br>
-                            <span class="kt">fim</span>
-                            <br>
-                            <br>
-                            <span class="kt">main</span>
-                            <br> &nbsp&nbsp&nbsp <span class="kt">inteiro</span> a, b, res;
-                            <br> &nbsp&nbsp&nbsp <span class="k">escreva</span> (<span class="cp">"Entre com a e b</span><span class="k">\n</span><span class="cp">"</span>);
-                            <br> &nbsp&nbsp&nbsp <span class="k">leia</span> (<span class="cp">"</span><span class="k">%d %d</span><span class="cp">"</span>, <span class="kt">&</span>a, <span class="kt">&</span>b);
-                            <br> &nbsp&nbsp&nbsp res = somar(a, b);
-                            <br> &nbsp&nbsp&nbsp <span class="k">escreva</span> (<span class="cp">"Resultado: </span> <span class="k">%d\n</span><span class="cp">"</span>, res);
-                            <br>
-                            <br> &nbsp&nbsp&nbsp <span class="kt">retorna</span> 0;
-                            <br>
-                            <span class="kt">fim</span>
-        </div>
-        </table>
-    </div>
-    </div>
-</section>
-
-<section class=features>
-    <div class=container>
-        <div class=centered>
-            <h2>Conheça um pouco mais</h2>
-            <h4>Funcionalidades e características do Egua</h4>
-        </div>
-        <div class=grid>
-            <div class="col centered tight"><img src=images/templating-icon.svg alt="Templating Icon (templating-icon)">
-                <h3 class=blue>Leve</h3>
-                <figcaption class=wide>Linguagem leve e interpretada no navegador</figcaption>
-            </div>
-            <div class="col centered tight"><img src=images/cookies-icon.svg alt="Cookies Icon (cookies-icon)" style=margin-top:-6px>
-                <h3 class=purple>Modular</h3>
-                <figcaption class=wide>Linguagem dividida em dois módulos com distintas aplicações</figcaption>
-            </div>
-            <div class="col centered tight"><img src=images/streams-icon.svg alt="Streams Icon (streams-icon)" style=margin-top:-29px>
-                <h3 class=red>Educativa</h3>
-                <figcaption class=wide>Linguagem com propósito totalmente educacional</figcaption>
-            </div>
-        </div>
-        <hr>
-        <div class=grid>
-            <div class="col centered tight"><img src=images/config-icon.svg alt="Config Environments Icon (config-icon)" style=margin-top:-3px>
-                <h3 class=yellow>Online</h3>
-                <figcaption class=wide>Exclui a necessidade de qualquer download ou configuração local</figcaption>
-            </div>
-            <div class="col centered tight"><img src=images/testing-icon.svg alt="Testing Library Icon (testing-icon)">
-                <h3 class=orange>Atualizada</h3>
-                <figcaption class=wide>O Egua passa por constantes atualizações e melhorias em seu código aberto
-                </figcaption>
-            </div>
-            <div class="col centered tight"><img src=images/ship-icon.svg alt="Typed URIs Icon (ship-icon)" style=margin-top:-20px>
-                <h3 class=green>Plug and Play</h3>
-                <figcaption class=wide>É só entrar e programar, não precisar configurar nada</figcaption>
-            </div>
-        </div>
-    </div>
-</section>
-<footer class=grid>
-    <div class=container>
-        <div class="col mobile-hide">Feito com ❤ em Belém</div>
-        <div class="col centered"><img src=images/logo-small.png alt="Egua"></div>
-        <div class="col text-right mobile-hide">Proudly hosted by GitHub</div>
-    </div>
-</footer>
-<script>
-    function toggleOptions() {
-        if (!(870 <= screen.width)) {
-            var e = document.querySelector("nav.version-select options");
-            e.style.display = "none" === e.style.display ? "block" : "none"
-        }
-    }
-</script>
-<script>
-    ! function() {
-        var r = null,
-            u = 0,
-            a = document.querySelector(".front.clouds"),
-            c = document.querySelector(".back.clouds"),
-            s = 20,
-            d = 5;
-        window.requestAnimationFrame(function e(n) {
-            if (r || (r = n), n - u < 50) window.requestAnimationFrame(e);
-            else {
-                var o = n - r,
-                    t = s * (o / 1e3),
-                    i = d * (o / 1e3);
-                a.style.backgroundPositionX = -t + "px", c.style.backgroundPositionX = -i + "px", u = n, window.requestAnimationFrame(e)
-            }
-        })
-    }()
-</script>
+</html>
