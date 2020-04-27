@@ -123,7 +123,7 @@ blockquote {
   background: #fff;
 }
 
-.divModoCodePreview code pre {
+.diveguaCodePreview code pre {
   font-family: "Anonymous Pro", monospace;
   font-size: 18px;
   border-radius: 3px;
