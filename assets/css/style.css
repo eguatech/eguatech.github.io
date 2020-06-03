@@ -1,0 +1,584 @@
+@import url("https://fonts.googleapis.com/css?family=Anonymous+Pro");
+.logoColor {
+  background-color: #ff4b55 !important;
+}
+.logoColor:hover {
+  background-color: #4800B0 !important;
+}
+
+.darkBlue {
+  background-color: #135B7F !important;
+}
+
+.lightBlue {
+  background-color: #59C8FF !important;
+}
+
+.darkBrown {
+  background-color: #7F4906 !important;
+}
+
+.lighBrown {
+  background-color: #CC8833 !important;
+}
+
+/* Code Colors */
+.blue-code {
+  color: #66d9ef;
+}
+
+.purple-code {
+  color: #8a7bff;
+}
+
+.red-code {
+  color: #e92772;
+}
+
+.green-code {
+  color: #a6e22d;
+}
+
+.orange-code {
+  color: #fd9720;
+}
+
+.yellow-code {
+  color: #e6db74;
+}
+
+.gray-code {
+  color: #8f908a;
+}
+
+h1 {
+  font-size: 3em;
+}
+
+pre {
+  padding: 15px;
+}
+
+p {
+  font-size: 20px;
+}
+
+blockquote {
+  font-size: 1.2em;
+  text-rendering: optimizeLegibility;
+  color: #383839;
+  border-left: 5px solid #7e11cf;
+}
+
+.blockImportant {
+  border-color: #FF4545;
+}
+
+.row {
+  position: relative;
+}
+
+.light {
+  font-weight: 200 !important;
+}
+
+.alignedCenter {
+  align-items: center;
+}
+
+.justifiedCenter {
+  justify-content: center;
+}
+
+.borderRight {
+  border-right: 1px solid #E8E9EC;
+}
+
+.noPadding {
+  padding: 0 !important;
+}
+
+.noMargin {
+  margin: 0 !important;
+}
+
+.displayFlex {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+.divCodePreview code {
+  font-family: "Anonymous Pro", monospace;
+  font-size: 18px;
+}
+.divCodePreview code pre,
+.divEBNFCodePreview code pre {
+  font-family: "Anonymous Pro", monospace;
+  font-size: 18px;
+  background: #F5F6F8;
+  color:#3b3b3b;
+  border-radius: 3px;
+}
+.divEBNFCodePreview code pre {
+  background: #fff;
+}
+
+.diveguaCodePreview code pre {
+  font-family: "Anonymous Pro", monospace;
+  font-size: 18px;
+  border-radius: 3px;
+  background: #ecf8ff;
+  color:#3b3b3b;
+}
+.spanInlineIdentifier {
+  font-family: "Anonymous Pro", monospace;
+  font-size: 18px;
+  color:#424856;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.collection .collection-item {
+  line-height: normal;
+}
+#sectionWelcome,
+#sectionPromotionTable,
+#sectionReadytoGo {
+  padding: 150px 0px !important;
+}
+
+#sectionIndexBanner {
+  position: relative;
+  
+}
+#sectionIndexBanner .container {
+  z-index: 99 !important;
+  width: auto;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 15px;
+  box-sizing: border-box;
+}
+#sectionIndexBanner .container #btnGoStart {
+  background: #ff4b55;
+  transition-duration: 0.4s
+}
+#sectionIndexBanner .container #btnGoStart:hover {
+  background: #4800B0;
+}
+#sectionIndexBanner .container .buttonGoSpecification {
+  background: #ff4b55;
+  transition-duration: 0.4s
+}
+#sectionIndexBanner .container .buttonGoSpecification:hover {
+  background: #4800B0;
+}
+#sectionIndexBanner #rowCodePreview {
+  box-sizing: border-box;
+}
+#sectionIndexBanner .container .buttonGoSpecification i,
+#sectionIndexBanner .container .buttonGoSpecification span {
+  display: inline-block;
+  float: none;
+  overflow: hidden;
+}
+
+#sectionIndexBanner .container h1 {
+  height: 4em;
+  margin-bottom: 0 !important;
+}
+#sectionIndexBanner .container h1 img {
+  height: 100%;
+}
+#sectionIndexBanner .container pre {
+  display: inline-block;
+  background: transparent;
+  text-align: left;
+  font-size: 1.2em;
+  transform: translateY(15px);
+  opacity: 0;
+  transition: all 1s;
+  vertical-align: top;
+  padding: 30px;
+  margin: 0px;
+}
+#sectionIndexBanner .container #rowLogo {
+  opacity: 0;
+  transform: translateY(-15px);
+  transition: all 1s;
+  box-sizing: border-box;
+}
+#rowLogo h2,
+#rowLogo h3 {
+  font-size: 24px;
+  font-weight: lighter;
+  margin: 0px;
+  color: #7e11cf;
+  padding: 20px;
+  box-sizing: border-box;
+}
+#rowLogo h3 {
+  font-size: 18px;
+}
+#sectionIndexBanner #mouse_scroll {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%) scale(0.8);
+  z-index: 999 !important;
+}
+#sectionIndexBanner #rowBannerButtons {
+  margin-bottom: 100px;
+  box-sizing: border-box;
+  text-align: center;
+}
+#navbarFixed .aGetStarted {
+  background: #ff4b55;
+  color: #fff;
+}
+#navbarFixed .aMobileMenuButton {
+  color: #ff4b55;
+  line-height: normal;
+  padding-left: 10px;
+  padding-right: 10px;
+  box-sizing: border-box;
+  margin:0px;
+}
+#rowBannerButtons .aBannerButtons {
+  display: block;
+  margin-bottom: 10px;
+}
+#mainDocumentation {
+  position: relative;
+  padding-left: 300px;
+}
+#mainDocumentation ol, #mainDocumentation ul {
+  background: #FFF;
+}
+#mainDocumentation .col {
+  padding: 0 !important;
+}
+#mainDocumentation #ulSideNav {
+  position: sticky;
+  transform: none !important;
+  height: 100vh;
+  overflow-y: scroll;
+}
+#mainDocumentation #ulSideNav #aLogo,
+#mainDocumentation #slide-out #aLogo {
+  display: grid;
+  display: -ms-grid;
+  width: 100%;
+  height: 100%;
+}
+#mainDocumentation .ulSubCategory a {
+  font-weight: 200;
+  transition: all .1s;
+}
+/*
+#mainDocumentation .ulSubCategory a.active,
+#mainDocumentation .ulSubCategory a:active {
+  font-weight: 500;
+  border-left: 5px solid #59C8FF;
+}
+*/
+#mainDocumentation .wrapper {
+  flex-grow: 1;
+}
+#mainDocumentation .wrapper section {
+  padding: 0em;
+}
+#mainDocumentation .wrapper section .container {
+  width: 85% !important;
+}
+#mainDocumentation h1 {
+  font-weight: lighter;
+  margin-top:100px;
+  margin-bottom: 40px;
+  color:rgb(183, 51, 150);
+  font-size: 48px;
+  line-height: normal;
+}
+#mainDocumentation h2 {
+  font-weight: normal;
+  font-size: 2.0em;
+  padding-bottom: 5px;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  color:rgb(183, 51, 150);
+}
+#mainDocumentation h3 {
+  font-weight: normal;
+  font-size: 0em;
+  padding-bottom: 5px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color:rgb(183, 51, 150);
+}
+
+#mainDocumentation .wrapper section .container p {
+  font-size: 18px;
+  font-weight: 300;
+  color: #646C7F;
+  line-height: normal;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+#mainDocumentation .wrapper section .container a {
+  
+  
+}
+table a {
+  color: rgb(227, 78, 100);
+  text-decoration: underline; 
+}
+#mainDocumentation .wrapper section .container p a:hover {
+  text-decoration: underline;
+}
+#mainDocumentation .wrapper section:nth-child(odd) {
+  background: #FFF;
+}
+#mainDocumentation .wrapper section:nth-child(even) {
+  background: #F5F6F8;
+}
+
+#sectionWelcome {
+  background: #F1F1F1;
+}
+#sectionWelcome #divWelcomeText {
+  flex-basis: 50%;
+  padding-right: 20px;
+}
+#sectionWelcome #divWelcomeText p {
+  font-size: 20px;
+}
+#sectionWelcome #divWelcomeCodePreview {
+  width: 100%;
+}
+#sectionWelcome #divWelcomeCodePreview .card-panel {
+  padding: 0px !important;
+}
+
+#sectionPromotionTable {
+  background: #282a36;
+}
+
+#sectionReadytoGo {
+  background: #F5F6F8;
+}
+#sectionReadytoGo > .container {
+  flex-direction: column;
+}
+#sectionReadytoGo > .container h1 {
+  color: #135B7F;
+}
+#sectionReadytoGo > .container h1 #imgInlineTextLogo {
+  opacity: 0;
+  height: 2.5em;
+  vertical-align: middle;
+}
+
+#navbarFixed,
+#divMobileSideNav,
+#navbar-transparent {
+  background: white;
+  top: 0;
+  position: absolute;
+  transform: translateY(-64px);
+  transition: all .3s;
+  z-index: 999;
+}
+
+#navbar-transparent,
+#divMobileSideNav {
+  transform: none;
+}
+
+.brand-logo {
+  height: 100%;
+  width: 190px;
+}
+.brand-logo img {
+  width: 32%;
+}
+
+#sublime {
+  position: relative;
+  width: 100%;
+  margin: 25px auto;
+  padding: 2% !important;
+  list-style: none;
+  border-top: 25px solid #efefef;
+  border-radius: 10px;
+  background: #282a36;
+  color: #f1f1f1;
+  font-family: "Anonymous Pro", monospace;
+  font-weight: 300;
+  font-size: 1.1em;
+  box-shadow: 0 0px 50px rgba(0, 0, 0, 0.33), 10px 25px 35px rgba(0, 0, 0, 0.39);
+}
+#sublime li {
+  min-height: 25px;
+  line-height: 25px;
+}
+#sublime .buttons {
+  min-height: 0;
+  position: absolute;
+  top: -18px;
+  border-radius: 100%;
+  width: 13px;
+  height: 13px;
+  background-color: #ff4b55;
+  border: 1px solid #ff4b55;
+}
+#sublime .buttons:before, #sublime .buttons:after {
+  position: absolute;
+  content: "";
+  width: 13px;
+  height: 13px;
+  border-radius: 100%;
+  top: -1px;
+}
+#sublime .buttons:before {
+  left: 20px;
+  border: 1px solid #e3a041;
+  background-color: #ffbc4c;
+}
+#sublime .buttons:after {
+  left: 40px;
+  border: 1px solid #13ad46;
+  background-color: #00c956;
+}
+#sublime .tab {
+  margin-left: 2%;
+  list-style: none;
+}
+#sublime .cursor:before {
+  opacity: 0;
+  content: "|";
+  color: #f1f1f1;
+  animation: blink 0.8s infinite;
+}
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+#sectionHomeDownload {
+  background: white;
+  padding: 100px 0px !important;
+}
+
+.collapsible-body li a {
+  color: #777878 !important;
+}
+.collapsible-body li.active {
+  background: #F5F6F8 !important;
+}
+
+/* label color */
+.input-field label {
+  color: #000;
+}
+
+/* label focus color */
+.input-field input[type=text]:focus + label {
+  color: #7e11cf;
+}
+
+/* label underline focus color */
+.input-field input[type=text]:focus {
+  border-bottom: 1px solid #7e11cf;
+  box-shadow: 0 1px 0 0 #7e11cf;
+}
+
+/* valid color */
+.input-field input[type=text].valid {
+  border-bottom: 1px solid #7e11cf;
+  box-shadow: 0 1px 0 0 #7e11cf;
+}
+
+/* icon prefix focus color */
+.input-field .prefix.active {
+  color: #7e11cf;
+}
+
+form button {
+  background: #7e11cf !important;
+}
+
+.divContactWrapper {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  margin-top: -6px;
+  height: 360px;
+  background: linear-gradient(-135deg, #2a99ef 20%, #2CCEFF 80%);
+}
+
+#divContactCard {
+  margin: auto !important;
+  position: absolute;
+  top: -250px !important;
+  color: #808080;
+}
+
+#divIndexMobileContainer {
+  width: 85% !important;
+}
+
+#h1Logo > img {
+  width: 100%;
+}
+
+@media screen and (max-width: 992px) {
+  #mainDocumentation section {
+    margin-top: 94px !important;
+  }
+  #mainDocumentation {
+    padding-left: 0px;
+  }
+}
+@media screen and (max-width: 600px) {
+  #sectionWelcome .container {
+    flex-direction: column;
+  }
+
+  #sectionReadytoGo .container {
+    text-align: center;
+  }
+  #sectionReadytoGo .container h1 > img {
+    height: 1em;
+  }
+}
+#ulMobileMenu {
+  z-index: 1000;
+}
+#ulMobileMenu #btnQuickstart {
+  text-align: left !important;
+}
+#ulMobileMenu > li i {
+  font-size: 24px;
+}
+.footer-copyright .container a {
+  text-decoration: underline;
+  color: #f9f9f9;
+}
+ol.collection,
+ul.collection {
+  font-size: 18px;
+  font-weight: 300;
+  color: #646C7F;
+  line-height: normal;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+/*# sourceMappingURL=style.css.map */
