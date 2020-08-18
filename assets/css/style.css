@@ -1,4 +1,21 @@
-@import url("https://fonts.googleapis.com/css?family=Anonymous+Pro");
+@import url("https://fonts.googleapis.com/css?family=Inter");
+@import url("https://fonts.googleapis.com/css?family=Fira+Code");
+* {
+  font-family: Inter;
+}
+
+span {
+  font-family: 'Fira Code' !important;
+}
+
+strong {
+  font-weight: bold;
+}
+
+#sublime {
+  font-family: Fira Code !important;
+}
+
 .logoColor {
   background-color: #ff4b55 !important;
 }
@@ -143,6 +160,7 @@ blockquote {
 .collection .collection-item {
   line-height: normal;
 }
+
 #sectionWelcome,
 #sectionPromotionTable,
 #sectionReadytoGo {
@@ -297,7 +315,7 @@ blockquote {
   font-weight: lighter;
   margin-top:100px;
   margin-bottom: 40px;
-  color:rgb(183, 51, 150);
+  color:#4800B0;
   font-size: 48px;
   line-height: normal;
 }
@@ -307,7 +325,7 @@ blockquote {
   padding-bottom: 5px;
   margin-top: 40px;
   margin-bottom: 20px;
-  color:rgb(183, 51, 150);
+  color:#4800B0;
 }
 #mainDocumentation h3 {
   font-weight: normal;
@@ -315,7 +333,7 @@ blockquote {
   padding-bottom: 5px;
   margin-top: 20px;
   margin-bottom: 20px;
-  color:rgb(183, 51, 150);
+  color:#4800B0;
 }
 
 #mainDocumentation .wrapper section .container p {
