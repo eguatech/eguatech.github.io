@@ -5,6 +5,13 @@
   font-weight: 500;
 }
 
+.centerimg {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
 span {
   font-family: 'Fira Code' !important;
   font-weight: 500;
@@ -368,11 +375,13 @@ table a {
   background: #F1F1F1;
 }
 #sectionWelcome #divWelcomeText {
-  flex-basis: 50%;
-  padding-right: 20px;
+  flex-basis: 60%;
+  padding-right: 30px;
+  padding-left: 30px;
 }
 #sectionWelcome #divWelcomeText p {
   font-size: 20px;
+  text-align: center;
 }
 #sectionWelcome #divWelcomeCodePreview {
   width: 100%;
