@@ -2,14 +2,16 @@
 @import url("https://fonts.googleapis.com/css?family=Fira+Code");
 * {
   font-family: Inter;
+  font-weight: 500;
 }
 
 span {
   font-family: 'Fira Code' !important;
+  font-weight: 500;
 }
 
 strong {
-  font-weight: bold;
+  font-weight: 700;
 }
 
 #sublime {
@@ -344,10 +346,10 @@ blockquote {
   padding-top: 10px;
   padding-bottom: 10px;
 }
-#mainDocumentation .wrapper section .container a {
-  
-  
-}
+/*#mainDocumentation .wrapper section .container a {
+
+}*/
+
 table a {
   color: rgb(227, 78, 100);
   text-decoration: underline; 
