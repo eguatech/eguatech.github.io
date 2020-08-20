@@ -7,15 +7,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: executing remote ssh commands using password
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
-          port: ${{ secrets.PORT }}
-          script: whoami
-        
-      - uses: actions/checkout@v1
-      - name: git pull do site
-        run: cd public_html/ && git pull
+      - uses: actions/checkout@v1      
+      - name: instalação do sshpass
+        run: apt-get install sshpass
+      
+      - name: entrada ssh
+        run: sshpass -p '${{ secrets.PASSWORD }}' ssh ${{ secrets.USERNAME }}@${{ secrets.HOST }} 'cd public_html/ && git pull'
