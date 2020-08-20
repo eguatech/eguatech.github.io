@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1      
       - name: instalação do sshpass
-        run: apt-get install sshpass
+        run: sudo apt-get install sshpass
       
       - name: entrada ssh
         run: sshpass -p '${{ secrets.PASSWORD }}' ssh ${{ secrets.USERNAME }}@${{ secrets.HOST }} 'cd public_html/ && git pull'
