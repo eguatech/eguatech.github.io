@@ -23,12 +23,12 @@ jobs:
     - uses: actions/checkout@v2
       
     # Your SSH step
-    - name: Run sshpass commands
+    - name: Remote command
       uses: matheusvanzan/sshpass-action@v1
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USUARIO }}
         password: ${{ secrets.SENHA }}
         run: |
-          pwd
-          ls -lha
+          cd public_html
+          git pull
