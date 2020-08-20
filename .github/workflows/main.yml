@@ -10,6 +10,6 @@ jobs:
       - uses: actions/checkout@v1
       - name: comando remoto
         run: |
-          sudo apt install sshpass
+          sudo apt-get install sshpass
           sshpass -p '${{ secrets.SENHA }}' ssh -p 22 ${{ secrets.USUARIO }}@${{secrets.HOST}} 'cd public_html && git pull'
           
