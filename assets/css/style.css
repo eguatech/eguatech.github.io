@@ -265,6 +265,11 @@ blockquote {
   background: #ff4b55;
   color: #fff;
 }
+
+#navbarFixed .aGetStarted:hover {
+  background: #4800B0;
+}
+
 #navbarFixed .aMobileMenuButton {
   color: #ff4b55;
   line-height: normal;
