@@ -1,6 +1,11 @@
 .well-known/
 cgi-bin/
 
+
 egua/
 eguamat/
 docs/
+
+.htaccess
+.htaccess.phpupgrader.initial
+.htaccess.phpupgrader.c23bc998
