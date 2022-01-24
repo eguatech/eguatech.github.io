@@ -21,6 +21,4 @@ RewriteCond %{HTTP_HOST} ^www\.egua\.tech$
 RewriteRule ^eguap\/?$ "https\:\/\/egua\.tech\/" [R=301,L]
 
 =======
-RewriteRule ^(.*)$ $1.html 
-
-ErrorDocument 404 /index.html
+RewriteRule ^(.*)$ $1.html
