@@ -400,6 +400,10 @@ table a {
 }
 
 #sectionReadytoGo {
+  background: #ffffff;
+}
+
+#download {
   background: #F5F6F8;
 }
 
